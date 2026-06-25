@@ -163,7 +163,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack_combo",
-"speed": 13.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -218,7 +218,7 @@ script = ExtResource("1_g2els")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1538919531]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_nrent")
-animation = &"jump"
+animation = &"attack_combo"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=943934630]

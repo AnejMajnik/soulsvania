@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 # Constants
 const SPEED = 200.0
+const DECCELERATION_SPEED = 20
 const JUMP_VELOCITY = -300.0
 
 # Variables
@@ -47,9 +48,6 @@ func read_inputs():
 		animated_sprite.flip_h = false
 	elif direction < 0 and !is_attacking:
 		animated_sprite.flip_h = true
-		
-	print("isAttacking: ", is_attacking)
-	print("isJumping: ", is_jumping)
 	
 	# Play animations
 	if is_on_floor() and velocity.y >= 0:
@@ -65,7 +63,10 @@ func read_inputs():
 	if direction and !is_attacking:
 		velocity.x = direction * SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		if is_on_floor():
+			velocity.x = move_toward(velocity.x, 0, DECCELERATION_SPEED)
+		else:
+			velocity.x = move_toward(velocity.x, 0, DECCELERATION_SPEED/4)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
