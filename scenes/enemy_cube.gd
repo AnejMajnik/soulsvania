@@ -11,17 +11,22 @@ const JUMP_VELOCITY = -250.0
 # Variables
 var current_state: State = State.CHASE
 var health = 100
+var damage = 50
 var telegraphing = false
 var attacking = false
+var can_deal_damage = true
 var player_pos_x = 0
 var player_pos_y = 0
 var attack_time = 1
 var recovering = false
+var current_enemy: CharacterBody2D = null
 
 # References
 @onready var player: CharacterBody2D = %Player
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var timer: Timer = $Timer
+@onready var attack_timer: Timer = $AttackTimer
+@onready var deal_damage_timer: Timer = $DealDamageTimer
+@onready var area_2d: Area2D = $Area2D
 
 func get_player_pos():
 	player_pos_x = player.global_position.x
@@ -51,10 +56,21 @@ func attack():
 	velocity.x = (player_pos_x - global_position.x) / attack_time
 	velocity.y = (player_pos_y - global_position.y - 0.5 * get_gravity().y * attack_time * attack_time) / attack_time
 
+func get_hit(damage):
+	health -= damage
+	print(health)
 
 func _physics_process(delta: float) -> void:
+	if health <= 0:
+		queue_free()
+	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
+	if current_enemy == player and can_deal_damage:
+		player.get_hit(damage)
+		deal_damage_timer.start()
+		can_deal_damage = false
 	
 	match current_state:
 		State.CHASE:
@@ -64,17 +80,13 @@ func _physics_process(delta: float) -> void:
 		State.ATTACK:
 			if !attacking:
 				attack()
-				print("start: ", global_position.x)
-				print("target_x: ", player.global_position.x)
-				print("velocity.x: ", velocity.x)
 				attacking = true
 			if is_on_floor() and velocity.y >= 0:
-				print("after: ", global_position.x)
 				attacking = false
 				current_state = State.RECOVER
 		State.RECOVER:
 			if !recovering:
-				timer.start()
+				attack_timer.start()
 				recovering = true
 
 	if is_on_floor() and current_state != State.ATTACK:
@@ -90,7 +102,17 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		current_state = State.ATTACK
 
 
-func _on_timer_timeout() -> void:
-	print("Timer timeout reached")
+func _on_attack_timer_timeout() -> void:
 	current_state = State.CHASE
 	recovering = false
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D and body != self:
+		current_enemy = body
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body is CharacterBody2D and body != self:
+		current_enemy = null
+
+func _on_deal_damage_timer_timeout() -> void:
+	can_deal_damage = true

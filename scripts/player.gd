@@ -11,9 +11,16 @@ var is_jumping = false;
 var has_double_jumped = false;
 var health = 100
 var attack_combo_dmg = 10
+var current_enemy: CharacterBody2D = null
 
 # References
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var area_2d: Area2D = $Area2D
+@onready var enemy_cube: CharacterBody2D = $"../EnemyCube"
+
+func get_hit(damage):
+	health -= damage
+	print("Player health: ", health)
 
 func start_attack_combo():
 	interrupt_jump();
@@ -52,8 +59,10 @@ func read_inputs():
 	# Flip the sprite
 	if direction > 0 and !is_attacking:
 		animated_sprite.flip_h = false
+		area_2d.position.x = abs(area_2d.position.x)
 	elif direction < 0 and !is_attacking:
 		animated_sprite.flip_h = true
+		area_2d.position.x = -abs(area_2d.position.x)
 	
 	# Play animations
 	if is_on_floor() and velocity.y >= 0:
@@ -75,6 +84,9 @@ func read_inputs():
 			velocity.x = move_toward(velocity.x, 0, DECCELERATION_SPEED)
 
 func _physics_process(delta: float) -> void:
+	if health <= 0:
+		get_tree().reload_current_scene()
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -87,3 +99,20 @@ func _physics_process(delta: float) -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite.animation == "attack_combo":
 		is_attacking = false
+
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if animated_sprite and animated_sprite.animation == "attack_combo":
+		if animated_sprite.frame in [4, 8]:
+			if current_enemy == enemy_cube:
+				enemy_cube.get_hit(attack_combo_dmg)
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D and body != self:
+		current_enemy = body
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body is CharacterBody2D and body != self:
+		current_enemy = null

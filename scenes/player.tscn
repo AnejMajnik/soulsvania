@@ -15,13 +15,13 @@ region = Rect2(640, 0, 128, 128)
 atlas = ExtResource("1_3vyb7")
 region = Rect2(768, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dd465"]
-atlas = ExtResource("1_3vyb7")
-region = Rect2(896, 0, 128, 128)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_lhvu3"]
 atlas = ExtResource("1_3vyb7")
 region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dd465"]
+atlas = ExtResource("1_3vyb7")
+region = Rect2(896, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4sjlk"]
 atlas = ExtResource("1_3vyb7")
@@ -120,10 +120,10 @@ animations = [{
 "texture": SubResource("AtlasTexture_44cfe")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dd465")
+"texture": SubResource("AtlasTexture_lhvu3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lhvu3")
+"texture": SubResource("AtlasTexture_dd465")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4sjlk")
@@ -212,6 +212,9 @@ animations = [{
 radius = 7.0
 height = 26.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nrent"]
+size = Vector2(38, 26)
+
 [node name="Player" type="CharacterBody2D" unique_id=476142731]
 collision_layer = 2
 script = ExtResource("1_g2els")
@@ -221,9 +224,20 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_nrent")
 animation = &"attack_combo"
 autoplay = "idle"
+frame = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=943934630]
 position = Vector2(-2, -13)
 shape = SubResource("CapsuleShape2D_e204l")
 
+[node name="Area2D" type="Area2D" parent="." unique_id=1450993753]
+position = Vector2(31, -14)
+collision_mask = 4
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=88020572]
+shape = SubResource("RectangleShape2D_nrent")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

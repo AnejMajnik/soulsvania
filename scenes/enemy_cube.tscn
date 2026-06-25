@@ -96,6 +96,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nrent"]
 size = Vector2(32, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e204l"]
+size = Vector2(32, 32)
+
 [node name="EnemyCube" type="CharacterBody2D" unique_id=432931515]
 script = ExtResource("1_q8g4r")
 
@@ -106,8 +109,20 @@ animation = &"telegraph"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=876057069]
 shape = SubResource("RectangleShape2D_nrent")
 
-[node name="Timer" type="Timer" parent="." unique_id=20432754]
+[node name="AttackTimer" type="Timer" parent="." unique_id=20432754]
 one_shot = true
 
+[node name="Area2D" type="Area2D" parent="." unique_id=236012754]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=922884093]
+shape = SubResource("RectangleShape2D_e204l")
+
+[node name="DealDamageTimer" type="Timer" parent="." unique_id=1206450710]
+wait_time = 0.5
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="DealDamageTimer" to="." method="_on_deal_damage_timer_timeout"]
