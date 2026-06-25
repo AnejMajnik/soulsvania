@@ -15,7 +15,7 @@ var telegraphing = false
 var attacking = false
 var player_pos_x = 0
 var player_pos_y = 0
-var attack_time = 1.0
+var attack_time = 1
 var recovering = false
 
 # References
@@ -30,6 +30,10 @@ func get_player_pos():
 
 func chase_player():
 	animated_sprite.play("idle")
+	
+	if global_position.distance_to(player.global_position) < 150 and !telegraphing:
+		current_state = State.TELEGRAPH
+	
 	var direction
 	if sign(player.global_position.x - global_position.x) > 0:
 		direction = 1
@@ -51,9 +55,6 @@ func attack():
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		
-	if global_position.distance_to(player.global_position) > 100 and !telegraphing:
-		current_state = State.TELEGRAPH
 	
 	match current_state:
 		State.CHASE:
@@ -63,9 +64,12 @@ func _physics_process(delta: float) -> void:
 		State.ATTACK:
 			if !attacking:
 				attack()
+				print("start: ", global_position.x)
+				print("target_x: ", player.global_position.x)
+				print("velocity.x: ", velocity.x)
 				attacking = true
 			if is_on_floor() and velocity.y >= 0:
-				print("on floro")
+				print("after: ", global_position.x)
 				attacking = false
 				current_state = State.RECOVER
 		State.RECOVER:
@@ -73,7 +77,7 @@ func _physics_process(delta: float) -> void:
 				timer.start()
 				recovering = true
 
-	if is_on_floor():
+	if is_on_floor() and current_state != State.ATTACK:
 		velocity.x = move_toward(velocity.x, 0, DECCELERATION_SPEED)
 	
 	move_and_slide()
@@ -82,6 +86,7 @@ func _physics_process(delta: float) -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite.animation == "telegraph":
 		get_player_pos()
+		telegraphing = false
 		current_state = State.ATTACK
 
 
