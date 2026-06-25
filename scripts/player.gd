@@ -9,6 +9,8 @@ const JUMP_VELOCITY = -250.0
 var is_attacking = false;
 var is_jumping = false;
 var has_double_jumped = false;
+var health = 100
+var attack_combo_dmg = 10
 
 # References
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
