@@ -7,7 +7,7 @@ enum Attacks { JUMP, DASH }
 # Constants
 const SPEED = 100.0
 const DECCELERATION_SPEED = 20
-const JUMP_VELOCITY = -250.0
+const JUMP_VELOCITY = -280.0
 const DASH_SPEED = 600
 
 # Variables
@@ -117,7 +117,6 @@ func _physics_process(delta: float) -> void:
 				if ray_cast_left.is_colliding() or ray_cast_right.is_colliding():
 					attacking = false
 					current_state = State.RECOVER
-					print("State has been set to RECOVER")
 					
 		State.RECOVER:
 			if !recovering:
