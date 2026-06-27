@@ -85,7 +85,9 @@ func read_inputs():
 
 func _physics_process(delta: float) -> void:
 	if health <= 0:
-		get_tree().reload_current_scene()
+		set_physics_process(false) #Stop processing
+		get_tree().call_deferred("reload_current_scene")
+		return #Exit before move_and_slide runs
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -104,7 +106,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if animated_sprite and animated_sprite.animation == "attack_combo":
 		if animated_sprite.frame in [4, 8]:
-			if current_enemy == enemy_cube:
+			if current_enemy != null and current_enemy == enemy_cube:
 				enemy_cube.get_hit(attack_combo_dmg)
 
 
