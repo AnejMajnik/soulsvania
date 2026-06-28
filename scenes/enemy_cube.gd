@@ -5,8 +5,8 @@ enum State { CHASE, TELEGRAPH, ATTACK, RECOVER }
 enum Attacks { JUMP, DASH }
 
 # Constants
-const SPEED = 100.0
-const DECCELERATION_SPEED = 20
+const SPEED = 200.0
+const DECCELERATION_SPEED = 15
 const JUMP_VELOCITY = -280.0
 const DASH_SPEED = 600
 
@@ -61,7 +61,13 @@ func chase_player():
 	
 func telegraph_attack():
 	telegraphing = true
-	animated_sprite.play("telegraph")
+	attack_type = choose_attack()
+	
+	if attack_type == Attacks.JUMP:
+		animated_sprite.play("telegraph_jump")
+	elif attack_type == Attacks.DASH:
+		animated_sprite.play("telegraph_dash")
+	
 	velocity.x = 0
 	
 func jump_attack():
@@ -97,10 +103,10 @@ func _physics_process(delta: float) -> void:
 		State.CHASE:
 			chase_player()	
 		State.TELEGRAPH:
-			telegraph_attack()
+			if !telegraphing:
+				telegraph_attack()
 		State.ATTACK:
 			if !attacking:
-				attack_type = choose_attack()
 				match attack_type:
 					Attacks.JUMP:
 						jump_attack()
@@ -130,7 +136,11 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if animated_sprite.animation == "telegraph":
+	if animated_sprite.animation == "telegraph_jump":
+		get_player_pos()
+		telegraphing = false
+		current_state = State.ATTACK
+	elif animated_sprite.animation == "telegraph_dash":
 		get_player_pos()
 		telegraphing = false
 		current_state = State.ATTACK
