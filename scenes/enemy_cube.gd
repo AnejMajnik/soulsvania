@@ -1,14 +1,16 @@
 extends CharacterBody2D
 
-# Enum
+# Enums
 enum State { CHASE, TELEGRAPH, ATTACK, RECOVER }
 enum Attacks { JUMP, DASH }
 
 # Constants
 const SPEED = 200.0
 const DECCELERATION_SPEED = 15
-const JUMP_VELOCITY = -280.0
+const JUMP_VELOCITY = -550.0
 const DASH_SPEED = 650
+const SLAM_SPEED = 500
+const FLY_SPEED = 300
 
 # Variables
 var current_state: State = State.CHASE
@@ -23,6 +25,12 @@ var attack_time = 0.85
 var recovering = false
 var current_enemy: CharacterBody2D = null
 var attack_type: Attacks
+var is_flying = false
+var current_jump_attack_state = null;
+var above_player = false
+var can_slam = false
+var flying_pos_locked = false
+var slam_timer_running = false
 
 # References
 @onready var player: CharacterBody2D = %Player
@@ -34,12 +42,10 @@ var attack_type: Attacks
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
 @onready var ray_cast_down_left: RayCast2D = $RayCastDownLeft
 @onready var ray_cast_down_right: RayCast2D = $RayCastDownRight
+@onready var air_hang_timer: Timer = $AirHangTimer
 
 func choose_attack() -> Attacks:
 	var rand_val = randf()
-	
-	if ray_cast_left.is_colliding() or ray_cast_right.is_colliding():
-		return Attacks.JUMP
 		
 	if rand_val <= 0.5:
 		return Attacks.JUMP
@@ -80,9 +86,7 @@ func telegraph_attack():
 	
 func jump_attack():
 	animated_sprite.play("attack_jump")
-	
-	velocity.x = (player_pos_x - global_position.x) / attack_time
-	velocity.y = (player_pos_y - global_position.y - 0.5 * get_gravity().y * attack_time * attack_time) / attack_time
+	velocity.y = JUMP_VELOCITY
 
 func dash_attack():
 	animated_sprite.play("attack_dash")
@@ -100,12 +104,25 @@ func dash_attack():
 func get_hit(hit_damage):
 	health -= hit_damage
 	print(health)
+	
+func is_above_player():
+	if global_position.x > player.global_position.x-4 and global_position.x < player.global_position.x+4:
+		above_player = true
+		velocity.x = 0
+		if !slam_timer_running:
+			air_hang_timer.start()
+			slam_timer_running = true
+		if can_slam:
+			velocity.y = SLAM_SPEED
+			animated_sprite.play("land")
+	else:
+		above_player = false
 
 func _physics_process(delta: float) -> void:
 	if health <= 0:
 		queue_free()
 	
-	if not is_on_floor():
+	if not is_on_floor() and !is_flying:
 		velocity += get_gravity() * delta
 		if (ray_cast_down_left.is_colliding() or ray_cast_down_right.is_colliding()) and velocity.y > 50:
 			animated_sprite.play("land")
@@ -139,7 +156,25 @@ func _physics_process(delta: float) -> void:
 				if ray_cast_left.is_colliding() or ray_cast_right.is_colliding():
 					attacking = false
 					current_state = State.RECOVER
+			elif attack_type == Attacks.JUMP:
+				if global_position.y <= -100:
+					is_flying = true
+					velocity.y = 0
+					animated_sprite.play("fly")
 					
+					is_above_player()
+							
+					if !above_player:
+						var direction
+						if sign(player.global_position.x - global_position.x) > 0:
+							direction = 1
+							animated_sprite.flip_h = false
+						else:
+							direction = -1
+							animated_sprite.flip_h = true
+							
+						velocity.x = SPEED * direction	
+						
 		State.RECOVER:
 			if !recovering:
 				animated_sprite.play("recover")
@@ -148,6 +183,7 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_floor() and current_state != State.ATTACK:
 		velocity.x = move_toward(velocity.x, 0, DECCELERATION_SPEED)
+		can_slam = false
 	
 	move_and_slide()
 
@@ -177,3 +213,8 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func _on_deal_damage_timer_timeout() -> void:
 	can_deal_damage = true
+
+
+func _on_air_hang_timer_timeout() -> void:
+	can_slam = true
+	slam_timer_running = false

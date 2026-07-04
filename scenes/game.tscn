@@ -22,12 +22,12 @@ tile_map_data = PackedByteArray("AAD5/wQAAAAAAAAAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAA
 tile_set = SubResource("TileSet_nrent")
 
 [node name="EnemyCube" parent="." unique_id=432931515 instance=ExtResource("2_lnu2h")]
-position = Vector2(213, 48)
+position = Vector2(401, -16)
 collision_layer = 4
 
 [node name="Player" parent="." unique_id=476142731 instance=ExtResource("1_uwrxv")]
 unique_name_in_owner = true
-position = Vector2(41, 60)
+position = Vector2(-364, 16)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=315314557]
 position = Vector2(0, -75)
