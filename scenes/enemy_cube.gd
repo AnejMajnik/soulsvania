@@ -8,7 +8,7 @@ enum Attacks { JUMP, DASH }
 const SPEED = 200.0
 const DECCELERATION_SPEED = 15
 const JUMP_VELOCITY = -280.0
-const DASH_SPEED = 600
+const DASH_SPEED = 650
 
 # Variables
 var current_state: State = State.CHASE
@@ -32,9 +32,15 @@ var attack_type: Attacks
 @onready var area_2d: Area2D = $Area2D
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
+@onready var ray_cast_down_left: RayCast2D = $RayCastDownLeft
+@onready var ray_cast_down_right: RayCast2D = $RayCastDownRight
 
 func choose_attack() -> Attacks:
 	var rand_val = randf()
+	
+	if ray_cast_left.is_colliding() or ray_cast_right.is_colliding():
+		return Attacks.JUMP
+		
 	if rand_val <= 0.5:
 		return Attacks.JUMP
 	else:
@@ -46,7 +52,7 @@ func get_player_pos():
 	
 
 func chase_player():
-	animated_sprite.play("idle")
+	animated_sprite.play("move")
 	
 	if global_position.distance_to(player.global_position) < 200 and !telegraphing:
 		current_state = State.TELEGRAPH
@@ -54,8 +60,10 @@ func chase_player():
 	var direction
 	if sign(player.global_position.x - global_position.x) > 0:
 		direction = 1
+		animated_sprite.flip_h = false
 	else:
 		direction = -1
+		animated_sprite.flip_h = true
 		
 	velocity.x = SPEED * direction
 	
@@ -71,15 +79,21 @@ func telegraph_attack():
 	velocity.x = 0
 	
 func jump_attack():
+	animated_sprite.play("attack_jump")
+	
 	velocity.x = (player_pos_x - global_position.x) / attack_time
 	velocity.y = (player_pos_y - global_position.y - 0.5 * get_gravity().y * attack_time * attack_time) / attack_time
 
 func dash_attack():
+	animated_sprite.play("attack_dash")
+	
 	var direction
 	if sign(player.global_position.x - global_position.x) > 0:
 		direction = 1
+		animated_sprite.flip_h = false
 	else:
 		direction = -1
+		animated_sprite.flip_h = true
 		
 	velocity.x = direction * DASH_SPEED
 
@@ -93,6 +107,8 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		if (ray_cast_down_left.is_colliding() or ray_cast_down_right.is_colliding()) and velocity.y > 50:
+			animated_sprite.play("land")
 		
 	if current_enemy == player and can_deal_damage:
 		player.get_hit(damage)
@@ -126,6 +142,7 @@ func _physics_process(delta: float) -> void:
 					
 		State.RECOVER:
 			if !recovering:
+				animated_sprite.play("recover")
 				attack_timer.start()
 				recovering = true
 
