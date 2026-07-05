@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dntxmvek1b4li"]
+
+[ext_resource type="Script" uid="uid://b5gks61q4he0k" path="res://scenes/laser.gd" id="1_xmihv"]
+
+[node name="LaserRayCast" type="RayCast2D" unique_id=604623322]
+collision_mask = 3
+script = ExtResource("1_xmihv")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=2047815888]
+modulate = Color(1, 0, 0, 1)
+points = PackedVector2Array(0, 0, 0, 100)
+begin_cap_mode = 2
+end_cap_mode = 2

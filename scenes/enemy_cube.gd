@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 # Enums
 enum State { CHASE, TELEGRAPH, ATTACK, RECOVER }
-enum Attacks { JUMP, DASH }
+enum Attacks { JUMP, DASH, BEAM }
 
 # Constants
 const SPEED = 200.0
@@ -43,14 +43,17 @@ var slam_timer_running = false
 @onready var ray_cast_down_left: RayCast2D = $RayCastDownLeft
 @onready var ray_cast_down_right: RayCast2D = $RayCastDownRight
 @onready var air_hang_timer: Timer = $AirHangTimer
+@onready var laser_ray_cast: RayCast2D = $LaserRayCast
 
 func choose_attack() -> Attacks:
 	var rand_val = randf()
 		
-	if rand_val <= 0.5:
+	if rand_val <= 0.33:
 		return Attacks.JUMP
-	else:
+	elif rand_val <= 0.66 and rand_val >= 0.33:
 		return Attacks.DASH
+	else:
+		return Attacks.BEAM
 
 func get_player_pos():
 	player_pos_x = player.global_position.x
@@ -81,6 +84,8 @@ func telegraph_attack():
 		animated_sprite.play("telegraph_jump")
 	elif attack_type == Attacks.DASH:
 		animated_sprite.play("telegraph_dash")
+	elif attack_type == Attacks.BEAM:
+		animated_sprite.play("charge_beam")
 	
 	velocity.x = 0
 	
@@ -100,6 +105,10 @@ func dash_attack():
 		animated_sprite.flip_h = true
 		
 	velocity.x = direction * DASH_SPEED
+	
+func beam_attack():
+	laser_ray_cast.start_cast(Vector2(player_pos_x, player_pos_y-20))
+	print(Vector2(player_pos_x, player_pos_y))
 
 func get_hit(hit_damage):
 	health -= hit_damage
@@ -147,13 +156,16 @@ func _physics_process(delta: float) -> void:
 					Attacks.DASH:
 						dash_attack()
 						attacking = true
+					Attacks.BEAM:
+						beam_attack()
+						attacking = true
 						
 			if is_on_floor() and velocity.y >= 0 and attack_type == Attacks.JUMP:
 				attacking = false
 				current_state = State.RECOVER
 				
 			if attack_type == Attacks.DASH:
-				if ray_cast_left.is_colliding() or ray_cast_right.is_colliding():
+				if (ray_cast_left.is_colliding() or ray_cast_right.is_colliding()):
 					attacking = false
 					current_state = State.RECOVER
 			elif attack_type == Attacks.JUMP:
@@ -187,6 +199,18 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
+func _ready() -> void:
+	laser_ray_cast.player_hit.connect(_on_player_hit)
+	laser_ray_cast.foreground_hit.connect(_on_foreground_hit)
+
+func _on_player_hit() -> void:
+	player.get_hit(damage)
+	current_state = State.RECOVER
+	attacking = false
+	
+func _on_foreground_hit() -> void:
+	current_state = State.RECOVER
+	attacking = false
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite.animation == "telegraph_jump":
@@ -197,7 +221,9 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		get_player_pos()
 		telegraphing = false
 		current_state = State.ATTACK
-
+	elif animated_sprite.animation == "charge_beam":
+		telegraphing = false
+		current_state = State.ATTACK
 
 func _on_attack_timer_timeout() -> void:
 	current_state = State.CHASE
@@ -218,3 +244,9 @@ func _on_deal_damage_timer_timeout() -> void:
 func _on_air_hang_timer_timeout() -> void:
 	can_slam = true
 	slam_timer_running = false
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if animated_sprite.animation == "charge_beam":
+		if animated_sprite.frame == 7:
+			print("getting player pos")
+			get_player_pos()
