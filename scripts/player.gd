@@ -3,7 +3,7 @@ extends CharacterBody2D
 # Constants
 const SPEED = 200.0
 const DECCELERATION_SPEED = 20
-const JUMP_VELOCITY = -250.0
+const JUMP_VELOCITY = -275.0
 
 # Variables
 var is_attacking = false;

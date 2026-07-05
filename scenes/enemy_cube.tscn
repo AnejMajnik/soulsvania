@@ -340,6 +340,7 @@ radius = 15.0
 height = 52.0
 
 [node name="EnemyCube" type="CharacterBody2D" unique_id=432931515]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_q8g4r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1005753930]

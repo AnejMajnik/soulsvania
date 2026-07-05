@@ -7,14 +7,14 @@ enum Attacks { JUMP, DASH, BEAM }
 # Constants
 const SPEED = 200.0
 const DECCELERATION_SPEED = 15
-const JUMP_VELOCITY = -550.0
+const JUMP_VELOCITY = -600.0
 const DASH_SPEED = 650
-const SLAM_SPEED = 500
+const SLAM_SPEED = 475
 const FLY_SPEED = 300
 
 # Variables
 var current_state: State = State.CHASE
-var health = 100
+var health = 200
 var damage = 50
 var telegraphing = false
 var attacking = false
@@ -169,7 +169,7 @@ func _physics_process(delta: float) -> void:
 					attacking = false
 					current_state = State.RECOVER
 			elif attack_type == Attacks.JUMP:
-				if global_position.y <= -100:
+				if global_position.y <= -120:
 					is_flying = true
 					velocity.y = 0
 					animated_sprite.play("fly")

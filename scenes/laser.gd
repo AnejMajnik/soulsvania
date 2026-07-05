@@ -1,9 +1,9 @@
 extends RayCast2D
 
-@export var cast_speed := 5000.0
+@export var cast_speed := 3500.0
 @export var max_length := 1400.0
 @export var is_casting := false: set = set_is_casting
-@export var growth_time := 0.05
+@export var growth_time := 0.03
 
 var tween: Tween = null
 var target_global := Vector2.ZERO
