@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://n483mnucf7hy"]
 
-[ext_resource type="Script" uid="uid://yyf1e2twj2y2" path="res://scenes/enemy_cube.gd" id="1_q8g4r"]
+[ext_resource type="Script" uid="uid://yyf1e2twj2y2" path="res://scripts/enemy_cube.gd" id="1_q8g4r"]
 [ext_resource type="Texture2D" uid="uid://bbp5qu6kqppko" path="res://assets/spritesheets/Slime.png" id="2_7lac2"]
 [ext_resource type="Texture2D" uid="uid://bm4uwdvp2ccbc" path="res://assets/spritesheets/Slime (2).png" id="3_7lac2"]
 [ext_resource type="PackedScene" uid="uid://dntxmvek1b4li" path="res://scenes/laser.tscn" id="4_jn626"]

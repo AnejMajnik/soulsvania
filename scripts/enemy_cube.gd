@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # Enums
-enum State { CHASE, TELEGRAPH, ATTACK, RECOVER }
+enum EnemyState { CHASE, TELEGRAPH, ATTACK, RECOVER }
 enum Attacks { JUMP, DASH, BEAM }
 
 # Constants
@@ -13,7 +13,7 @@ const SLAM_SPEED = 475
 const FLY_SPEED = 300
 
 # Variables
-var current_state: State = State.CHASE
+var current_state: EnemyState = EnemyState.CHASE
 var health = 200
 var damage = 50
 var telegraphing = false
@@ -64,7 +64,7 @@ func chase_player():
 	animated_sprite.play("move")
 	
 	if global_position.distance_to(player.global_position) < 200 and !telegraphing:
-		current_state = State.TELEGRAPH
+		current_state = EnemyState.TELEGRAPH
 	
 	var direction
 	if sign(player.global_position.x - global_position.x) > 0:
@@ -142,12 +142,12 @@ func _physics_process(delta: float) -> void:
 		can_deal_damage = false
 	
 	match current_state:
-		State.CHASE:
+		EnemyState.CHASE:
 			chase_player()	
-		State.TELEGRAPH:
+		EnemyState.TELEGRAPH:
 			if !telegraphing:
 				telegraph_attack()
-		State.ATTACK:
+		EnemyState.ATTACK:
 			if !attacking:
 				match attack_type:
 					Attacks.JUMP:
@@ -162,12 +162,12 @@ func _physics_process(delta: float) -> void:
 						
 			if is_on_floor() and velocity.y >= 0 and attack_type == Attacks.JUMP:
 				attacking = false
-				current_state = State.RECOVER
+				current_state = EnemyState.RECOVER
 				
 			if attack_type == Attacks.DASH:
 				if (ray_cast_left.is_colliding() or ray_cast_right.is_colliding()):
 					attacking = false
-					current_state = State.RECOVER
+					current_state = EnemyState.RECOVER
 			elif attack_type == Attacks.JUMP:
 				if global_position.y <= -120:
 					is_flying = true
@@ -187,13 +187,13 @@ func _physics_process(delta: float) -> void:
 							
 						velocity.x = SPEED * direction	
 						
-		State.RECOVER:
+		EnemyState.RECOVER:
 			if !recovering:
 				animated_sprite.play("recover")
 				attack_timer.start()
 				recovering = true
 
-	if is_on_floor() and current_state != State.ATTACK:
+	if is_on_floor() and current_state != EnemyState.ATTACK:
 		velocity.x = move_toward(velocity.x, 0, DECCELERATION_SPEED)
 		can_slam = false
 	
@@ -205,28 +205,28 @@ func _ready() -> void:
 
 func _on_player_hit() -> void:
 	player.get_hit(damage)
-	current_state = State.RECOVER
+	current_state = EnemyState.RECOVER
 	attacking = false
 	
 func _on_foreground_hit() -> void:
-	current_state = State.RECOVER
+	current_state = EnemyState.RECOVER
 	attacking = false
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite.animation == "telegraph_jump":
 		get_player_pos()
 		telegraphing = false
-		current_state = State.ATTACK
+		current_state = EnemyState.ATTACK
 	elif animated_sprite.animation == "telegraph_dash":
 		get_player_pos()
 		telegraphing = false
-		current_state = State.ATTACK
+		current_state = EnemyState.ATTACK
 	elif animated_sprite.animation == "charge_beam":
 		telegraphing = false
-		current_state = State.ATTACK
+		current_state = EnemyState.ATTACK
 
 func _on_attack_timer_timeout() -> void:
-	current_state = State.CHASE
+	current_state = EnemyState.CHASE
 	recovering = false
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

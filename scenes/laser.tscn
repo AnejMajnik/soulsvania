@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dntxmvek1b4li"]
 
-[ext_resource type="Script" uid="uid://b5gks61q4he0k" path="res://scenes/laser.gd" id="1_xmihv"]
+[ext_resource type="Script" uid="uid://b5gks61q4he0k" path="res://scripts/laser.gd" id="1_xmihv"]
 
 [node name="LaserRayCast" type="RayCast2D" unique_id=604623322]
 collision_mask = 3

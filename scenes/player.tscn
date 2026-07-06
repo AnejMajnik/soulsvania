@@ -2,6 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://bkyeuvrutvh3u" path="res://assets/spritesheets/player_spritesheet.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bs2ss227joghs" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://bvpidnwfs1qx4" path="res://scripts/state_machine/state_machine.gd" id="3_qlg0r"]
+[ext_resource type="Script" uid="uid://br78qqwufxrq4" path="res://scripts/state_machine/player_states/player_idle_state.gd" id="4_tuyoq"]
+[ext_resource type="Script" uid="uid://ciltuolb0mr44" path="res://scripts/state_machine/player_states/player_move_state.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://6ocqtedx8yik" path="res://scripts/state_machine/player_states/player_jump_state.gd" id="6_tuyoq"]
+[ext_resource type="Script" uid="uid://o7ankqefpxra" path="res://scripts/state_machine/player_states/player_attack_state.gd" id="7_fjrip"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ij6vw"]
 atlas = ExtResource("1_3vyb7")
@@ -215,11 +220,13 @@ height = 26.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nrent"]
 size = Vector2(38, 26)
 
-[node name="Player" type="CharacterBody2D" unique_id=476142731]
+[node name="Player" type="CharacterBody2D" unique_id=476142731 node_paths=PackedStringArray("attack_state")]
 collision_layer = 2
 script = ExtResource("1_g2els")
+attack_state = NodePath("StateMachine/Attack")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1538919531]
+unique_name_in_owner = true
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_nrent")
 animation = &"attack_combo"
@@ -237,7 +244,44 @@ collision_mask = 4
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=88020572]
 shape = SubResource("RectangleShape2D_nrent")
 
+[node name="StateMachine" type="Node" parent="." unique_id=1786861900 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_qlg0r")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://bvpidnwfs1qx4"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1742136844 node_paths=PackedStringArray("move_state", "jump_state", "attack_state", "player")]
+script = ExtResource("4_tuyoq")
+move_state = NodePath("../Move")
+jump_state = NodePath("../Jump")
+attack_state = NodePath("../Attack")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bt027fcrq1hh2"
+
+[node name="Move" type="Node" parent="StateMachine" unique_id=49234299 node_paths=PackedStringArray("idle_state", "jump_state", "attack_state", "player")]
+script = ExtResource("5_qlg0r")
+idle_state = NodePath("../Idle")
+jump_state = NodePath("../Jump")
+attack_state = NodePath("../Attack")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bt027fcrq1hh2"
+
+[node name="Jump" type="Node" parent="StateMachine" unique_id=503592196 node_paths=PackedStringArray("idle_state", "attack_state", "player")]
+script = ExtResource("6_tuyoq")
+idle_state = NodePath("../Idle")
+attack_state = NodePath("../Attack")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bt027fcrq1hh2"
+
+[node name="Attack" type="Node" parent="StateMachine" unique_id=1512652241 node_paths=PackedStringArray("jump_state", "idle_state", "player")]
+script = ExtResource("7_fjrip")
+jump_state = NodePath("../Jump")
+idle_state = NodePath("../Idle")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bt027fcrq1hh2"
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine/Attack" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="StateMachine/Attack" method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
