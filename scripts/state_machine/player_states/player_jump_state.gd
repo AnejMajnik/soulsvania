@@ -9,6 +9,7 @@ extends State
 
 # References
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 var can_double_jump: bool = true
 
@@ -30,7 +31,7 @@ func read_inputs():
 		switch_state.emit(attack_state)
 
 func jump():
-	animated_sprite.play("jump")
+	animation_player.play("jump")
 	player.velocity.y = player.JUMP_VELOCITY
 
 func enter_state() -> void:

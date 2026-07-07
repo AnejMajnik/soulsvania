@@ -9,16 +9,17 @@ extends State
 
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
 @onready var area_2d: Area2D = $"../../Area2D"
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 func read_inputs() -> void:
 	# Get input direction
 	var direction := Input.get_axis("move_left", "move_right")
 	
 	if direction != 0:
-		animated_sprite.play("run")
+		animation_player.play("run")
 		player.velocity.x = direction * player.SPEED
 	else:
-		animated_sprite.play("idle")
+		animation_player.play("idle")
 		player.velocity.x = move_toward(player.velocity.x, 0, player.DECCELERATION_SPEED)
 		if player.velocity.x == 0:
 			switch_state.emit(idle_state)
@@ -32,7 +33,7 @@ func read_inputs() -> void:
 		switch_state.emit(attack_state)
 
 func enter_state() -> void:
-	animated_sprite.play("run")
+	animation_player.play("run")
 
 func physics_update(_delta: float) -> void:
 	read_inputs()

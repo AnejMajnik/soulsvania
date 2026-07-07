@@ -9,6 +9,7 @@ extends State
 @export var player: Player
 
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 func read_inputs() -> void:
 	# Move
@@ -27,7 +28,7 @@ func read_inputs() -> void:
 
 func enter_state() -> void:
 	player.velocity.x = 0
-	animated_sprite.play("idle")
+	animation_player.play("idle")
 
 func physics_update(_delta: float) -> void:	
 	read_inputs()
