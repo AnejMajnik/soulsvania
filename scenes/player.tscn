@@ -4,12 +4,12 @@
 [ext_resource type="Script" uid="uid://bs2ss227joghs" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://bvpidnwfs1qx4" path="res://scripts/state_machine/state_machine.gd" id="3_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://bj5jfwrvw60ua" path="res://assets/sounds/sword_slash.wav" id="3_ur7pv"]
-[ext_resource type="Script" uid="uid://br78qqwufxrq4" path="res://scripts/state_machine/player_states/player_idle_state.gd" id="4_tuyoq"]
+[ext_resource type="Script" uid="uid://br78qqwufxrq4" path="res://scripts/player/states/player_idle_state.gd" id="4_tuyoq"]
 [ext_resource type="AudioStream" uid="uid://c4c17hqwlgbqw" path="res://assets/sounds/sword_clash.wav" id="4_y4r1p"]
-[ext_resource type="Script" uid="uid://ciltuolb0mr44" path="res://scripts/state_machine/player_states/player_move_state.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://ciltuolb0mr44" path="res://scripts/player/states/player_move_state.gd" id="5_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://cqagr00gjfmwc" path="res://assets/sounds/footsteps.wav" id="5_y4r1p"]
-[ext_resource type="Script" uid="uid://6ocqtedx8yik" path="res://scripts/state_machine/player_states/player_jump_state.gd" id="6_tuyoq"]
-[ext_resource type="Script" uid="uid://o7ankqefpxra" path="res://scripts/state_machine/player_states/player_attack_state.gd" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://6ocqtedx8yik" path="res://scripts/player/states/player_jump_state.gd" id="6_tuyoq"]
+[ext_resource type="Script" uid="uid://o7ankqefpxra" path="res://scripts/player/states/player_attack_state.gd" id="7_fjrip"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ij6vw"]
 atlas = ExtResource("1_3vyb7")
@@ -476,6 +476,7 @@ unique_name_in_owner = true
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_nrent")
 animation = &"idle"
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1016761409]
 unique_name_in_owner = true

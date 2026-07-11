@@ -5,12 +5,14 @@ class_name  StateMachine extends Node
 var active_state: State:
 	set(new_value):
 		active_state = new_value
-		print("Changed to ", active_state.name)
-
+		if active_state:
+			print(owner.name, ": ", active_state.name)
+		
 func _ready() -> void:
 	for child_state: State in get_children():
 		child_state.switch_state.connect(change_state)
-		
+
+func start() -> void:
 	change_state(initial_state)
 		
 func _process(delta: float) -> void:

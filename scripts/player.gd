@@ -14,7 +14,8 @@ var current_enemy: CharacterBody2D = null
 # References
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
 @onready var area_2d: Area2D = $Area2D
-@onready var enemy_cube: CharacterBody2D = $"../EnemyCube"
+#@onready var enemy_cube: CharacterBody2D = $"../EnemyCube"
+@onready var state_machine: StateMachine = $StateMachine
 
 func get_hit(damage):
 	HEALTH -= damage
@@ -29,10 +30,13 @@ func flip_sprite(direction) -> void:
 		area_2d.position.x = -abs(area_2d.position.x)
 		
 func _ready() -> void:
+	Autoload.player_node = self
 	attack_state.hit.connect(_on_attack_hit)
+	state_machine.start()
 
 func _on_attack_hit():
-	enemy_cube.get_hit(attack_combo_dmg)
+	#enemy_cube.get_hit(attack_combo_dmg)
+	pass
 	
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
