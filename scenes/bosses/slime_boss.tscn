@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://beyhc0j0tbprs" path="res://scripts/slime_boss/states/idle.gd" id="4_mq0xa"]
 [ext_resource type="Script" uid="uid://ctw8q7lo3u08y" path="res://scripts/slime_boss/states/chase.gd" id="5_j4bj8"]
 [ext_resource type="Script" uid="uid://def7opqpqj2fj" path="res://scripts/slime_boss/states/attack.gd" id="6_mskqn"]
+[ext_resource type="Script" uid="uid://bt027fcrq1hh2" path="res://scripts/state_machine/state.gd" id="6_st6fu"]
 [ext_resource type="Script" uid="uid://ba7hyry36oenc" path="res://scripts/slime_boss/states/dash_attack.gd" id="7_mskqn"]
 [ext_resource type="Script" uid="uid://bxg8mvcv8vsrd" path="res://scripts/slime_boss/states/recover.gd" id="8_wwhuq"]
 
@@ -557,6 +558,10 @@ metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 [node name="TelegraphTimer" type="Timer" parent="StateMachine/Attack/AttackStateMachine/DashAttack" unique_id=1138907610]
 wait_time = 0.6
 one_shot = true
+
+[node name="BeamAttack" type="Node" parent="StateMachine/Attack/AttackStateMachine" unique_id=735258066]
+script = ExtResource("6_st6fu")
+metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
 [node name="Recover" type="Node" parent="StateMachine" unique_id=742414816 node_paths=PackedStringArray("chase_state", "attack_state")]
 script = ExtResource("8_wwhuq")

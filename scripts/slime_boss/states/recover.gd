@@ -13,6 +13,7 @@ func enter_state() -> void:
 	slime_boss.velocity.x = 0
 	recovered = false
 	slime_boss.play_animation("recover")
+	recover_timer.wait_time = slime_boss.next_recovery_time
 	recover_timer.start()
 
 func physics_update(_delta: float) -> void:

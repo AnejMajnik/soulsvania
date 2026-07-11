@@ -28,5 +28,6 @@ func enter_state() -> void:
 func exit_state() -> void:
 	attack_state_machine.set_physics_process(false)
 
-func _on_substate_finished() -> void:
+func _on_substate_finished(recovery_time: float) -> void:
+	slime_boss.next_recovery_time = recovery_time
 	switch_state.emit(recover_state)

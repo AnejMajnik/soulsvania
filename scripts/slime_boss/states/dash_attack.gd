@@ -11,6 +11,7 @@ enum Substates { TELEGRAPH, ATTACK }
 var current_state: Substates
 
 var checking_ray: RayCast2D
+var recovery_time: float = 0.6
 var direction
 
 func enter_state() -> void:
@@ -44,7 +45,7 @@ func change_substate(new_state: Substates) -> void:
 
 func physics_update(_delta: float) -> void:
 	if current_state == Substates.ATTACK and checking_ray.is_colliding():
-		state_finished.emit()
+		state_finished.emit(recovery_time)
 
 func _on_telegraph_timer_timeout() -> void:
 	change_substate(Substates.ATTACK)

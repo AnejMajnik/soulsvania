@@ -10,6 +10,7 @@ const FLY_SPEED = 300
 
 var max_health: int = 200
 var health: int = max_health
+var next_recovery_time: float
 
 @onready var player: Player = Autoload.player_node
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
