@@ -8,7 +8,7 @@ const SLAM_SPEED = 600
 const FLY_SPEED = 300
 
 var max_health: int = 200
-var health: int = max_health
+var health: int
 var next_recovery_time: float
 var gravity_switch: bool = true
 
@@ -16,9 +16,20 @@ var gravity_switch: bool = true
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var state_machine: StateMachine = $StateMachine
+@onready var health_bar: ProgressBar = %HealthBar
 
 func _ready() -> void:
+	health = max_health
+	health_bar.init_health(health)
+	
 	state_machine.start()
+
+func take_damage(dmg: int) -> void:
+	health -= dmg
+	health_bar.health = health
+
+	if health <= 0:
+		queue_free()
 
 func play_animation(anim_name: String) -> void:
 	animation_player.play(anim_name)

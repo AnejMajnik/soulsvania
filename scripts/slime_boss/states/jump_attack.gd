@@ -13,8 +13,8 @@ var fly_height: int = 200
 var slam_ready: bool = false
 var slam_wait_time: float = 0.15
 @onready var slam_timer: Timer = $SlamTimer
-@onready var ray_cast_down_left: RayCast2D = $"../../../../RayCastDownLeft"
-@onready var ray_cast_down_right: RayCast2D = $"../../../../RayCastDownRight"
+@onready var ray_cast_down_left: RayCast2D = %RayCastDownLeft
+@onready var ray_cast_down_right: RayCast2D = %RayCastDownRight
 
 var recovery_time: float = 1.5
 

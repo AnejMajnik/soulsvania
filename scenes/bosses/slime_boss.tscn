@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://c0mtc6d8cax8r" path="res://assets/sounds/beam_charge.wav" id="10_fbimt"]
 [ext_resource type="PackedScene" uid="uid://dntxmvek1b4li" path="res://scenes/bosses/laser.tscn" id="11_6oksq"]
 [ext_resource type="Script" uid="uid://cxll1lw1pu6sb" path="res://scripts/slime_boss/states/jump_attack.gd" id="11_wsf8t"]
+[ext_resource type="PackedScene" uid="uid://crhws7x3eyarf" path="res://scenes/health_bar/health_bar.tscn" id="14_weo4p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l7rya"]
 atlas = ExtResource("1_0m3eu")
@@ -724,28 +725,44 @@ one_shot = true
 
 [node name="LaserRayCast" parent="." unique_id=604623322 instance=ExtResource("11_6oksq")]
 unique_name_in_owner = true
-visible = false
 position = Vector2(0, -10.000002)
 cast_speed = 2000.0
 growth_time = 0.02
 
-[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=1775134407]
+[node name="Raycasts" type="Node2D" parent="." unique_id=2065783425]
+
+[node name="RayCastLeft" type="RayCast2D" parent="Raycasts" unique_id=1775134407]
 unique_name_in_owner = true
 position = Vector2(0, 22.307693)
 target_position = Vector2(-30.000004, -1.9073486e-06)
 
-[node name="RayCastRight" type="RayCast2D" parent="." unique_id=891539432]
+[node name="RayCastRight" type="RayCast2D" parent="Raycasts" unique_id=891539432]
 unique_name_in_owner = true
 position = Vector2(0, 22.307693)
 target_position = Vector2(30.000004, 0)
 
-[node name="RayCastDownLeft" type="RayCast2D" parent="." unique_id=1407531575]
+[node name="RayCastDownLeft" type="RayCast2D" parent="Raycasts" unique_id=1407531575]
+unique_name_in_owner = true
 position = Vector2(-15.384615, 22.307693)
 target_position = Vector2(-1.9073486e-06, 11.538464)
 
-[node name="RayCastDownRight" type="RayCast2D" parent="." unique_id=1078098339]
-position = Vector2(15.384617, 22.307693)
+[node name="RayCastDownRight" type="RayCast2D" parent="Raycasts" unique_id=1078098339]
+unique_name_in_owner = true
+position = Vector2(15.384619, 22.307693)
 target_position = Vector2(-1.9073486e-06, 11.538464)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=990407094]
+
+[node name="HealthBar" parent="CanvasLayer" unique_id=12104328 instance=ExtResource("14_weo4p")]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -750.0
+offset_top = 37.0
+offset_right = 750.0
+offset_bottom = 87.0
+grow_horizontal = 2
 
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/DashAttack/TelegraphTimer" to="StateMachine/Attack/AttackStateMachine/DashAttack" method="_on_telegraph_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/JumpAttack/SlamTimer" to="StateMachine/Attack/AttackStateMachine/JumpAttack" method="_on_slam_timer_timeout"]

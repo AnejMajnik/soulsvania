@@ -18,12 +18,14 @@ func _ready() -> void:
 		substate.state_finished.connect(_on_substate_finished)
 
 func choose_attack() -> State:
+	# If health above 50%
 	if slime_boss.health > slime_boss.max_health/2:
 		var rand_val = randf()
 		if rand_val <= 0.5:
 			return dash_attack
 		else:
 			return jump_attack
+	# If health below 50%
 	else:
 		var rand_val = randf()
 		if rand_val >= 0.33:

@@ -45,4 +45,5 @@ limit_right = 495
 position_smoothing_speed = 1.0
 
 [node name="SlimeBoss" parent="." unique_id=1313746306 instance=ExtResource("5_iywne")]
+unique_name_in_owner = true
 position = Vector2(399, -24)
