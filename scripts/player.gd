@@ -19,9 +19,16 @@ var current_enemy: CharacterBody2D = null
 @onready var slime_boss: SlimeBoss = %SlimeBoss
 @onready var health_bar: ProgressBar = %HealthBar
 
+func flash_white() -> void:
+	var tween = create_tween()
+	tween.tween_property(animated_sprite, "modulate", Color(3, 3, 3, 1), 0.05)
+	tween.tween_property(animated_sprite, "modulate", Color(1, 1, 1, 1), 0.1)
+
 func take_damage(damage):
 	health -= damage
 	health_bar.health = health
+	
+	flash_white()
 
 func flip_sprite(direction) -> void:
 	if direction > 0:

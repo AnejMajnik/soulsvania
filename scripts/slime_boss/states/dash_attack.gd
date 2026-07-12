@@ -7,13 +7,14 @@ extends State
 @onready var ray_cast_left: RayCast2D = %RayCastLeft
 @onready var ray_cast_right: RayCast2D = %RayCastRight
 
+const DASH_SPEED = 650
 const DAMAGE: int = 30
 
 enum Substate { TELEGRAPH, ATTACK }
 var current_state: Substate
 
 var checking_ray: RayCast2D
-var recovery_time: float = 0.6
+var recovery_time: float = 0.75
 var direction: int
 
 func enter_state() -> void:
@@ -30,7 +31,7 @@ func check_direction() -> void:
 		checking_ray = ray_cast_left
 		
 func attack() -> void:
-	slime_boss.velocity.x = direction * slime_boss.DASH_SPEED
+	slime_boss.velocity.x = direction * DASH_SPEED
 
 func change_substate(new_state: Substate) -> void:
 	if new_state != current_state:

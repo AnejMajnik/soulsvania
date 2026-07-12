@@ -551,10 +551,10 @@ unique_name_in_owner = true
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 18.0
-offset_top = 509.0
-offset_right = 218.0
-offset_bottom = 534.0
+offset_left = 39.0
+offset_top = 618.0
+offset_right = 289.0
+offset_bottom = 653.0
 grow_vertical = 2
 
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]

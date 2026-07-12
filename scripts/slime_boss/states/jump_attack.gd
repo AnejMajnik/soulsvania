@@ -3,6 +3,8 @@ extends State
 @onready var slime_boss: SlimeBoss = owner
 @onready var player: Player = Autoload.player_node
 
+const SLAM_SPEED = 600
+const FLY_SPEED = 300
 const DAMAGE: int = 60
 
 enum Substate { JUMP, FLY, SLAM }
@@ -36,7 +38,7 @@ func fly_above_player() -> void:
 	else:
 		direction = -1
 			
-	slime_boss.velocity.x = slime_boss.MOVE_SPEED * direction
+	slime_boss.velocity.x = FLY_SPEED * direction
 	
 func is_above_player() -> bool:
 	if slime_boss.global_position.x > player.global_position.x-4 and slime_boss.global_position.x < player.global_position.x+4:
@@ -46,7 +48,7 @@ func is_above_player() -> bool:
 	
 func slam() -> void:
 	slime_boss.play_animation("land")
-	slime_boss.velocity.y = slime_boss.SLAM_SPEED
+	slime_boss.velocity.y = SLAM_SPEED
 	
 func change_state(new_state: Substate) -> void:
 	if new_state != current_state:

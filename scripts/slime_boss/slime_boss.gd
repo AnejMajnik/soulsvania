@@ -3,9 +3,6 @@ class_name SlimeBoss extends CharacterBody2D
 # Constants
 const MOVE_SPEED = 200.0
 const DECCELERATION_SPEED = 15
-const DASH_SPEED = 650
-const SLAM_SPEED = 600
-const FLY_SPEED = 300
 
 var max_health: int = 200
 var health: int
@@ -29,9 +26,16 @@ func _ready() -> void:
 	
 	state_machine.start()
 
+func flash_white() -> void:
+	var tween = create_tween()
+	tween.tween_property(animated_sprite, "modulate", Color(3, 3, 3, 1), 0.05)
+	tween.tween_property(animated_sprite, "modulate", Color(1, 1, 1, 1), 0.1)
+
 func take_damage(dmg: int) -> void:
 	health -= dmg
 	health_bar.health = health
+	
+	flash_white()
 
 	if health <= 0:
 		queue_free()
@@ -67,14 +71,12 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print("body entered: ", body)
 	if body is Player:
 		player_in_area = body
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body is Player:
 		player_in_area = null
-
 
 func _on_damage_timer_timeout() -> void:
 	can_deal_damage = true
