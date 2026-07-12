@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://dxhc5ko4erdwj" path="res://scripts/slime_boss/states/beam_attack.gd" id="8_sj3bf"]
 [ext_resource type="Script" uid="uid://bxg8mvcv8vsrd" path="res://scripts/slime_boss/states/recover.gd" id="8_wwhuq"]
 [ext_resource type="AudioStream" uid="uid://b0omfj4ma2m0f" path="res://assets/sounds/beam_shoot.wav" id="9_sj3bf"]
+[ext_resource type="AudioStream" uid="uid://c0mtc6d8cax8r" path="res://assets/sounds/beam_charge.wav" id="10_fbimt"]
 [ext_resource type="PackedScene" uid="uid://dntxmvek1b4li" path="res://scenes/laser.tscn" id="11_6oksq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l7rya"]
@@ -360,7 +361,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_6oksq"]
@@ -408,24 +409,13 @@ tracks/2/keys = {
 "method": &"change_substate"
 }]
 }
-tracks/3/type = "audio"
+tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds/BeamCharge")
+tracks/3/path = NodePath("StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds/BeamCharge:playing")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"clips": [],
-"times": PackedFloat32Array()
-}
-tracks/3/use_blend = true
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds/BeamCharge:playing")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -653,7 +643,8 @@ metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 [node name="BeamShoot" type="AudioStreamPlayer2D" parent="StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds" unique_id=657788204]
 stream = ExtResource("9_sj3bf")
 
-[node name="BeamCharge" type="AudioStreamPlayer2D" parent="StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds" unique_id=266926522]
+[node name="BeamCharge" type="AudioStreamPlayer2D" parent="StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds" unique_id=1075092124]
+stream = ExtResource("10_fbimt")
 
 [node name="Recover" type="Node" parent="StateMachine" unique_id=742414816 node_paths=PackedStringArray("chase_state", "attack_state")]
 script = ExtResource("8_wwhuq")
