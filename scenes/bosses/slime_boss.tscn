@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://b0omfj4ma2m0f" path="res://assets/sounds/beam_shoot.wav" id="9_sj3bf"]
 [ext_resource type="AudioStream" uid="uid://c0mtc6d8cax8r" path="res://assets/sounds/beam_charge.wav" id="10_fbimt"]
 [ext_resource type="PackedScene" uid="uid://dntxmvek1b4li" path="res://scenes/laser.tscn" id="11_6oksq"]
+[ext_resource type="Script" uid="uid://cxll1lw1pu6sb" path="res://scripts/slime_boss/states/jump_attack.gd" id="11_wsf8t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l7rya"]
 atlas = ExtResource("1_0m3eu")
@@ -41,11 +42,27 @@ region = Rect2(152, 0, 76, 64)
 atlas = ExtResource("1_0m3eu")
 region = Rect2(228, 0, 76, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wwhuq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2u38"]
+atlas = ExtResource("1_0m3eu")
+region = Rect2(0, 128, 76, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_josoe"]
+atlas = ExtResource("1_0m3eu")
+region = Rect2(76, 128, 76, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg7l5"]
+atlas = ExtResource("1_0m3eu")
+region = Rect2(152, 128, 76, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7yfv4"]
+atlas = ExtResource("1_0m3eu")
+region = Rect2(228, 128, 76, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gwg7"]
 atlas = ExtResource("1_0m3eu")
 region = Rect2(0, 192, 76, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sj3bf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0m8lj"]
 atlas = ExtResource("1_0m3eu")
 region = Rect2(76, 192, 76, 64)
 
@@ -145,22 +162,6 @@ region = Rect2(760, 576, 76, 64)
 atlas = ExtResource("1_0m3eu")
 region = Rect2(76, 320, 76, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_josoe"]
-atlas = ExtResource("1_0m3eu")
-region = Rect2(0, 128, 76, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jg7l5"]
-atlas = ExtResource("1_0m3eu")
-region = Rect2(76, 128, 76, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7yfv4"]
-atlas = ExtResource("1_0m3eu")
-region = Rect2(152, 128, 76, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3gwg7"]
-atlas = ExtResource("1_0m3eu")
-region = Rect2(228, 128, 76, 64)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_jn626"]
 animations = [{
 "frames": [{
@@ -201,13 +202,25 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wwhuq")
+"texture": SubResource("AtlasTexture_x2u38")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sj3bf")
+"texture": SubResource("AtlasTexture_josoe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jg7l5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7yfv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gwg7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0m8lj")
 }],
-"loop": 0,
-"name": &"jump_attack",
+"loop": 1,
+"name": &"jump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -230,7 +243,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_3dmgr")
 }],
 "loop": 0,
-"name": &"landing",
+"name": &"land",
 "speed": 5.0
 }, {
 "frames": [{
@@ -305,23 +318,6 @@ animations = [{
 }],
 "loop": 1,
 "name": &"telegraph_dash_attack",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_josoe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jg7l5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7yfv4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3gwg7")
-}],
-"loop": 0,
-"name": &"telegraph_jump_attack",
 "speed": 5.0
 }]
 
@@ -476,6 +472,36 @@ tracks/1/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_wsf8t"]
+resource_name = "fly"
+length = 0.4
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"fly"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
 [sub_resource type="Animation" id="Animation_l7rya"]
 resource_name = "idle"
 length = 0.8
@@ -504,6 +530,35 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_weo4p"]
+resource_name = "land"
+length = 1.4
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"land"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
 }
 
 [sub_resource type="Animation" id="Animation_j4bj8"]
@@ -572,7 +627,9 @@ _data = {
 &"beam_telegraph": SubResource("Animation_6oksq"),
 &"dash_attack": SubResource("Animation_mskqn"),
 &"dash_telegraph": SubResource("Animation_wwhuq"),
+&"fly": SubResource("Animation_wsf8t"),
 &"idle": SubResource("Animation_l7rya"),
+&"land": SubResource("Animation_weo4p"),
 &"move": SubResource("Animation_j4bj8"),
 &"recover": SubResource("Animation_sj3bf")
 }
@@ -615,11 +672,12 @@ script = ExtResource("5_j4bj8")
 attack_state = NodePath("../Attack")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="Attack" type="Node" parent="StateMachine" unique_id=1905813388 node_paths=PackedStringArray("dash_attack", "recover_state", "beam_attack")]
+[node name="Attack" type="Node" parent="StateMachine" unique_id=1905813388 node_paths=PackedStringArray("dash_attack", "recover_state", "beam_attack", "jump_attack")]
 script = ExtResource("6_mskqn")
 dash_attack = NodePath("AttackStateMachine/DashAttack")
 recover_state = NodePath("../Recover")
 beam_attack = NodePath("AttackStateMachine/BeamAttack")
+jump_attack = NodePath("AttackStateMachine/JumpAttack")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
 [node name="AttackStateMachine" type="Node" parent="StateMachine/Attack" unique_id=958783750]
@@ -646,6 +704,14 @@ stream = ExtResource("9_sj3bf")
 [node name="BeamCharge" type="AudioStreamPlayer2D" parent="StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds" unique_id=1075092124]
 stream = ExtResource("10_fbimt")
 
+[node name="JumpAttack" type="Node" parent="StateMachine/Attack/AttackStateMachine" unique_id=123923425]
+script = ExtResource("11_wsf8t")
+metadata/_custom_type_script = "uid://bt027fcrq1hh2"
+
+[node name="SlamTimer" type="Timer" parent="StateMachine/Attack/AttackStateMachine/JumpAttack" unique_id=1074272]
+wait_time = 0.5
+one_shot = true
+
 [node name="Recover" type="Node" parent="StateMachine" unique_id=742414816 node_paths=PackedStringArray("chase_state", "attack_state")]
 script = ExtResource("8_wwhuq")
 chase_state = NodePath("../Chase")
@@ -658,6 +724,7 @@ one_shot = true
 
 [node name="LaserRayCast" parent="." unique_id=604623322 instance=ExtResource("11_6oksq")]
 unique_name_in_owner = true
+visible = false
 position = Vector2(0, -10.000002)
 cast_speed = 2000.0
 growth_time = 0.02
@@ -672,5 +739,14 @@ unique_name_in_owner = true
 position = Vector2(0, 22.307693)
 target_position = Vector2(30.000004, 0)
 
+[node name="RayCastDownLeft" type="RayCast2D" parent="." unique_id=1407531575]
+position = Vector2(-15.384615, 22.307693)
+target_position = Vector2(-1.9073486e-06, 11.538464)
+
+[node name="RayCastDownRight" type="RayCast2D" parent="." unique_id=1078098339]
+position = Vector2(15.384617, 22.307693)
+target_position = Vector2(-1.9073486e-06, 11.538464)
+
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/DashAttack/TelegraphTimer" to="StateMachine/Attack/AttackStateMachine/DashAttack" method="_on_telegraph_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/JumpAttack/SlamTimer" to="StateMachine/Attack/AttackStateMachine/JumpAttack" method="_on_slam_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Recover/RecoverTimer" to="StateMachine/Recover" method="_on_recover_timer_timeout"]

@@ -9,6 +9,7 @@ extends State
 @export var dash_attack: State
 @export var recover_state: State
 @export var beam_attack: State
+@export var jump_attack: State
 
 var current_attack: State
 
@@ -17,7 +18,7 @@ func _ready() -> void:
 		substate.state_finished.connect(_on_substate_finished)
 
 func choose_attack() -> State:
-	return beam_attack
+	return jump_attack
 
 func enter_state() -> void:
 	attack_state_machine.set_physics_process(true)
