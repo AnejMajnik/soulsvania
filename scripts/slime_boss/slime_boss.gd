@@ -19,6 +19,7 @@ var player_in_area: Player
 @onready var health_bar: ProgressBar = %HealthBar
 @onready var area_2d: Area2D = $Area2D
 @onready var damage_timer: Timer = $DamageTimer
+@onready var slime_hit: AudioStreamPlayer2D = %SlimeHit
 
 func _ready() -> void:
 	health = max_health
@@ -35,6 +36,7 @@ func take_damage(dmg: int) -> void:
 	health -= dmg
 	health_bar.health = health
 	
+	slime_hit.play()
 	flash_white()
 
 	if health <= 0:

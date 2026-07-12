@@ -18,6 +18,7 @@ var current_enemy: CharacterBody2D = null
 @onready var state_machine: StateMachine = $StateMachine
 @onready var slime_boss: SlimeBoss = %SlimeBoss
 @onready var health_bar: ProgressBar = %HealthBar
+@onready var player_hit: AudioStreamPlayer2D = $Sounds/PlayerHit
 
 func flash_white() -> void:
 	var tween = create_tween()
@@ -27,6 +28,8 @@ func flash_white() -> void:
 func take_damage(damage):
 	health -= damage
 	health_bar.health = health
+	
+	player_hit.play()
 	
 	flash_white()
 

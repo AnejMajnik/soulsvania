@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://c4c17hqwlgbqw" path="res://assets/sounds/sword_clash.wav" id="4_y4r1p"]
 [ext_resource type="Script" uid="uid://ciltuolb0mr44" path="res://scripts/player/states/player_move_state.gd" id="5_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://cqagr00gjfmwc" path="res://assets/sounds/footsteps.wav" id="5_y4r1p"]
+[ext_resource type="AudioStream" uid="uid://xc53ye21jkrj" path="res://assets/sounds/player_hit.wav" id="6_3v2ag"]
 [ext_resource type="Script" uid="uid://6ocqtedx8yik" path="res://scripts/player/states/player_jump_state.gd" id="6_tuyoq"]
 [ext_resource type="Script" uid="uid://o7ankqefpxra" path="res://scripts/player/states/player_attack_state.gd" id="7_fjrip"]
 [ext_resource type="PackedScene" uid="uid://crhws7x3eyarf" path="res://scenes/health_bar/health_bar.tscn" id="11_d2wvv"]
@@ -497,6 +498,9 @@ volume_db = -4.0
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="Sounds" unique_id=207916780]
 stream = ExtResource("5_y4r1p")
 volume_db = 3.0
+
+[node name="PlayerHit" type="AudioStreamPlayer2D" parent="Sounds" unique_id=686115400]
+stream = ExtResource("6_3v2ag")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=943934630]
 position = Vector2(-2, -13)
