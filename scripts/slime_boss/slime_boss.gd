@@ -11,12 +11,17 @@ var max_health: int = 200
 var health: int
 var next_recovery_time: float
 var gravity_switch: bool = true
+var can_deal_damage: bool = true
+
+var player_in_area: Player
 
 @onready var player: Player = Autoload.player_node
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var state_machine: StateMachine = $StateMachine
 @onready var health_bar: ProgressBar = %HealthBar
+@onready var area_2d: Area2D = $Area2D
+@onready var damage_timer: Timer = $DamageTimer
 
 func _ready() -> void:
 	health = max_health
@@ -30,6 +35,12 @@ func take_damage(dmg: int) -> void:
 
 	if health <= 0:
 		queue_free()
+		
+func deal_damage(dmg: int) -> void:
+	if can_deal_damage:
+		player.take_damage(dmg)
+		can_deal_damage = false
+		damage_timer.start()
 
 func play_animation(anim_name: String) -> void:
 	animation_player.play(anim_name)
@@ -53,3 +64,17 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 		
 	move_and_slide()
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	print("body entered: ", body)
+	if body is Player:
+		player_in_area = body
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body is Player:
+		player_in_area = null
+
+
+func _on_damage_timer_timeout() -> void:
+	can_deal_damage = true

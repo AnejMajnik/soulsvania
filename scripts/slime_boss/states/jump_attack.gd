@@ -3,6 +3,8 @@ extends State
 @onready var slime_boss: SlimeBoss = owner
 @onready var player: Player = Autoload.player_node
 
+const DAMAGE: int = 60
+
 enum Substate { JUMP, FLY, SLAM }
 var current_state: Substate
 
@@ -64,9 +66,13 @@ func change_state(new_state: Substate) -> void:
 func physics_update(_delta: float) -> void:
 	if current_state == Substate.FLY and is_above_player():
 		change_state(Substate.SLAM)
-	elif current_state == Substate.SLAM and (ray_cast_down_left.is_colliding() or ray_cast_down_right.is_colliding()):
-		slime_boss.flip_gravity(true)
-		state_finished.emit(recovery_time)
+	elif current_state == Substate.SLAM:
+		if slime_boss.player_in_area != null:
+			slime_boss.deal_damage(DAMAGE)
+			
+		if ray_cast_down_left.is_colliding() or ray_cast_down_right.is_colliding():
+			slime_boss.flip_gravity(true)
+			state_finished.emit(recovery_time)
 
 
 func _on_slam_timer_timeout() -> void:

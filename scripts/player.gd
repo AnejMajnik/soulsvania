@@ -6,7 +6,8 @@ class_name Player extends CharacterBody2D
 @export var JUMP_VELOCITY = -275.0
 
 @export var attack_state: State
-@export var HEALTH = 100
+@export var max_health: int = 100
+@export var health: int
 @export var attack_combo_dmg = 10
 
 var current_enemy: CharacterBody2D = null
@@ -16,10 +17,11 @@ var current_enemy: CharacterBody2D = null
 @onready var area_2d: Area2D = $Area2D
 @onready var state_machine: StateMachine = $StateMachine
 @onready var slime_boss: SlimeBoss = %SlimeBoss
+@onready var health_bar: ProgressBar = %HealthBar
 
-func get_hit(damage):
-	HEALTH -= damage
-	print("Player health: ", HEALTH)
+func take_damage(damage):
+	health -= damage
+	health_bar.health = health
 
 func flip_sprite(direction) -> void:
 	if direction > 0:
@@ -30,6 +32,9 @@ func flip_sprite(direction) -> void:
 		area_2d.position.x = -abs(area_2d.position.x)
 		
 func _ready() -> void:
+	health = max_health
+	health_bar.init_health(health)
+	
 	Autoload.player_node = self
 	attack_state.hit.connect(_on_attack_hit)
 	state_machine.start()
@@ -44,7 +49,7 @@ func _physics_process(delta: float) -> void:
 	# Flip sprite based on direction
 	flip_sprite(direction)
 	
-	if HEALTH <= 0:
+	if health <= 0:
 		set_physics_process(false) #Stop processing
 		get_tree().call_deferred("reload_current_scene")
 		return #Exit before move_and_slide runs

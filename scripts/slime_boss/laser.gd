@@ -14,7 +14,6 @@ var current_length := 0.0
 @onready var parent := get_parent()
 
 signal player_hit
-signal foreground_hit
 
 func _physics_process(delta: float) -> void:
 	current_length = move_toward(current_length, max_length, cast_speed * delta)
@@ -36,8 +35,7 @@ func _physics_process(delta: float) -> void:
 		laser_end_position = to_local(get_collision_point())
 		if collider.name == "Player":
 			emit_signal("player_hit")
-		else:
-			emit_signal("foreground_hit")
+			
 		end_cast()
 		return
 

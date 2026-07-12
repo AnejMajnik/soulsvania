@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://cqagr00gjfmwc" path="res://assets/sounds/footsteps.wav" id="5_y4r1p"]
 [ext_resource type="Script" uid="uid://6ocqtedx8yik" path="res://scripts/player/states/player_jump_state.gd" id="6_tuyoq"]
 [ext_resource type="Script" uid="uid://o7ankqefpxra" path="res://scripts/player/states/player_attack_state.gd" id="7_fjrip"]
+[ext_resource type="PackedScene" uid="uid://crhws7x3eyarf" path="res://scenes/health_bar/health_bar.tscn" id="11_d2wvv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ij6vw"]
 atlas = ExtResource("1_3vyb7")
@@ -542,6 +543,19 @@ jump_state = NodePath("../Jump")
 idle_state = NodePath("../Idle")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=459012334]
+
+[node name="HealthBar" parent="CanvasLayer" unique_id=12104328 instance=ExtResource("11_d2wvv")]
+unique_name_in_owner = true
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = 509.0
+offset_right = 218.0
+offset_bottom = 534.0
+grow_vertical = 2
 
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -6,6 +6,8 @@ extends State
 @onready var laser_ray_cast: RayCast2D = %LaserRayCast
 @onready var beam_shoot: AudioStreamPlayer2D = $Sounds/BeamShoot
 
+const DAMAGE: int = 100
+
 enum Substate { TELEGRAPH, ATTACK }
 var current_state: Substate
 
@@ -13,6 +15,12 @@ var player_pos_x
 var player_pos_y
 
 var recovery_time: float = 1.0
+
+func _ready() -> void:
+	laser_ray_cast.player_hit.connect(_on_player_hit)
+
+func _on_player_hit():
+	slime_boss.deal_damage(DAMAGE)
 
 func enter_state() -> void:
 	change_substate(Substate.TELEGRAPH)

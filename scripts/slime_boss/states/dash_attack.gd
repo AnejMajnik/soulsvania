@@ -7,6 +7,8 @@ extends State
 @onready var ray_cast_left: RayCast2D = %RayCastLeft
 @onready var ray_cast_right: RayCast2D = %RayCastRight
 
+const DAMAGE: int = 30
+
 enum Substate { TELEGRAPH, ATTACK }
 var current_state: Substate
 
@@ -44,8 +46,12 @@ func change_substate(new_state: Substate) -> void:
 			attack()
 
 func physics_update(_delta: float) -> void:
-	if current_state == Substate.ATTACK and checking_ray.is_colliding():
-		state_finished.emit(recovery_time)
+	if current_state == Substate.ATTACK:
+		if slime_boss.player_in_area != null:
+			slime_boss.deal_damage(DAMAGE)
+		
+		if checking_ray.is_colliding():
+			state_finished.emit(recovery_time)
 
 func _on_telegraph_timer_timeout() -> void:
 	change_substate(Substate.ATTACK)
