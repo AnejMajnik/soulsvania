@@ -44,6 +44,9 @@ func _physics_process(delta: float) -> void:
 func start_cast(global_target: Vector2) -> void:
 	target_global = global_target
 	current_length = 0.0
+	var pts := line_2d.points
+	pts[1] = Vector2.ZERO
+	line_2d.points = pts
 	is_casting = true
 
 func end_cast() -> void:

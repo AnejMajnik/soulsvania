@@ -6,9 +6,11 @@
 [ext_resource type="Script" uid="uid://beyhc0j0tbprs" path="res://scripts/slime_boss/states/idle.gd" id="4_mq0xa"]
 [ext_resource type="Script" uid="uid://ctw8q7lo3u08y" path="res://scripts/slime_boss/states/chase.gd" id="5_j4bj8"]
 [ext_resource type="Script" uid="uid://def7opqpqj2fj" path="res://scripts/slime_boss/states/attack.gd" id="6_mskqn"]
-[ext_resource type="Script" uid="uid://bt027fcrq1hh2" path="res://scripts/state_machine/state.gd" id="6_st6fu"]
 [ext_resource type="Script" uid="uid://ba7hyry36oenc" path="res://scripts/slime_boss/states/dash_attack.gd" id="7_mskqn"]
+[ext_resource type="Script" uid="uid://dxhc5ko4erdwj" path="res://scripts/slime_boss/states/beam_attack.gd" id="8_sj3bf"]
 [ext_resource type="Script" uid="uid://bxg8mvcv8vsrd" path="res://scripts/slime_boss/states/recover.gd" id="8_wwhuq"]
+[ext_resource type="AudioStream" uid="uid://b0omfj4ma2m0f" path="res://assets/sounds/beam_shoot.wav" id="9_sj3bf"]
+[ext_resource type="PackedScene" uid="uid://dntxmvek1b4li" path="res://scenes/laser.tscn" id="11_6oksq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l7rya"]
 atlas = ExtResource("1_0m3eu")
@@ -348,6 +350,87 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds/BeamCharge:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_6oksq"]
+resource_name = "beam_telegraph"
+length = 1.5
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"telegraph_beam_attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 1.1, 1.2, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StateMachine/Attack/AttackStateMachine/BeamAttack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.8, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"get_player_pos"
+}, {
+"args": [1],
+"method": &"change_substate"
+}]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds/BeamCharge")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [],
+"times": PackedFloat32Array()
+}
+tracks/3/use_blend = true
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds/BeamCharge:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_mskqn"]
 resource_name = "dash_attack"
@@ -496,6 +579,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6y82c"]
 _data = {
 &"RESET": SubResource("Animation_0m3eu"),
+&"beam_telegraph": SubResource("Animation_6oksq"),
 &"dash_attack": SubResource("Animation_mskqn"),
 &"dash_telegraph": SubResource("Animation_wwhuq"),
 &"idle": SubResource("Animation_l7rya"),
@@ -541,10 +625,11 @@ script = ExtResource("5_j4bj8")
 attack_state = NodePath("../Attack")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="Attack" type="Node" parent="StateMachine" unique_id=1905813388 node_paths=PackedStringArray("dash_attack", "recover_state")]
+[node name="Attack" type="Node" parent="StateMachine" unique_id=1905813388 node_paths=PackedStringArray("dash_attack", "recover_state", "beam_attack")]
 script = ExtResource("6_mskqn")
 dash_attack = NodePath("AttackStateMachine/DashAttack")
 recover_state = NodePath("../Recover")
+beam_attack = NodePath("AttackStateMachine/BeamAttack")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
 [node name="AttackStateMachine" type="Node" parent="StateMachine/Attack" unique_id=958783750]
@@ -560,8 +645,15 @@ wait_time = 0.6
 one_shot = true
 
 [node name="BeamAttack" type="Node" parent="StateMachine/Attack/AttackStateMachine" unique_id=735258066]
-script = ExtResource("6_st6fu")
+script = ExtResource("8_sj3bf")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
+
+[node name="Sounds" type="Node2D" parent="StateMachine/Attack/AttackStateMachine/BeamAttack" unique_id=1934973024]
+
+[node name="BeamShoot" type="AudioStreamPlayer2D" parent="StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds" unique_id=657788204]
+stream = ExtResource("9_sj3bf")
+
+[node name="BeamCharge" type="AudioStreamPlayer2D" parent="StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds" unique_id=266926522]
 
 [node name="Recover" type="Node" parent="StateMachine" unique_id=742414816 node_paths=PackedStringArray("chase_state", "attack_state")]
 script = ExtResource("8_wwhuq")
@@ -572,6 +664,12 @@ metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 [node name="RecoverTimer" type="Timer" parent="StateMachine/Recover" unique_id=964919543]
 wait_time = 0.6
 one_shot = true
+
+[node name="LaserRayCast" parent="." unique_id=604623322 instance=ExtResource("11_6oksq")]
+unique_name_in_owner = true
+position = Vector2(0, -10.000002)
+cast_speed = 2000.0
+growth_time = 0.02
 
 [node name="RayCastLeft" type="RayCast2D" parent="." unique_id=1775134407]
 unique_name_in_owner = true

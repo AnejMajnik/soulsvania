@@ -17,9 +17,9 @@ func enter_state() -> void:
 	recover_timer.start()
 
 func physics_update(_delta: float) -> void:
-	if slime_boss.global_position.distance_to(player.global_position) > 250 and recovered:
+	if slime_boss.global_position.distance_to(player.global_position) > 300 and recovered:
 		switch_state.emit(chase_state)
-	elif slime_boss.global_position.distance_to(player.global_position) < 250 and recovered:
+	elif slime_boss.global_position.distance_to(player.global_position) < 300 and recovered:
 		switch_state.emit(attack_state)
 
 func _on_recover_timer_timeout() -> void:
