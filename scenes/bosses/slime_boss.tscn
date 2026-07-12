@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://bxg8mvcv8vsrd" path="res://scripts/slime_boss/states/recover.gd" id="8_wwhuq"]
 [ext_resource type="AudioStream" uid="uid://b0omfj4ma2m0f" path="res://assets/sounds/beam_shoot.wav" id="9_sj3bf"]
 [ext_resource type="AudioStream" uid="uid://c0mtc6d8cax8r" path="res://assets/sounds/beam_charge.wav" id="10_fbimt"]
-[ext_resource type="PackedScene" uid="uid://dntxmvek1b4li" path="res://scenes/laser.tscn" id="11_6oksq"]
+[ext_resource type="PackedScene" uid="uid://dntxmvek1b4li" path="res://scenes/bosses/laser.tscn" id="11_6oksq"]
 [ext_resource type="Script" uid="uid://cxll1lw1pu6sb" path="res://scripts/slime_boss/states/jump_attack.gd" id="11_wsf8t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l7rya"]

@@ -18,7 +18,20 @@ func _ready() -> void:
 		substate.state_finished.connect(_on_substate_finished)
 
 func choose_attack() -> State:
-	return jump_attack
+	if slime_boss.health > slime_boss.max_health/2:
+		var rand_val = randf()
+		if rand_val <= 0.5:
+			return dash_attack
+		else:
+			return jump_attack
+	else:
+		var rand_val = randf()
+		if rand_val >= 0.33:
+			return dash_attack
+		elif rand_val > 0.33 and rand_val <= 0.66:
+			return jump_attack
+		else:
+			return beam_attack
 
 func enter_state() -> void:
 	attack_state_machine.set_physics_process(true)
