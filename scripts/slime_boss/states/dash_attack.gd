@@ -7,7 +7,7 @@ extends State
 @onready var ray_cast_left: RayCast2D = %RayCastLeft
 @onready var ray_cast_right: RayCast2D = %RayCastRight
 
-const DASH_SPEED = 650
+const DASH_SPEED = 700
 const DAMAGE: int = 30
 
 enum Substate { TELEGRAPH, ATTACK }

@@ -3,6 +3,7 @@ extends State
 # States
 @export var idle_state: State
 @export var attack_state: State
+@export var dash_state: State
 
 # Reference to player
 @export var player: Player
@@ -29,6 +30,10 @@ func read_inputs():
 	# Attack
 	if Input.is_action_just_pressed("attack_combo"):
 		switch_state.emit(attack_state)
+		
+	# Dash
+	if Input.is_action_just_pressed("dash") and player.dash_available:
+		switch_state.emit(dash_state)
 
 func jump():
 	animation_player.play("jump")

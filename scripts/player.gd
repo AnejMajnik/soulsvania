@@ -11,6 +11,8 @@ class_name Player extends CharacterBody2D
 @export var attack_combo_dmg = 10
 
 var current_enemy: CharacterBody2D = null
+var gravity_switch: bool = true
+var invulnerable: bool = false
 
 # References
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
@@ -20,18 +22,39 @@ var current_enemy: CharacterBody2D = null
 @onready var health_bar: ProgressBar = %HealthBar
 @onready var player_hit: AudioStreamPlayer2D = $Sounds/PlayerHit
 
+# Cooldowns
+var dash_available: bool = true
+@onready var dash_cooldown: Timer = %DashCooldown
+
+func flip_invulnerable(value: bool) -> void:
+	invulnerable = value
+
+func start_dash_cooldown() -> void:
+	dash_available = false
+	dash_cooldown.start()
+
 func flash_white() -> void:
 	var tween = create_tween()
 	tween.tween_property(animated_sprite, "modulate", Color(3, 3, 3, 1), 0.05)
 	tween.tween_property(animated_sprite, "modulate", Color(1, 1, 1, 1), 0.1)
 
+func flip_gravity(value: bool) -> void:
+	gravity_switch = value
+
 func take_damage(damage):
-	health -= damage
-	health_bar.health = health
-	
-	player_hit.play()
-	
-	flash_white()
+	if !invulnerable:
+		health -= damage
+		health_bar.health = health
+		
+		player_hit.play()
+		
+		flash_white()
+
+func get_current_direction() -> int:
+	if animated_sprite.flip_h == true:
+		return -1
+	else:
+		return 1
 
 func flip_sprite(direction) -> void:
 	if direction > 0:
@@ -65,7 +88,7 @@ func _physics_process(delta: float) -> void:
 		return #Exit before move_and_slide runs
 	
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and gravity_switch:
 		velocity += get_gravity() * delta
 
 	move_and_slide()
@@ -78,3 +101,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body is CharacterBody2D and body != self:
 		current_enemy = null
+
+
+func _on_dash_cooldown_timeout() -> void:
+	dash_available = true

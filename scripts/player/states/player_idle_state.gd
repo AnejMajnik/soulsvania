@@ -4,6 +4,7 @@ extends State
 @export var move_state: State
 @export var jump_state: State
 @export var attack_state: State
+@export var dash_state: State
 
 # Player reference
 @export var player: Player
@@ -25,6 +26,10 @@ func read_inputs() -> void:
 	# Attack
 	if Input.is_action_just_pressed("attack_combo"):
 		switch_state.emit(attack_state)
+		
+	# Dash
+	if Input.is_action_just_pressed("dash") and player.dash_available:
+		switch_state.emit(dash_state)
 
 func enter_state() -> void:
 	player.velocity.x = 0

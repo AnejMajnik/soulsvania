@@ -3,8 +3,8 @@ extends State
 @onready var slime_boss: SlimeBoss = owner
 @onready var player: Player = Autoload.player_node
 
-const SLAM_SPEED = 600
-const FLY_SPEED = 300
+const SLAM_SPEED = 670
+const FLY_SPEED = 350
 const DAMAGE: int = 60
 
 enum Substate { JUMP, FLY, SLAM }
@@ -28,7 +28,7 @@ func enter_state() -> void:
 func jump() -> void:
 	slime_boss.flip_gravity(false)
 	var tween = create_tween()
-	tween.tween_property(slime_boss, "position:y", slime_boss.global_position.y-fly_height, 1)
+	tween.tween_property(slime_boss, "position:y", slime_boss.global_position.y-fly_height, 0.75)
 	tween.tween_callback(func(): change_state(Substate.FLY))
 	
 func fly_above_player() -> void:
@@ -58,16 +58,17 @@ func change_state(new_state: Substate) -> void:
 		Substate.JUMP:
 			slime_boss.play_animation("fly")
 			jump()
-		Substate.FLY:
-			fly_above_player()
 		Substate.SLAM:
 			slime_boss.velocity.x = 0
 			slam_timer.wait_time = slam_wait_time
 			slam_timer.start()
 			
 func physics_update(_delta: float) -> void:
-	if current_state == Substate.FLY and is_above_player():
-		change_state(Substate.SLAM)
+	if current_state == Substate.FLY:
+		fly_above_player()
+		
+		if is_above_player():
+			change_state(Substate.SLAM)
 	elif current_state == Substate.SLAM:
 		if slime_boss.player_in_area != null:
 			slime_boss.deal_damage(DAMAGE)

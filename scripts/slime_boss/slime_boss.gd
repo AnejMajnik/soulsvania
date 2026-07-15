@@ -33,10 +33,11 @@ func flash_white() -> void:
 	tween.tween_property(animated_sprite, "modulate", Color(1, 1, 1, 1), 0.1)
 
 func take_damage(dmg: int) -> void:
+	slime_hit.play()
+	
 	health -= dmg
 	health_bar.health = health
 	
-	slime_hit.play()
 	flash_white()
 
 	if health <= 0:
