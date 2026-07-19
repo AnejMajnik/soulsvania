@@ -8,7 +8,6 @@ class_name Player extends CharacterBody2D
 @export var attack_state: State
 @export var max_health: int = 100
 @export var health: int
-@export var attack_combo_dmg = 10
 
 var current_enemy: CharacterBody2D = null
 var gravity_switch: bool = true
@@ -16,11 +15,12 @@ var invulnerable: bool = false
 
 # References
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
-@onready var area_2d: Area2D = $Area2D
+@onready var combo_attack_area: Area2D = $ComboAttackArea2D
 @onready var state_machine: StateMachine = $StateMachine
 @onready var slime_boss: SlimeBoss = %SlimeBoss
 @onready var health_bar: ProgressBar = %HealthBar
 @onready var player_hit: AudioStreamPlayer2D = $Sounds/PlayerHit
+
 
 # Cooldowns
 var dash_available: bool = true
@@ -59,22 +59,17 @@ func get_current_direction() -> int:
 func flip_sprite(direction) -> void:
 	if direction > 0:
 		animated_sprite.flip_h = false
-		area_2d.position.x = abs(area_2d.position.x)
+		combo_attack_area.position.x = abs(combo_attack_area.position.x)
 	elif direction < 0:
 		animated_sprite.flip_h = true
-		area_2d.position.x = -abs(area_2d.position.x)
+		combo_attack_area.position.x = -abs(combo_attack_area.position.x)
 		
 func _ready() -> void:
 	health = max_health
 	health_bar.init_health(health)
 	
 	Autoload.player_node = self
-	attack_state.hit.connect(_on_attack_hit)
 	state_machine.start()
-
-func _on_attack_hit():
-	if current_enemy == slime_boss:
-		slime_boss.take_damage(attack_combo_dmg)
 	
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
@@ -93,15 +88,15 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
+func _on_dash_cooldown_timeout() -> void:
+	dash_available = true
+
+
+func _on_combo_attack_area_2d_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D and body != self:
 		current_enemy = body
 
 
-func _on_area_2d_body_exited(body: Node2D) -> void:
+func _on_combo_attack_area_2d_body_exited(body: Node2D) -> void:
 	if body is CharacterBody2D and body != self:
 		current_enemy = null
-
-
-func _on_dash_cooldown_timeout() -> void:
-	dash_available = true

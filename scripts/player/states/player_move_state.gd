@@ -9,7 +9,6 @@ extends State
 @export var player: Player
 
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
-@onready var area_2d: Area2D = $"../../Area2D"
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 func read_inputs() -> void:

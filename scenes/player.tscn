@@ -318,6 +318,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_3v2ag"]
 resource_name = "attack_combo"
+length = 1.0666667
 step = 0.06666667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -350,7 +351,7 @@ tracks/2/path = NodePath("Sounds/SwordSlash:playing")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.06666666),
+"times": PackedFloat32Array(-0.13333334),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -378,10 +379,10 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
-"method": &"deal_damage"
+"method": &"deal_damage_hit1"
 }, {
 "args": [],
-"method": &"deal_damage"
+"method": &"deal_damage_hit2"
 }]
 }
 
@@ -547,9 +548,6 @@ _data = {
 radius = 7.0
 height = 26.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nrent"]
-size = Vector2(38, 26)
-
 [node name="Player" type="CharacterBody2D" unique_id=476142731 node_paths=PackedStringArray("attack_state")]
 collision_layer = 2
 script = ExtResource("1_g2els")
@@ -587,12 +585,18 @@ stream = ExtResource("6_3v2ag")
 position = Vector2(-2, -13)
 shape = SubResource("CapsuleShape2D_e204l")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1450993753]
+[node name="ComboAttackArea2D" type="Area2D" parent="." unique_id=1450993753]
+unique_name_in_owner = true
 position = Vector2(31, -14)
 collision_mask = 4
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=88020572]
-shape = SubResource("RectangleShape2D_nrent")
+[node name="CollisionHit1" type="CollisionPolygon2D" parent="ComboAttackArea2D" unique_id=1362052363]
+unique_name_in_owner = true
+polygon = PackedVector2Array(-24, -14, 1, -15, 22, -2, 9, 12, -24, 14)
+
+[node name="CollisionHit2" type="CollisionPolygon2D" parent="ComboAttackArea2D" unique_id=615615359]
+unique_name_in_owner = true
+polygon = PackedVector2Array(16, 14, 18, 12, 11, -27, -15, -26, -14, 9)
 
 [node name="StateMachine" type="Node" parent="." unique_id=1786861900 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_qlg0r")
@@ -663,7 +667,7 @@ wait_time = 4.0
 one_shot = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="ComboAttackArea2D" to="." method="_on_combo_attack_area_2d_body_entered"]
+[connection signal="body_exited" from="ComboAttackArea2D" to="." method="_on_combo_attack_area_2d_body_exited"]
 [connection signal="timeout" from="StateMachine/Dash/DashTimer" to="StateMachine/Dash" method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timers/DashCooldown" to="." method="_on_dash_cooldown_timeout"]

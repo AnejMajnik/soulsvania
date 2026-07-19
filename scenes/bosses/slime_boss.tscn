@@ -644,7 +644,7 @@ height = 54.0
 radius = 13.846153
 height = 53.84616
 
-[node name="SlimeBoss" type="CharacterBody2D" unique_id=1313746306]
+[node name="SlimeBoss" type="CharacterBody2D" unique_id=1313746306 groups=["enemy"]]
 scale = Vector2(1.3, 1.3)
 collision_layer = 4
 script = ExtResource("1_mq0xa")
