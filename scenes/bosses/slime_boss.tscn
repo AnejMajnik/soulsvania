@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://c0mtc6d8cax8r" path="res://assets/sounds/beam_charge.wav" id="10_fbimt"]
 [ext_resource type="PackedScene" uid="uid://dntxmvek1b4li" path="res://scenes/bosses/laser.tscn" id="11_6oksq"]
 [ext_resource type="Script" uid="uid://cxll1lw1pu6sb" path="res://scripts/slime_boss/states/jump_attack.gd" id="11_wsf8t"]
+[ext_resource type="Script" uid="uid://c8o25hqypk5e4" path="res://scripts/slime_boss/states/rain_attack.gd" id="12_3dmgr"]
 [ext_resource type="PackedScene" uid="uid://crhws7x3eyarf" path="res://scenes/health_bar/health_bar.tscn" id="14_weo4p"]
 [ext_resource type="AudioStream" uid="uid://bympooo02yxeq" path="res://assets/sounds/slime_hit.wav" id="15_w47pt"]
 
@@ -686,12 +687,13 @@ script = ExtResource("5_j4bj8")
 attack_state = NodePath("../Attack")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="Attack" type="Node" parent="StateMachine" unique_id=1905813388 node_paths=PackedStringArray("dash_attack", "recover_state", "beam_attack", "jump_attack")]
+[node name="Attack" type="Node" parent="StateMachine" unique_id=1905813388 node_paths=PackedStringArray("dash_attack", "recover_state", "beam_attack", "jump_attack", "rain_attack")]
 script = ExtResource("6_mskqn")
 dash_attack = NodePath("AttackStateMachine/DashAttack")
 recover_state = NodePath("../Recover")
 beam_attack = NodePath("AttackStateMachine/BeamAttack")
 jump_attack = NodePath("AttackStateMachine/JumpAttack")
+rain_attack = NodePath("AttackStateMachine/RainAttack")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
 [node name="AttackStateMachine" type="Node" parent="StateMachine/Attack" unique_id=958783750]
@@ -723,6 +725,22 @@ script = ExtResource("11_wsf8t")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
 [node name="SlamTimer" type="Timer" parent="StateMachine/Attack/AttackStateMachine/JumpAttack" unique_id=1074272]
+wait_time = 0.5
+one_shot = true
+
+[node name="RainAttack" type="Node" parent="StateMachine/Attack/AttackStateMachine" unique_id=1778826324]
+script = ExtResource("12_3dmgr")
+metadata/_custom_type_script = "uid://bt027fcrq1hh2"
+
+[node name="RainTimer" type="Timer" parent="StateMachine/Attack/AttackStateMachine/RainAttack" unique_id=1040734292]
+wait_time = 0.25
+one_shot = true
+
+[node name="FlyTimer" type="Timer" parent="StateMachine/Attack/AttackStateMachine/RainAttack" unique_id=1544493788]
+wait_time = 5.0
+one_shot = true
+
+[node name="SlamTimer" type="Timer" parent="StateMachine/Attack/AttackStateMachine/RainAttack" unique_id=167944780]
 wait_time = 0.5
 one_shot = true
 
@@ -789,5 +807,8 @@ stream = ExtResource("15_w47pt")
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/DashAttack/TelegraphTimer" to="StateMachine/Attack/AttackStateMachine/DashAttack" method="_on_telegraph_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/JumpAttack/SlamTimer" to="StateMachine/Attack/AttackStateMachine/JumpAttack" method="_on_slam_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/RainAttack/RainTimer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_rain_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/RainAttack/FlyTimer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_fly_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/RainAttack/SlamTimer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_slam_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Recover/RecoverTimer" to="StateMachine/Recover" method="_on_recover_timer_timeout"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]

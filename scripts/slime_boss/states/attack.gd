@@ -10,6 +10,7 @@ extends State
 @export var recover_state: State
 @export var beam_attack: State
 @export var jump_attack: State
+@export var rain_attack: State
 
 var current_attack: State
 
@@ -28,10 +29,10 @@ func choose_attack() -> State:
 	# If health below 50%
 	else:
 		var rand_val = randf()
-		if rand_val >= 0.33:
+		if rand_val <= 0.33:
 			return dash_attack
-		elif rand_val > 0.33 and rand_val <= 0.66:
-			return jump_attack
+		elif rand_val <= 0.66:
+			return rain_attack
 		else:
 			return beam_attack
 
