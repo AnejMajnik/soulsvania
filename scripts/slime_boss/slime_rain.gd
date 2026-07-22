@@ -2,6 +2,7 @@ extends Area2D
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player: Player = Autoload.player_node
+@onready var rain_sound: AudioStreamPlayer2D = $RainSound
 
 var velocity := Vector2.ZERO
 var gravity_switch: bool = true
@@ -18,6 +19,7 @@ func _physics_process(delta: float) -> void:
 	
 
 func _on_body_entered(body: Node2D) -> void:
+	rain_sound.play()
 	if body.is_in_group("foreground"):
 		animated_sprite.play("hit")
 		velocity.y = 0

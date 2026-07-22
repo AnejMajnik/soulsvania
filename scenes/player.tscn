@@ -663,7 +663,7 @@ grow_vertical = 2
 
 [node name="DashCooldown" type="Timer" parent="Timers" unique_id=737137251]
 unique_name_in_owner = true
-wait_time = 4.0
+wait_time = 2.5
 one_shot = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]

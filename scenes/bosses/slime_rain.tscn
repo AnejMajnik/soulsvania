@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bii33ks34rith" path="res://scripts/slime_boss/slime_rain.gd" id="1_i1kxc"]
 [ext_resource type="Texture2D" uid="uid://bqu551u36k3wy" path="res://assets/spritesheets/drops.png" id="1_igele"]
+[ext_resource type="AudioStream" uid="uid://cm6unlrqv5lly" path="res://assets/sounds/rain_drop.wav" id="3_qadpc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bdd6j"]
 
@@ -77,6 +78,9 @@ shape = SubResource("CircleShape2D_bdd6j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=842371306]
 sprite_frames = SubResource("SpriteFrames_nrent")
 animation = &"hit"
+
+[node name="RainSound" type="AudioStreamPlayer2D" parent="." unique_id=1833684724]
+stream = ExtResource("3_qadpc")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
