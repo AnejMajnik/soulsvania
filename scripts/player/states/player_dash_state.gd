@@ -14,6 +14,7 @@ func enter_state() -> void:
 	
 	animation_player.play("dash")
 	player.flip_gravity(false)
+	player.flip_invulnerable(true)
 	player.velocity.y = 0
 	dash()
 	
@@ -26,6 +27,7 @@ func dash() -> void:
 func finish() -> void:
 	player.velocity.x = 0
 	player.flip_gravity(true)
+	player.flip_invulnerable(false)
 	
 	# Move
 	var direction := Input.get_axis("move_left", "move_right")

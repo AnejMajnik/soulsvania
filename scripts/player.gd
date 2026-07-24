@@ -21,7 +21,6 @@ var invulnerable: bool = false
 @onready var health_bar: ProgressBar = %HealthBar
 @onready var player_hit: AudioStreamPlayer2D = $Sounds/PlayerHit
 
-
 # Cooldowns
 var dash_available: bool = true
 @onready var dash_cooldown: Timer = %DashCooldown
@@ -90,7 +89,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_dash_cooldown_timeout() -> void:
 	dash_available = true
-
 
 func _on_combo_attack_area_2d_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D and body != self:
