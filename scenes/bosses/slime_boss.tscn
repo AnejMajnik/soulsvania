@@ -774,12 +774,12 @@ target_position = Vector2(30.000004, 0)
 
 [node name="RayCastDownLeft" type="RayCast2D" parent="Raycasts" unique_id=1407531575]
 unique_name_in_owner = true
-position = Vector2(-15.384615, 22.307693)
+position = Vector2(-20.769232, 22.307693)
 target_position = Vector2(-1.9073486e-06, 11.538464)
 
 [node name="RayCastDownRight" type="RayCast2D" parent="Raycasts" unique_id=1078098339]
 unique_name_in_owner = true
-position = Vector2(15.384619, 22.307693)
+position = Vector2(20.769232, 22.307693)
 target_position = Vector2(-1.9073486e-06, 11.538464)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=990407094]

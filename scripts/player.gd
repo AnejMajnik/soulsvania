@@ -25,6 +25,18 @@ var invulnerable: bool = false
 var dash_available: bool = true
 @onready var dash_cooldown: Timer = %DashCooldown
 
+func _ready() -> void:
+	# Set up shader texture
+	animated_sprite.material = ShaderMaterial.new()
+	animated_sprite.material.shader = preload("res://shaders/player/flash.gdshader")
+	
+	# Set up health
+	health = max_health
+	health_bar.init_health(health)
+	
+	Autoload.player_node = self
+	state_machine.start()
+
 func flip_invulnerable(value: bool) -> void:
 	invulnerable = value
 
@@ -32,10 +44,18 @@ func start_dash_cooldown() -> void:
 	dash_available = false
 	dash_cooldown.start()
 
-func flash_white() -> void:
+func flash_take_damage() -> void:
+	animated_sprite.material.set_shader_parameter("flash_color", Color(1.0, 1.0, 1.0, 1.0))
 	var tween = create_tween()
-	tween.tween_property(animated_sprite, "modulate", Color(3, 3, 3, 1), 0.05)
-	tween.tween_property(animated_sprite, "modulate", Color(1, 1, 1, 1), 0.1)
+	tween.tween_method(_set_flash, 1.0, 0.0, 0.2)
+	
+func flash_dash_available() -> void:
+	animated_sprite.material.set_shader_parameter("flash_color", Color(0.0, 1.0, 0.3, 1.0))
+	var tween = create_tween()
+	tween.tween_method(_set_flash, 1.0, 0.0, 0.5)
+	
+func _set_flash(value: float) -> void:
+	animated_sprite.material.set_shader_parameter("flash_amount", value)
 
 func flip_gravity(value: bool) -> void:
 	gravity_switch = value
@@ -47,7 +67,7 @@ func take_damage(damage):
 		
 		player_hit.play()
 		
-		flash_white()
+		flash_take_damage()
 
 func get_current_direction() -> int:
 	if animated_sprite.flip_h == true:
@@ -62,14 +82,7 @@ func flip_sprite(direction) -> void:
 	elif direction < 0:
 		animated_sprite.flip_h = true
 		combo_attack_area.position.x = -abs(combo_attack_area.position.x)
-		
-func _ready() -> void:
-	health = max_health
-	health_bar.init_health(health)
-	
-	Autoload.player_node = self
-	state_machine.start()
-	
+
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	
@@ -89,6 +102,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_dash_cooldown_timeout() -> void:
 	dash_available = true
+	flash_dash_available()
 
 func _on_combo_attack_area_2d_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D and body != self:

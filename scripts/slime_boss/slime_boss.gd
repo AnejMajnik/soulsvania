@@ -22,15 +22,22 @@ var player_in_area: Player
 @onready var slime_hit: AudioStreamPlayer2D = %SlimeHit
 
 func _ready() -> void:
+	# Set up shader texture
+	animated_sprite.material = ShaderMaterial.new()
+	animated_sprite.material.shader = preload("res://shaders/slime_boss/flash.gdshader")
+	
 	health = max_health
 	health_bar.init_health(health)
 	
 	state_machine.start()
 
-func flash_white() -> void:
+func flash_take_damage() -> void:
+	animated_sprite.material.set_shader_parameter("flash_color", Color(1.0, 1.0, 1.0, 1.0))
 	var tween = create_tween()
-	tween.tween_property(animated_sprite, "modulate", Color(3, 3, 3, 1), 0.05)
-	tween.tween_property(animated_sprite, "modulate", Color(1, 1, 1, 1), 0.1)
+	tween.tween_method(_set_flash, 1.0, 0.0, 0.2)
+
+func _set_flash(value: float) -> void:
+	animated_sprite.material.set_shader_parameter("flash_amount", value)
 
 func take_damage(dmg: int) -> void:
 	slime_hit.play()
@@ -38,7 +45,7 @@ func take_damage(dmg: int) -> void:
 	health -= dmg
 	health_bar.health = health
 	
-	flash_white()
+	flash_take_damage()
 
 	if health <= 0:
 		queue_free()
