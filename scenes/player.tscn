@@ -8,13 +8,17 @@
 [ext_resource type="AudioStream" uid="uid://bj5jfwrvw60ua" path="res://assets/sounds/sword_slash.wav" id="3_ur7pv"]
 [ext_resource type="Script" uid="uid://br78qqwufxrq4" path="res://scripts/player/states/player_idle_state.gd" id="4_tuyoq"]
 [ext_resource type="AudioStream" uid="uid://c4c17hqwlgbqw" path="res://assets/sounds/sword_clash.wav" id="4_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://c1yoqros17d0l" path="res://assets/spritesheets/purple_spriteshee2t.png" id="5_qfm1y"]
 [ext_resource type="Script" uid="uid://ciltuolb0mr44" path="res://scripts/player/states/player_move_state.gd" id="5_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://cqagr00gjfmwc" path="res://assets/sounds/footsteps.wav" id="5_y4r1p"]
 [ext_resource type="AudioStream" uid="uid://xc53ye21jkrj" path="res://assets/sounds/player_hit.wav" id="6_3v2ag"]
 [ext_resource type="Script" uid="uid://6ocqtedx8yik" path="res://scripts/player/states/player_jump_state.gd" id="6_tuyoq"]
 [ext_resource type="Script" uid="uid://o7ankqefpxra" path="res://scripts/player/states/player_attack_state.gd" id="7_fjrip"]
+[ext_resource type="AudioStream" uid="uid://4ylee6qb7rl7" path="res://assets/sounds/electricity.wav" id="10_4r5pv"]
+[ext_resource type="AudioStream" uid="uid://38biyb1kjqyu" path="res://assets/sounds/sword_draw.wav" id="11_60mlk"]
 [ext_resource type="PackedScene" uid="uid://crhws7x3eyarf" path="res://scenes/health_bar/health_bar.tscn" id="11_d2wvv"]
 [ext_resource type="Script" uid="uid://cf468q4lkra0u" path="res://scripts/player/states/player_dash_state.gd" id="13_oprun"]
+[ext_resource type="Script" uid="uid://btg50832r3kux" path="res://scripts/player/states/player_heavy_attack.gd" id="15_qfm1y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1ej7"]
 shader = ExtResource("2_oprun")
@@ -104,6 +108,70 @@ region = Rect2(3584, 0, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
 atlas = ExtResource("3_f1ej7")
 region = Rect2(3712, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4ail"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(256, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(512, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ni07"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(768, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l71n6"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(1024, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ke2ow"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(1280, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujl30"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(1536, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31cv2"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(1792, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(2048, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dt7fs"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(2304, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqfne"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(2560, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnwbv"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(2816, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl8cc"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(3072, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_487ah"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(3328, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md1ol"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(3584, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bj30b"]
+atlas = ExtResource("5_qfm1y")
+region = Rect2(3840, 512, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ucfvk"]
 atlas = ExtResource("1_3vyb7")
@@ -218,6 +286,59 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4ail")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a38lo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ni07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l71n6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ke2ow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujl30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31cv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pf23h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dt7fs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqfne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnwbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gl8cc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_487ah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md1ol")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bj30b")
+}],
+"loop": 0,
+"name": &"heavy_attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ucfvk")
 }, {
 "duration": 1.0,
@@ -321,6 +442,30 @@ tracks/4/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sounds/Electricity:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sounds/SwordDraw:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_3v2ag"]
 resource_name = "attack_combo"
@@ -377,7 +522,7 @@ tracks/3/keys = {
 tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("StateMachine/Attack")
+tracks/4/path = NodePath("StateMachine/ComboAttack")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -434,6 +579,73 @@ tracks/2/keys = {
 }, {
 "args": [false],
 "method": &"flip_invulnerable"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_jc3p3"]
+resource_name = "heavy_attack"
+length = 1.5833334
+step = 0.083333336
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"heavy_attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.08333331, 0.16666666, 0.24999997, 0.3333333, 0.41666663, 0.5, 0.5833333, 0.6666666, 0.75, 1, 1.0833333, 1.1666666, 1.3333333, 1.4166666, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sounds/Electricity:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.083333336),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sounds/SwordDraw:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StateMachine/HeavyAttack")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"deal_damage_heavy"
 }]
 }
 
@@ -544,6 +756,7 @@ _data = {
 &"RESET": SubResource("Animation_d2wvv"),
 &"attack_combo": SubResource("Animation_3v2ag"),
 &"dash": SubResource("Animation_f1ej7"),
+&"heavy_attack": SubResource("Animation_jc3p3"),
 &"idle": SubResource("Animation_ur7pv"),
 &"jump": SubResource("Animation_y4r1p"),
 &"run": SubResource("Animation_jej6c")
@@ -556,7 +769,7 @@ height = 26.0
 [node name="Player" type="CharacterBody2D" unique_id=476142731 node_paths=PackedStringArray("attack_state")]
 collision_layer = 2
 script = ExtResource("1_g2els")
-attack_state = NodePath("StateMachine/Attack")
+attack_state = NodePath("StateMachine/ComboAttack")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1538919531]
 unique_name_in_owner = true
@@ -564,7 +777,6 @@ material = SubResource("ShaderMaterial_f1ej7")
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_nrent")
 animation = &"idle"
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1016761409]
 unique_name_in_owner = true
@@ -588,6 +800,12 @@ volume_db = 3.0
 [node name="PlayerHit" type="AudioStreamPlayer2D" parent="Sounds" unique_id=686115400]
 stream = ExtResource("6_3v2ag")
 
+[node name="Electricity" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1907302340]
+stream = ExtResource("10_4r5pv")
+
+[node name="SwordDraw" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1667451569]
+stream = ExtResource("11_60mlk")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=943934630]
 position = Vector2(-2, -13)
 shape = SubResource("CapsuleShape2D_e204l")
@@ -605,42 +823,57 @@ polygon = PackedVector2Array(-24, -14, 1, -15, 22, -2, 9, 12, -24, 14)
 unique_name_in_owner = true
 polygon = PackedVector2Array(16, 14, 18, 12, 11, -27, -15, -26, -14, 9)
 
+[node name="HeavyAttackArea" type="Area2D" parent="." unique_id=291433703]
+unique_name_in_owner = true
+position = Vector2(31, -14)
+collision_mask = 4
+
+[node name="CollisionHitHeavy" type="CollisionPolygon2D" parent="HeavyAttackArea" unique_id=1274981017]
+polygon = PackedVector2Array(30, -15, 97, -15, 30, 2, -20, 1)
+
 [node name="StateMachine" type="Node" parent="." unique_id=1786861900 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_qlg0r")
 initial_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://bvpidnwfs1qx4"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=1742136844 node_paths=PackedStringArray("move_state", "jump_state", "attack_state", "dash_state", "player")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1742136844 node_paths=PackedStringArray("move_state", "jump_state", "combo_attack_state", "heavy_attack_state", "dash_state", "player")]
 script = ExtResource("4_tuyoq")
 move_state = NodePath("../Move")
 jump_state = NodePath("../Jump")
-attack_state = NodePath("../Attack")
+combo_attack_state = NodePath("../ComboAttack")
+heavy_attack_state = NodePath("../HeavyAttack")
 dash_state = NodePath("../Dash")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="Move" type="Node" parent="StateMachine" unique_id=49234299 node_paths=PackedStringArray("idle_state", "jump_state", "attack_state", "dash_state", "player")]
+[node name="Move" type="Node" parent="StateMachine" unique_id=49234299 node_paths=PackedStringArray("idle_state", "jump_state", "combo_attack_state", "heavy_attack_state", "dash_state", "player")]
 script = ExtResource("5_qlg0r")
 idle_state = NodePath("../Idle")
 jump_state = NodePath("../Jump")
-attack_state = NodePath("../Attack")
+combo_attack_state = NodePath("../ComboAttack")
+heavy_attack_state = NodePath("../HeavyAttack")
 dash_state = NodePath("../Dash")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="Jump" type="Node" parent="StateMachine" unique_id=503592196 node_paths=PackedStringArray("idle_state", "attack_state", "dash_state", "player")]
+[node name="Jump" type="Node" parent="StateMachine" unique_id=503592196 node_paths=PackedStringArray("idle_state", "combo_attack_state", "dash_state", "player")]
 script = ExtResource("6_tuyoq")
 idle_state = NodePath("../Idle")
-attack_state = NodePath("../Attack")
+combo_attack_state = NodePath("../ComboAttack")
 dash_state = NodePath("../Dash")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="Attack" type="Node" parent="StateMachine" unique_id=1512652241 node_paths=PackedStringArray("jump_state", "idle_state", "player")]
+[node name="ComboAttack" type="Node" parent="StateMachine" unique_id=1512652241 node_paths=PackedStringArray("jump_state", "idle_state", "player")]
 script = ExtResource("7_fjrip")
 jump_state = NodePath("../Jump")
 idle_state = NodePath("../Idle")
 player = NodePath("../..")
+metadata/_custom_type_script = "uid://bt027fcrq1hh2"
+
+[node name="HeavyAttack" type="Node" parent="StateMachine" unique_id=1583182429 node_paths=PackedStringArray("idle_state")]
+script = ExtResource("15_qfm1y")
+idle_state = NodePath("../Idle")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
 [node name="Dash" type="Node" parent="StateMachine" unique_id=1893585405 node_paths=PackedStringArray("idle_state", "move_state")]
@@ -673,7 +906,8 @@ unique_name_in_owner = true
 wait_time = 1.5
 one_shot = true
 
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/ComboAttack" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/HeavyAttack" method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="ComboAttackArea2D" to="." method="_on_combo_attack_area_2d_body_entered"]
 [connection signal="body_exited" from="ComboAttackArea2D" to="." method="_on_combo_attack_area_2d_body_exited"]
 [connection signal="timeout" from="StateMachine/Dash/DashTimer" to="StateMachine/Dash" method="_on_dash_timer_timeout"]

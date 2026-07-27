@@ -5,7 +5,7 @@ extends State
 @export var idle_state: State
 
 # Player reference
-@export var player: Player
+@export var player: Player = owner
 
 # Constants
 const DAMAGE_HIT1: int = 5
@@ -23,7 +23,6 @@ func read_inputs() -> void:
 		switch_state.emit(jump_state)
 		
 func enter_state() -> void:
-	animated_sprite.stop()
 	player.velocity.x = 0
 	animation_player.play("attack_combo")
 	collision_hit_1.disabled = false

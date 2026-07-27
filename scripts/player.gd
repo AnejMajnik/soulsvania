@@ -16,6 +16,7 @@ var invulnerable: bool = false
 # References
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
 @onready var combo_attack_area: Area2D = $ComboAttackArea2D
+@onready var heavy_attack_area: Area2D = %HeavyAttackArea
 @onready var state_machine: StateMachine = $StateMachine
 @onready var slime_boss: SlimeBoss = %SlimeBoss
 @onready var health_bar: ProgressBar = %HealthBar
@@ -79,9 +80,16 @@ func flip_sprite(direction) -> void:
 	if direction > 0:
 		animated_sprite.flip_h = false
 		combo_attack_area.position.x = abs(combo_attack_area.position.x)
+		heavy_attack_area.position.x = abs(heavy_attack_area.position.x)
+		combo_attack_area.scale.x = 1
+		heavy_attack_area.scale.x = 1
+		
 	elif direction < 0:
 		animated_sprite.flip_h = true
 		combo_attack_area.position.x = -abs(combo_attack_area.position.x)
+		heavy_attack_area.position.x = -abs(heavy_attack_area.position.x)
+		combo_attack_area.scale.x = -1
+		heavy_attack_area.scale.x = -1
 
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
@@ -107,7 +115,6 @@ func _on_dash_cooldown_timeout() -> void:
 func _on_combo_attack_area_2d_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D and body != self:
 		current_enemy = body
-
 
 func _on_combo_attack_area_2d_body_exited(body: Node2D) -> void:
 	if body is CharacterBody2D and body != self:

@@ -2,7 +2,7 @@ extends State
 
 # States
 @export var idle_state: State
-@export var attack_state: State
+@export var combo_attack_state: State
 @export var dash_state: State
 
 # Reference to player
@@ -29,7 +29,7 @@ func read_inputs():
 		
 	# Attack
 	if Input.is_action_just_pressed("attack_combo"):
-		switch_state.emit(attack_state)
+		switch_state.emit(combo_attack_state)
 		
 	# Dash
 	if Input.is_action_just_pressed("dash") and player.dash_available:

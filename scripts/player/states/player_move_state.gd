@@ -3,7 +3,8 @@ extends State
 # States
 @export var idle_state: State
 @export var jump_state: State
-@export var attack_state: State
+@export var combo_attack_state: State
+@export var heavy_attack_state: State
 @export var dash_state: State
 
 @export var player: Player
@@ -28,9 +29,13 @@ func read_inputs() -> void:
 	if Input.is_action_just_pressed("jump"):
 		switch_state.emit(jump_state)
 		
-	# Attack
+	# Attack combo
 	if Input.is_action_just_pressed("attack_combo"):
-		switch_state.emit(attack_state)
+		switch_state.emit(combo_attack_state)
+		
+	# Attack heavy
+	if Input.is_action_just_pressed("attack_heavy"):
+		switch_state.emit(heavy_attack_state)
 		
 	# Dash
 	if Input.is_action_just_pressed("dash") and player.dash_available:
