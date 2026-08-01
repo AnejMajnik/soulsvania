@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://crhws7x3eyarf" path="res://scenes/health_bar/health_bar.tscn" id="11_d2wvv"]
 [ext_resource type="Script" uid="uid://cf468q4lkra0u" path="res://scripts/player/states/player_dash_state.gd" id="13_oprun"]
 [ext_resource type="Script" uid="uid://btg50832r3kux" path="res://scripts/player/states/player_heavy_attack.gd" id="15_qfm1y"]
+[ext_resource type="Texture2D" uid="uid://lis5246x7emm" path="res://assets/spritesheets/player_health.png" id="20_60mlk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1ej7"]
 shader = ExtResource("2_oprun")
@@ -796,7 +797,7 @@ volume_db = -4.0
 
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="Sounds" unique_id=207916780]
 stream = ExtResource("5_y4r1p")
-volume_db = 3.0
+volume_db = 7.0
 
 [node name="PlayerHit" type="AudioStreamPlayer2D" parent="Sounds" unique_id=686115400]
 stream = ExtResource("6_3v2ag")
@@ -889,15 +890,22 @@ one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=459012334]
 
+[node name="Border" type="NinePatchRect" parent="CanvasLayer" unique_id=1049943005]
+offset_left = 75.0
+offset_top = 1297.0
+offset_right = 379.0
+offset_bottom = 1353.0
+texture = ExtResource("20_60mlk")
+
 [node name="HealthBar" parent="CanvasLayer" unique_id=12104328 instance=ExtResource("11_d2wvv")]
 unique_name_in_owner = true
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 39.0
-offset_top = 618.0
-offset_right = 289.0
-offset_bottom = 653.0
+offset_left = 102.0
+offset_top = 588.0
+offset_right = 352.0
+offset_bottom = 623.0
 grow_vertical = 2
 
 [node name="Timers" type="Node2D" parent="." unique_id=1816729141]

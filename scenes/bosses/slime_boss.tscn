@@ -15,7 +15,9 @@
 [ext_resource type="Script" uid="uid://cxll1lw1pu6sb" path="res://scripts/slime_boss/states/jump_attack.gd" id="11_wsf8t"]
 [ext_resource type="Script" uid="uid://c8o25hqypk5e4" path="res://scripts/slime_boss/states/rain_attack.gd" id="12_3dmgr"]
 [ext_resource type="PackedScene" uid="uid://crhws7x3eyarf" path="res://scenes/health_bar/health_bar.tscn" id="14_weo4p"]
+[ext_resource type="Texture2D" uid="uid://bv3aalmd2vy0j" path="res://assets/spritesheets/boss_health.png" id="15_0q0x3"]
 [ext_resource type="AudioStream" uid="uid://bympooo02yxeq" path="res://assets/sounds/slime_hit.wav" id="15_w47pt"]
+[ext_resource type="AudioStream" uid="uid://dtm6kdfjh0o3d" path="res://assets/sounds/wings.wav" id="17_7vgh7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nxhfj"]
 atlas = ExtResource("1_0m3eu")
@@ -381,6 +383,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sounds/Wings:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_6oksq"]
 resource_name = "beam_telegraph"
@@ -522,6 +536,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sounds/Wings:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_l7rya"]
@@ -848,24 +874,31 @@ target_position = Vector2(-1.9073486e-06, 11.538464)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=990407094]
 
+[node name="Border" type="NinePatchRect" parent="CanvasLayer" unique_id=1504914533]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -637.0
+offset_top = 50.0
+offset_right = 637.0
+offset_bottom = 134.0
+grow_horizontal = 2
+texture = ExtResource("15_0q0x3")
+
 [node name="HealthBar" parent="CanvasLayer" unique_id=12104328 instance=ExtResource("14_weo4p")]
 unique_name_in_owner = true
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -750.0
-offset_top = 37.0
-offset_right = 750.0
-offset_bottom = 87.0
+offset_left = -550.0
+offset_top = 66.0
+offset_right = 550.0
+offset_bottom = 119.0
 grow_horizontal = 2
 
 [node name="DamageTimer" type="Timer" parent="." unique_id=754165371]
 wait_time = 0.75
 one_shot = true
-
-[node name="SlimeHit" type="AudioStreamPlayer2D" parent="." unique_id=1778383658]
-unique_name_in_owner = true
-stream = ExtResource("15_w47pt")
 
 [node name="SlamAOE" type="Area2D" parent="." unique_id=329186554]
 unique_name_in_owner = true
@@ -876,6 +909,15 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SlamAOE" unique_id=220087779]
 shape = SubResource("CapsuleShape2D_xhad4")
+
+[node name="Sounds" type="Node2D" parent="." unique_id=255271045]
+
+[node name="SlimeHit" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1778383658]
+unique_name_in_owner = true
+stream = ExtResource("15_w47pt")
+
+[node name="Wings" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1908062302]
+stream = ExtResource("17_7vgh7")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack/AttackStateMachine/JumpAttack" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_animation_player_animation_finished"]

@@ -30,10 +30,6 @@ func read_inputs():
 	# Attack
 	if Input.is_action_just_pressed("attack_combo"):
 		switch_state.emit(combo_attack_state)
-		
-	# Dash
-	if Input.is_action_just_pressed("dash") and player.dash_available:
-		switch_state.emit(dash_state)
 
 func jump():
 	animation_player.play("jump")
