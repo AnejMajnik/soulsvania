@@ -907,9 +907,15 @@ unique_name_in_owner = true
 wait_time = 1.5
 one_shot = true
 
+[node name="SlowDownTimer" type="Timer" parent="Timers" unique_id=1466789359]
+unique_name_in_owner = true
+wait_time = 0.75
+one_shot = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/ComboAttack" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/HeavyAttack" method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="ComboAttackArea2D" to="." method="_on_combo_attack_area_2d_body_entered"]
 [connection signal="body_exited" from="ComboAttackArea2D" to="." method="_on_combo_attack_area_2d_body_exited"]
 [connection signal="timeout" from="StateMachine/Dash/DashTimer" to="StateMachine/Dash" method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timers/DashCooldown" to="." method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="Timers/SlowDownTimer" to="." method="_on_slow_down_timer_timeout"]

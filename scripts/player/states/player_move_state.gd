@@ -18,7 +18,7 @@ func read_inputs() -> void:
 	
 	if direction != 0:
 		animation_player.play("run")
-		player.velocity.x = direction * player.SPEED
+		player.velocity.x = direction * player.current_speed
 	else:
 		animation_player.play("idle")
 		player.velocity.x = move_toward(player.velocity.x, 0, player.DECCELERATION_SPEED)

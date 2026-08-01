@@ -28,6 +28,7 @@ func _on_body_entered(body: Node2D) -> void:
 		velocity.y = 0
 		gravity_switch = false
 		player.take_damage(DAMAGE)
+		player.slow_down()
 		queue_free()
 	
 

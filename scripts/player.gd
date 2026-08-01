@@ -12,6 +12,7 @@ class_name Player extends CharacterBody2D
 var current_enemy: CharacterBody2D = null
 var gravity_switch: bool = true
 var invulnerable: bool = false
+var current_speed = SPEED
 
 # References
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
@@ -21,10 +22,14 @@ var invulnerable: bool = false
 @onready var slime_boss: SlimeBoss = %SlimeBoss
 @onready var health_bar: ProgressBar = %HealthBar
 @onready var player_hit: AudioStreamPlayer2D = $Sounds/PlayerHit
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 # Cooldowns
 var dash_available: bool = true
 @onready var dash_cooldown: Timer = %DashCooldown
+
+# Slow down
+@onready var slow_down_timer: Timer = %SlowDownTimer
 
 func _ready() -> void:
 	# Set up shader texture
@@ -40,6 +45,13 @@ func _ready() -> void:
 
 func flip_invulnerable(value: bool) -> void:
 	invulnerable = value
+	
+func slow_down() -> void:
+	current_speed = SPEED/2
+	if animation_player.current_animation == "move":
+		animation_player.speed_scale = 0.5
+		
+	slow_down_timer.start()
 
 func start_dash_cooldown() -> void:
 	dash_available = false
@@ -119,3 +131,8 @@ func _on_combo_attack_area_2d_body_entered(body: Node2D) -> void:
 func _on_combo_attack_area_2d_body_exited(body: Node2D) -> void:
 	if body is CharacterBody2D and body != self:
 		current_enemy = null
+
+
+func _on_slow_down_timer_timeout() -> void:
+	current_speed = SPEED
+	animation_player.speed_scale = 1.0

@@ -18,7 +18,7 @@ func read_inputs():
 	# Move left and right
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction != 0:
-		player.velocity.x = direction * player.SPEED
+		player.velocity.x = direction * player.current_speed
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, player.DECCELERATION_SPEED)
 	
