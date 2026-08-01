@@ -3,9 +3,10 @@ extends State
 @onready var slime_boss: SlimeBoss = owner
 @onready var player: Player = Autoload.player_node
 
-const SLAM_SPEED = 670
+const SLAM_SPEED = 690
 const FLY_SPEED = 350
-const DAMAGE: int = 60
+const DAMAGE: int = 50
+const AOE_DAMAGE: int = 20
 
 enum Substate { JUMP, FLY, SLAM }
 var current_state: Substate
@@ -13,12 +14,10 @@ var current_state: Substate
 # Fly
 var fly_height: int = 200
 
-# Slam
-var slam_ready: bool = false
-var slam_wait_time: float = 0.15
 @onready var slam_timer: Timer = $SlamTimer
 @onready var ray_cast_down_left: RayCast2D = %RayCastDownLeft
 @onready var ray_cast_down_right: RayCast2D = %RayCastDownRight
+@onready var slam_aoe: Area2D = %SlamAOE
 
 var recovery_time: float = 1.5
 
@@ -46,6 +45,10 @@ func is_above_player() -> bool:
 		
 	return false
 	
+func randomize_slam_timer() -> float:
+	var time_amount = randf_range(0.05, 0.5)
+	return time_amount
+	
 func slam() -> void:
 	slime_boss.play_animation("land")
 	slime_boss.velocity.y = SLAM_SPEED
@@ -60,7 +63,7 @@ func change_state(new_state: Substate) -> void:
 			jump()
 		Substate.SLAM:
 			slime_boss.velocity.x = 0
-			slam_timer.wait_time = slam_wait_time
+			slam_timer.wait_time = randomize_slam_timer()
 			slam_timer.start()
 			
 func physics_update(_delta: float) -> void:
@@ -75,8 +78,15 @@ func physics_update(_delta: float) -> void:
 			
 		if ray_cast_down_left.is_colliding() or ray_cast_down_right.is_colliding():
 			slime_boss.flip_gravity(true)
-			state_finished.emit(recovery_time)
 
+func deal_damage_land():
+	for body in slam_aoe.get_overlapping_bodies():
+		if body.is_in_group("player"):
+			body.take_damage(AOE_DAMAGE)
 
 func _on_slam_timer_timeout() -> void:
 	slam()
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "land":
+		state_finished.emit(recovery_time)

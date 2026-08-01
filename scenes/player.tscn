@@ -766,7 +766,7 @@ _data = {
 radius = 7.0
 height = 26.0
 
-[node name="Player" type="CharacterBody2D" unique_id=476142731 node_paths=PackedStringArray("attack_state")]
+[node name="Player" type="CharacterBody2D" unique_id=476142731 node_paths=PackedStringArray("attack_state") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_g2els")
 attack_state = NodePath("StateMachine/ComboAttack")
@@ -777,6 +777,7 @@ material = SubResource("ShaderMaterial_f1ej7")
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_nrent")
 animation = &"idle"
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1016761409]
 unique_name_in_owner = true

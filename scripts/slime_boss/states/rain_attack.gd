@@ -16,7 +16,6 @@ extends State
 @onready var slam_timer: Timer = $SlamTimer
 
 var recovery_time: float = 1.5
-var slam_wait_time: float = 0.15
 
 var slime_rain = preload("res://scenes/bosses/slime_rain.tscn")
 
@@ -24,6 +23,7 @@ var slime_rain = preload("res://scenes/bosses/slime_rain.tscn")
 const SLAM_SPEED = 670
 const FLY_SPEED = 500
 const DAMAGE = 60
+const AOE_DAMAGE: int = 20
 
 # States
 enum Substate { JUMP, RAIN, FLY, SLAM }
@@ -61,6 +61,10 @@ func is_above_player() -> bool:
 		
 	return false
 	
+func randomize_slam_timer() -> float:
+	var time_amount = randf_range(0.05, 0.5)
+	return time_amount
+
 func slam() -> void:
 	slime_boss.play_animation("land")
 	slime_boss.velocity.y = SLAM_SPEED
@@ -78,7 +82,7 @@ func change_state(new_state: Substate) -> void:
 			fly_timer.start()
 		Substate.SLAM:
 			slime_boss.velocity.x = 0
-			slam_timer.wait_time = slam_wait_time
+			slam_timer.wait_time = randomize_slam_timer()
 			slam_timer.start()
 			
 func physics_update(_delta: float) -> void:
@@ -100,7 +104,6 @@ func physics_update(_delta: float) -> void:
 			
 		if ray_cast_down_left.is_colliding() or ray_cast_down_right.is_colliding():
 			slime_boss.flip_gravity(true)
-			state_finished.emit(recovery_time)
 
 func _on_rain_timer_timeout() -> void:
 	spawn_rain(Vector2(slime_boss.global_position.x, slime_boss.global_position.y+20))
@@ -114,3 +117,7 @@ func _on_fly_timer_timeout() -> void:
 
 func _on_slam_timer_timeout() -> void:
 	slam()
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "land":
+		state_finished.emit(recovery_time)
