@@ -14,15 +14,45 @@
 [ext_resource type="PackedScene" uid="uid://dntxmvek1b4li" path="res://scenes/bosses/laser.tscn" id="11_6oksq"]
 [ext_resource type="Script" uid="uid://cxll1lw1pu6sb" path="res://scripts/slime_boss/states/jump_attack.gd" id="11_wsf8t"]
 [ext_resource type="Script" uid="uid://c8o25hqypk5e4" path="res://scripts/slime_boss/states/rain_attack.gd" id="12_3dmgr"]
+[ext_resource type="Script" uid="uid://4wrbqyp2el54" path="res://scripts/slime_boss/states/dead.gd" id="14_ejojs"]
 [ext_resource type="PackedScene" uid="uid://crhws7x3eyarf" path="res://scenes/health_bar/health_bar.tscn" id="14_weo4p"]
 [ext_resource type="Texture2D" uid="uid://bv3aalmd2vy0j" path="res://assets/spritesheets/boss_health.png" id="15_0q0x3"]
 [ext_resource type="AudioStream" uid="uid://bympooo02yxeq" path="res://assets/sounds/slime_hit.wav" id="15_w47pt"]
 [ext_resource type="AudioStream" uid="uid://dtm6kdfjh0o3d" path="res://assets/sounds/wings.wav" id="17_7vgh7"]
 [ext_resource type="AudioStream" uid="uid://imr3wmg4ttkk" path="res://assets/sounds/slam.wav" id="19_tdnwx"]
+[ext_resource type="AudioStream" uid="uid://dd8x22pm7xsee" path="res://assets/sounds/slime_death.wav" id="21_agodo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nxhfj"]
 atlas = ExtResource("1_0m3eu")
 region = Rect2(0, 384, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jvj3"]
+atlas = ExtResource("1_0m3eu")
+region = Rect2(0, 640, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnauh"]
+atlas = ExtResource("1_0m3eu")
+region = Rect2(128, 640, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kf7r"]
+atlas = ExtResource("1_0m3eu")
+region = Rect2(256, 640, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8o6t"]
+atlas = ExtResource("1_0m3eu")
+region = Rect2(384, 640, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6wrj"]
+atlas = ExtResource("1_0m3eu")
+region = Rect2(512, 640, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gykn4"]
+atlas = ExtResource("1_0m3eu")
+region = Rect2(640, 640, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8njek"]
+atlas = ExtResource("1_0m3eu")
+region = Rect2(768, 640, 128, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sk2vd"]
 atlas = ExtResource("1_0m3eu")
@@ -184,6 +214,32 @@ animations = [{
 }],
 "loop": 1,
 "name": &"dash_attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jvj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnauh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0kf7r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8o6t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6wrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gykn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8njek")
+}],
+"loop": 0,
+"name": &"dead",
 "speed": 5.0
 }, {
 "frames": [{
@@ -408,6 +464,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sounds/Death:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_6oksq"]
 resource_name = "beam_telegraph"
@@ -519,6 +587,47 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ejojs"]
+resource_name = "dead"
+length = 2.0
+step = 0.14285715
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"dead"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2857143, 0.5714286, 0.85714287, 1.1428572, 1.4285715, 1.7142857),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sounds/Death:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_wsf8t"]
@@ -741,6 +850,7 @@ _data = {
 &"beam_telegraph": SubResource("Animation_6oksq"),
 &"dash_attack": SubResource("Animation_mskqn"),
 &"dash_telegraph": SubResource("Animation_wwhuq"),
+&"dead": SubResource("Animation_ejojs"),
 &"fly": SubResource("Animation_wsf8t"),
 &"idle": SubResource("Animation_l7rya"),
 &"land": SubResource("Animation_weo4p"),
@@ -760,10 +870,11 @@ height = 53.84616
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xhad4"]
 height = 34.871796
 
-[node name="SlimeBoss" type="CharacterBody2D" unique_id=1313746306 groups=["enemy"]]
+[node name="SlimeBoss" type="CharacterBody2D" unique_id=1313746306 node_paths=PackedStringArray("dead_state") groups=["enemy"]]
 scale = Vector2(1.3, 1.3)
 collision_layer = 4
 script = ExtResource("1_mq0xa")
+dead_state = NodePath("StateMachine/Dead")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=20131458]
 sprite_frames = SubResource("SpriteFrames_jn626")
@@ -869,6 +980,10 @@ metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 wait_time = 0.6
 one_shot = true
 
+[node name="Dead" type="Node" parent="StateMachine" unique_id=1037402824]
+script = ExtResource("14_ejojs")
+metadata/_custom_type_script = "uid://bt027fcrq1hh2"
+
 [node name="LaserRayCast" parent="." unique_id=604623322 instance=ExtResource("11_6oksq")]
 unique_name_in_owner = true
 position = Vector2(0, -10.000002)
@@ -948,8 +1063,12 @@ stream = ExtResource("17_7vgh7")
 unique_name_in_owner = true
 stream = ExtResource("19_tdnwx")
 
+[node name="Death" type="AudioStreamPlayer2D" parent="Sounds" unique_id=2071152852]
+stream = ExtResource("21_agodo")
+
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack/AttackStateMachine/JumpAttack" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dead" method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/DashAttack/TelegraphTimer" to="StateMachine/Attack/AttackStateMachine/DashAttack" method="_on_telegraph_timer_timeout"]

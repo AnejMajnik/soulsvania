@@ -3,9 +3,9 @@ extends State
 @onready var slime_boss: SlimeBoss = owner
 @onready var player: Player = Autoload.player_node
 
-const SLAM_SPEED = 690
-const FLY_SPEED = 350
-const DAMAGE: int = 50
+const SLAM_SPEED = 700
+const FLY_SPEED = 370
+const DAMAGE: int = 40
 const AOE_DAMAGE: int = 20
 
 enum Substate { JUMP, FLY, SLAM }
@@ -19,7 +19,7 @@ var fly_height: int = 200
 @onready var ray_cast_down_right: RayCast2D = %RayCastDownRight
 @onready var slam_aoe: Area2D = %SlamAOE
 
-var recovery_time: float = 1.5
+var recovery_time: float = 1.25
 
 func enter_state() -> void:
 	change_state(Substate.JUMP)
@@ -40,13 +40,13 @@ func fly_above_player() -> void:
 	slime_boss.velocity.x = FLY_SPEED * direction
 	
 func is_above_player() -> bool:
-	if slime_boss.global_position.x > player.global_position.x-4 and slime_boss.global_position.x < player.global_position.x+4:
+	if slime_boss.global_position.x > player.global_position.x-8 and slime_boss.global_position.x < player.global_position.x+8:
 		return true
 		
 	return false
 	
 func randomize_slam_timer() -> float:
-	var time_amount = randf_range(0.05, 0.5)
+	var time_amount = randf_range(0.1, 0.5)
 	return time_amount
 	
 func slam() -> void:

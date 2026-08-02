@@ -4,13 +4,15 @@ class_name SlimeBoss extends CharacterBody2D
 const MOVE_SPEED = 200.0
 const DECCELERATION_SPEED = 15
 
-var max_health: int = 200
+var max_health: int = 250
 var health: int
 var next_recovery_time: float
 var gravity_switch: bool = true
 var can_deal_damage: bool = true
 
 var player_in_area: Player
+
+@export var dead_state: State
 
 @onready var player: Player = Autoload.player_node
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -48,7 +50,7 @@ func take_damage(dmg: int) -> void:
 	flash_take_damage()
 
 	if health <= 0:
-		queue_free()
+		state_machine.change_state(dead_state)
 		
 func deal_damage(dmg: int) -> void:
 	if can_deal_damage:

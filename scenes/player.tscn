@@ -17,10 +17,10 @@
 [ext_resource type="AudioStream" uid="uid://pqfrudlw0kil" path="res://assets/sounds/jump.wav" id="12_i4ail"]
 [ext_resource type="Script" uid="uid://cf468q4lkra0u" path="res://scripts/player/states/player_dash_state.gd" id="13_oprun"]
 [ext_resource type="Script" uid="uid://btg50832r3kux" path="res://scripts/player/states/player_heavy_attack.gd" id="15_qfm1y"]
-[ext_resource type="Script" uid="uid://dt6q4xduw2tga" path="res://scripts/player/states/combo_hit_1.gd" id="18_4ni07"]
-[ext_resource type="Script" uid="uid://sjatvlgun2x0" path="res://scripts/player/states/combo_recover.gd" id="19_ke2ow"]
+[ext_resource type="Script" uid="uid://dt6q4xduw2tga" path="res://scripts/player/states/player_combo_hit_1.gd" id="18_4ni07"]
+[ext_resource type="Script" uid="uid://sjatvlgun2x0" path="res://scripts/player/states/player_combo_recover.gd" id="19_ke2ow"]
 [ext_resource type="Texture2D" uid="uid://lis5246x7emm" path="res://assets/spritesheets/player_health.png" id="20_60mlk"]
-[ext_resource type="Script" uid="uid://hyeb0d24jreu" path="res://scripts/player/states/combo_hit_2.gd" id="20_l71n6"]
+[ext_resource type="Script" uid="uid://hyeb0d24jreu" path="res://scripts/player/states/player_combo_hit_2.gd" id="20_l71n6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1ej7"]
 shader = ExtResource("2_oprun")
@@ -945,6 +945,7 @@ material = SubResource("ShaderMaterial_f1ej7")
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_nrent")
 animation = &"idle"
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1016761409]
 unique_name_in_owner = true

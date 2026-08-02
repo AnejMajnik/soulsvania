@@ -6,7 +6,7 @@ extends State
 
 @export var idle_state: State
 
-const DAMAGE: int = 30
+const DAMAGE: int = 25
 
 func enter_state() -> void:
 	animation_player.play("heavy_attack")

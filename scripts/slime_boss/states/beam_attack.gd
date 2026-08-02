@@ -14,7 +14,7 @@ var current_state: Substate
 var player_pos_x
 var player_pos_y
 
-var recovery_time: float = 1.0
+var recovery_time: float = 0.25
 
 func _ready() -> void:
 	laser_ray_cast.player_hit.connect(_on_player_hit)

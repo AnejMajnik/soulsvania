@@ -19,22 +19,32 @@ func _ready() -> void:
 		substate.state_finished.connect(_on_substate_finished)
 
 func choose_attack() -> State:
-	# If health above 50%
-	if slime_boss.health > slime_boss.max_health/2:
-		var rand_val = randf()
-		if rand_val <= 0.5:
-			return dash_attack
-		else:
-			return jump_attack
-	# If health below 50%
+	var weights: Dictionary = {}
+	
+	if slime_boss.health > slime_boss.max_health / 2:
+		weights = {dash_attack: 0.5, jump_attack: 0.5}
 	else:
-		var rand_val = randf()
-		if rand_val <= 0.33:
-			return dash_attack
-		elif rand_val <= 0.66:
-			return rain_attack
+		var far: bool = slime_boss.global_position.distance_to(player.global_position) > 150
+		if far:
+			weights = {dash_attack: 0.25, rain_attack: 0.25, beam_attack: 0.5}
 		else:
-			return beam_attack
+			weights = {dash_attack: 0.4, rain_attack: 0.4, beam_attack: 0.2}
+		
+	return weighted_pick(weights)
+
+func weighted_pick(weights: Dictionary) -> State:
+	var total: float = 0.0
+	for weight in weights.values():
+		total += weight
+	
+	var rand_val: float = randf() * total
+	var cumulative: float = 0.0
+	
+	for state in weights:
+		cumulative += weights[state]
+		if rand_val <= cumulative:
+			return state
+	return weights.keys()[-1]
 
 func enter_state() -> void:
 	attack_state_machine.set_physics_process(true)

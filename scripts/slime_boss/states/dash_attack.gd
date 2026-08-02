@@ -16,7 +16,7 @@ enum Substate { TELEGRAPH, ATTACK }
 var current_state: Substate
 
 var checking_ray: RayCast2D
-var recovery_time: float = 0.75
+var recovery_time: float = 0.6
 var direction: int
 
 func enter_state() -> void:

@@ -15,14 +15,14 @@ extends State
 @onready var fly_timer: Timer = $FlyTimer
 @onready var slam_timer: Timer = $SlamTimer
 
-var recovery_time: float = 1.5
+var recovery_time: float = 1.25
 
 var slime_rain = preload("res://scenes/bosses/slime_rain.tscn")
 
 # Constants
-const SLAM_SPEED = 670
+const SLAM_SPEED = 700
 const FLY_SPEED = 500
-const DAMAGE = 60
+const DAMAGE = 40
 const AOE_DAMAGE: int = 20
 
 # States
@@ -56,13 +56,13 @@ func fly_above_player() -> void:
 	slime_boss.velocity.x = FLY_SPEED * direction
 	
 func is_above_player() -> bool:
-	if slime_boss.global_position.x > player.global_position.x-4 and slime_boss.global_position.x < player.global_position.x+4:
+	if slime_boss.global_position.x > player.global_position.x-8 and slime_boss.global_position.x < player.global_position.x+8:
 		return true
 		
 	return false
 	
 func randomize_slam_timer() -> float:
-	var time_amount = randf_range(0.05, 0.5)
+	var time_amount = randf_range(0.1, 0.5)
 	return time_amount
 
 func slam() -> void:
