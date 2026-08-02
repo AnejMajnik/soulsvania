@@ -32,6 +32,7 @@ func read_inputs():
 		switch_state.emit(combo_attack_state)
 
 func jump():
+	animation_player.stop()
 	animation_player.play("jump")
 	player.velocity.y = player.JUMP_VELOCITY
 
