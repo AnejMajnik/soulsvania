@@ -64,6 +64,7 @@ func flash_take_damage() -> void:
 	
 func flash_dash_available() -> void:
 	animated_sprite.material.set_shader_parameter("flash_color", Color(0.0, 1.0, 0.3, 1.0))
+	animated_sprite.material.set_shader_parameter("flash_opacity", 0.5)
 	var tween = create_tween()
 	tween.tween_method(_set_flash, 1.0, 0.0, 0.5)
 	
