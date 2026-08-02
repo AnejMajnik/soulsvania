@@ -1,7 +1,7 @@
 extends State
 
 # States
-@export var jump_state: State
+@export var dash_state: State
 @export var idle_state: State
 
 # Player reference
@@ -19,8 +19,8 @@ const DAMAGE_HIT2: int = 10
 
 func read_inputs() -> void:
 	# Jump
-	if Input.is_action_just_pressed("jump"):
-		switch_state.emit(jump_state)
+	if Input.is_action_just_pressed("dash") and player.dash_available:
+		switch_state.emit(dash_state)
 		
 func enter_state() -> void:
 	player.velocity.x = 0

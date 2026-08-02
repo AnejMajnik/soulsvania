@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://bv3aalmd2vy0j" path="res://assets/spritesheets/boss_health.png" id="15_0q0x3"]
 [ext_resource type="AudioStream" uid="uid://bympooo02yxeq" path="res://assets/sounds/slime_hit.wav" id="15_w47pt"]
 [ext_resource type="AudioStream" uid="uid://dtm6kdfjh0o3d" path="res://assets/sounds/wings.wav" id="17_7vgh7"]
+[ext_resource type="AudioStream" uid="uid://imr3wmg4ttkk" path="res://assets/sounds/slam.wav" id="19_tdnwx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nxhfj"]
 atlas = ExtResource("1_0m3eu")
@@ -395,6 +396,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sounds/Slam:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_6oksq"]
 resource_name = "beam_telegraph"
@@ -621,6 +634,18 @@ tracks/2/keys = {
 "args": [],
 "method": &"deal_damage_land"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sounds/Slam:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.24),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_j4bj8"]
@@ -918,6 +943,10 @@ stream = ExtResource("15_w47pt")
 
 [node name="Wings" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1908062302]
 stream = ExtResource("17_7vgh7")
+
+[node name="Slam" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1806577651]
+unique_name_in_owner = true
+stream = ExtResource("19_tdnwx")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack/AttackStateMachine/JumpAttack" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_animation_player_animation_finished"]

@@ -7,6 +7,8 @@ extends State
 @onready var ray_cast_left: RayCast2D = %RayCastLeft
 @onready var ray_cast_right: RayCast2D = %RayCastRight
 
+@onready var slam: AudioStreamPlayer2D = %Slam
+
 const DASH_SPEED = 700
 const DAMAGE: int = 30
 
@@ -52,6 +54,7 @@ func physics_update(_delta: float) -> void:
 			slime_boss.deal_damage(DAMAGE)
 		
 		if checking_ray.is_colliding():
+			slam.play()
 			state_finished.emit(recovery_time)
 
 func _on_telegraph_timer_timeout() -> void:

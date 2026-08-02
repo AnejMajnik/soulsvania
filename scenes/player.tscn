@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://4ylee6qb7rl7" path="res://assets/sounds/electricity.wav" id="10_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://38biyb1kjqyu" path="res://assets/sounds/sword_draw.wav" id="11_60mlk"]
 [ext_resource type="PackedScene" uid="uid://crhws7x3eyarf" path="res://scenes/health_bar/health_bar.tscn" id="11_d2wvv"]
+[ext_resource type="AudioStream" uid="uid://pqfrudlw0kil" path="res://assets/sounds/jump.wav" id="12_i4ail"]
 [ext_resource type="Script" uid="uid://cf468q4lkra0u" path="res://scripts/player/states/player_dash_state.gd" id="13_oprun"]
 [ext_resource type="Script" uid="uid://btg50832r3kux" path="res://scripts/player/states/player_heavy_attack.gd" id="15_qfm1y"]
 [ext_resource type="Texture2D" uid="uid://lis5246x7emm" path="res://assets/spritesheets/player_health.png" id="20_60mlk"]
@@ -467,6 +468,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sounds/Jump:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_3v2ag"]
 resource_name = "attack_combo"
@@ -683,7 +696,6 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_y4r1p"]
 resource_name = "jump"
 length = 0.001
-loop_mode = 1
 step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -708,6 +720,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"jump"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sounds/Jump:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_jej6c"]
@@ -778,7 +802,6 @@ material = SubResource("ShaderMaterial_f1ej7")
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_nrent")
 animation = &"idle"
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1016761409]
 unique_name_in_owner = true
@@ -807,6 +830,11 @@ stream = ExtResource("10_4r5pv")
 
 [node name="SwordDraw" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1667451569]
 stream = ExtResource("11_60mlk")
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="Sounds" unique_id=280040302]
+unique_name_in_owner = true
+stream = ExtResource("12_i4ail")
+volume_db = -3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=943934630]
 position = Vector2(-2, -13)
@@ -866,9 +894,9 @@ dash_state = NodePath("../Dash")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="ComboAttack" type="Node" parent="StateMachine" unique_id=1512652241 node_paths=PackedStringArray("jump_state", "idle_state", "player")]
+[node name="ComboAttack" type="Node" parent="StateMachine" unique_id=1512652241 node_paths=PackedStringArray("dash_state", "idle_state", "player")]
 script = ExtResource("7_fjrip")
-jump_state = NodePath("../Jump")
+dash_state = NodePath("../Dash")
 idle_state = NodePath("../Idle")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
