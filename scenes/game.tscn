@@ -1,26 +1,8 @@
 [gd_scene format=4 uid="uid://c8pqaih5ot3k3"]
 
 [ext_resource type="PackedScene" uid="uid://d0x36rwurp4fl" path="res://scenes/player.tscn" id="1_uwrxv"]
-[ext_resource type="Texture2D" uid="uid://btqxnbcekyjrx" path="res://assets/spritesheets/Dark_ground.png" id="1_yqjtg"]
-[ext_resource type="Texture2D" uid="uid://w8skp1joeeog" path="res://assets/spritesheets/grass.png" id="2_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://b3qav2l5fg04y" path="res://assets/spritesheets/environment_tileset.png" id="3_iywne"]
 [ext_resource type="PackedScene" uid="uid://c0qixl2rd6ow" path="res://scenes/bosses/slime_boss.tscn" id="5_iywne"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
-texture = ExtResource("1_yqjtg")
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-1:0/0 = 0
-2:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iywne"]
-texture = ExtResource("2_lbhrr")
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -2.9366894, 8, -2.9366899, 8, 8, -8, 8)
-0:1/0 = 0
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -4.5766582, -8, -8, 8, -8, 8, 8, -8, 8)
-0:2/0 = 0
-0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p57ef"]
 texture = ExtResource("3_iywne")
@@ -44,8 +26,6 @@ texture = ExtResource("3_iywne")
 
 [sub_resource type="TileSet" id="TileSet_nrent"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_lnu2h")
-sources/1 = SubResource("TileSetAtlasSource_iywne")
 sources/2 = SubResource("TileSetAtlasSource_p57ef")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5sy4"]

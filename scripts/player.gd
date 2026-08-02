@@ -16,7 +16,8 @@ var current_speed = SPEED
 
 # References
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
-@onready var combo_attack_area: Area2D = $ComboAttackArea2D
+@onready var hit_1_area: Area2D = %Hit1Area
+@onready var hit_2_area: Area2D = $Hit2Area
 @onready var heavy_attack_area: Area2D = %HeavyAttackArea
 @onready var state_machine: StateMachine = $StateMachine
 @onready var slime_boss: SlimeBoss = %SlimeBoss
@@ -92,16 +93,20 @@ func get_current_direction() -> int:
 func flip_sprite(direction) -> void:
 	if direction > 0:
 		animated_sprite.flip_h = false
-		combo_attack_area.position.x = abs(combo_attack_area.position.x)
+		hit_1_area.position.x = abs(hit_1_area.position.x)
+		hit_2_area.position.x = abs(hit_2_area.position.x)
 		heavy_attack_area.position.x = abs(heavy_attack_area.position.x)
-		combo_attack_area.scale.x = 1
+		hit_1_area.scale.x = 1
+		hit_2_area.scale.x = 1
 		heavy_attack_area.scale.x = 1
 		
 	elif direction < 0:
 		animated_sprite.flip_h = true
-		combo_attack_area.position.x = -abs(combo_attack_area.position.x)
+		hit_1_area.position.x = -abs(hit_1_area.position.x)
+		hit_2_area.position.x = -abs(hit_2_area.position.x)
 		heavy_attack_area.position.x = -abs(heavy_attack_area.position.x)
-		combo_attack_area.scale.x = -1
+		hit_1_area.scale.x = -1
+		hit_2_area.scale.x = -1
 		heavy_attack_area.scale.x = -1
 
 func _physics_process(delta: float) -> void:
