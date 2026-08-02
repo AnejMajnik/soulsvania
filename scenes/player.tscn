@@ -480,6 +480,18 @@ tracks/7/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Sounds/Dash:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_3v2ag"]
 resource_name = "attack_combo"
@@ -594,6 +606,18 @@ tracks/2/keys = {
 "args": [false],
 "method": &"flip_invulnerable"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sounds/Dash:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_jc3p3"]
@@ -835,6 +859,11 @@ stream = ExtResource("11_60mlk")
 unique_name_in_owner = true
 stream = ExtResource("12_i4ail")
 volume_db = -3.0
+
+[node name="Dash" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1825967604]
+stream = ExtResource("12_i4ail")
+volume_db = -3.0
+pitch_scale = 1.45
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=943934630]
 position = Vector2(-2, -13)
