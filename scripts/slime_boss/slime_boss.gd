@@ -18,18 +18,20 @@ var player_in_area: Player
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var state_machine: StateMachine = $StateMachine
-@onready var health_bar: ProgressBar = %HealthBar
 @onready var area_2d: Area2D = $Area2D
 @onready var damage_timer: Timer = $DamageTimer
 @onready var slime_hit: AudioStreamPlayer2D = %SlimeHit
 
+signal health_changed(current: float, max: float)
+
 func _ready() -> void:
+	Autoload.slime_boss_node = self
+	
 	# Set up shader texture
 	animated_sprite.material = ShaderMaterial.new()
 	animated_sprite.material.shader = preload("res://shaders/slime_boss/flash.gdshader")
 	
 	health = max_health
-	health_bar.init_health(health)
 	
 	state_machine.start()
 
@@ -45,7 +47,7 @@ func take_damage(dmg: int) -> void:
 	slime_hit.play()
 	
 	health -= dmg
-	health_bar.health = health
+	health_changed.emit(health, max_health)
 	
 	flash_take_damage()
 

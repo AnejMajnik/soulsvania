@@ -24,7 +24,6 @@ Autoload="*uid://bghln5514ssr2"
 window/size/viewport_width=3440
 window/size/viewport_height=1440
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [global_group]
 

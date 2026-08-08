@@ -13,13 +13,11 @@
 [ext_resource type="Script" uid="uid://6ocqtedx8yik" path="res://scripts/player/states/player_jump_state.gd" id="6_tuyoq"]
 [ext_resource type="AudioStream" uid="uid://4ylee6qb7rl7" path="res://assets/sounds/electricity.wav" id="10_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://38biyb1kjqyu" path="res://assets/sounds/sword_draw.wav" id="11_60mlk"]
-[ext_resource type="PackedScene" uid="uid://crhws7x3eyarf" path="res://scenes/health_bar/health_bar.tscn" id="11_d2wvv"]
 [ext_resource type="AudioStream" uid="uid://pqfrudlw0kil" path="res://assets/sounds/jump.wav" id="12_i4ail"]
 [ext_resource type="Script" uid="uid://cf468q4lkra0u" path="res://scripts/player/states/player_dash_state.gd" id="13_oprun"]
 [ext_resource type="Script" uid="uid://btg50832r3kux" path="res://scripts/player/states/player_heavy_attack.gd" id="15_qfm1y"]
 [ext_resource type="Script" uid="uid://dt6q4xduw2tga" path="res://scripts/player/states/player_combo_hit_1.gd" id="18_4ni07"]
 [ext_resource type="Script" uid="uid://sjatvlgun2x0" path="res://scripts/player/states/player_combo_recover.gd" id="19_ke2ow"]
-[ext_resource type="Texture2D" uid="uid://lis5246x7emm" path="res://assets/spritesheets/player_health.png" id="20_60mlk"]
 [ext_resource type="Script" uid="uid://hyeb0d24jreu" path="res://scripts/player/states/player_combo_hit_2.gd" id="20_l71n6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1ej7"]
@@ -1082,26 +1080,6 @@ metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 [node name="DashTimer" type="Timer" parent="StateMachine/Dash" unique_id=2069934668]
 wait_time = 0.18
 one_shot = true
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=459012334]
-
-[node name="Border" type="NinePatchRect" parent="CanvasLayer" unique_id=1049943005]
-offset_left = 75.0
-offset_top = 1297.0
-offset_right = 379.0
-offset_bottom = 1353.0
-texture = ExtResource("20_60mlk")
-
-[node name="HealthBar" parent="CanvasLayer" unique_id=12104328 instance=ExtResource("11_d2wvv")]
-unique_name_in_owner = true
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 102.0
-offset_top = 588.0
-offset_right = 352.0
-offset_bottom = 623.0
-grow_vertical = 2
 
 [node name="Timers" type="Node2D" parent="." unique_id=1816729141]
 

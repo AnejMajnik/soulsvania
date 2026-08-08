@@ -15,8 +15,6 @@
 [ext_resource type="Script" uid="uid://cxll1lw1pu6sb" path="res://scripts/slime_boss/states/jump_attack.gd" id="11_wsf8t"]
 [ext_resource type="Script" uid="uid://c8o25hqypk5e4" path="res://scripts/slime_boss/states/rain_attack.gd" id="12_3dmgr"]
 [ext_resource type="Script" uid="uid://4wrbqyp2el54" path="res://scripts/slime_boss/states/dead.gd" id="14_ejojs"]
-[ext_resource type="PackedScene" uid="uid://crhws7x3eyarf" path="res://scenes/health_bar/health_bar.tscn" id="14_weo4p"]
-[ext_resource type="Texture2D" uid="uid://bv3aalmd2vy0j" path="res://assets/spritesheets/boss_health.png" id="15_0q0x3"]
 [ext_resource type="AudioStream" uid="uid://bympooo02yxeq" path="res://assets/sounds/slime_hit.wav" id="15_w47pt"]
 [ext_resource type="AudioStream" uid="uid://dtm6kdfjh0o3d" path="res://assets/sounds/wings.wav" id="17_7vgh7"]
 [ext_resource type="AudioStream" uid="uid://imr3wmg4ttkk" path="res://assets/sounds/slam.wav" id="19_tdnwx"]
@@ -1011,30 +1009,6 @@ target_position = Vector2(-1.9073486e-06, 11.538464)
 unique_name_in_owner = true
 position = Vector2(20.769232, 22.307693)
 target_position = Vector2(-1.9073486e-06, 11.538464)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=990407094]
-
-[node name="Border" type="NinePatchRect" parent="CanvasLayer" unique_id=1504914533]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -637.0
-offset_top = 50.0
-offset_right = 637.0
-offset_bottom = 134.0
-grow_horizontal = 2
-texture = ExtResource("15_0q0x3")
-
-[node name="HealthBar" parent="CanvasLayer" unique_id=12104328 instance=ExtResource("14_weo4p")]
-unique_name_in_owner = true
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -550.0
-offset_top = 66.0
-offset_right = 550.0
-offset_bottom = 119.0
-grow_horizontal = 2
 
 [node name="DamageTimer" type="Timer" parent="." unique_id=754165371]
 wait_time = 0.75

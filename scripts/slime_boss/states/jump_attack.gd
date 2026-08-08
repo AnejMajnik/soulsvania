@@ -40,10 +40,7 @@ func fly_above_player() -> void:
 	slime_boss.velocity.x = FLY_SPEED * direction
 	
 func is_above_player() -> bool:
-	if slime_boss.global_position.x > player.global_position.x-8 and slime_boss.global_position.x < player.global_position.x+8:
-		return true
-		
-	return false
+	return abs(slime_boss.global_position.x - player.global_position.x) < 8
 	
 func randomize_slam_timer() -> float:
 	var time_amount = randf_range(0.1, 0.5)
@@ -61,6 +58,8 @@ func change_state(new_state: Substate) -> void:
 		Substate.JUMP:
 			slime_boss.play_animation("fly")
 			jump()
+		Substate.FLY:
+			slime_boss.velocity.y = 0
 		Substate.SLAM:
 			slime_boss.velocity.x = 0
 			slam_timer.wait_time = randomize_slam_timer()

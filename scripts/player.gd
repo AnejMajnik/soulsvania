@@ -25,7 +25,6 @@ var current_speed = SPEED
 @onready var heavy_attack_area: Area2D = %HeavyAttackArea
 @onready var state_machine: StateMachine = $StateMachine
 @onready var slime_boss: SlimeBoss = %SlimeBoss
-@onready var health_bar: ProgressBar = %HealthBar
 @onready var player_hit: AudioStreamPlayer2D = $Sounds/PlayerHit
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
@@ -36,16 +35,18 @@ var dash_available: bool = true
 # Slow down
 @onready var slow_down_timer: Timer = %SlowDownTimer
 
+signal health_changed(current: float, max: float)
+
 func _ready() -> void:
+	Autoload.player_node = self
+	
 	# Set up shader texture
 	animated_sprite.material = ShaderMaterial.new()
 	animated_sprite.material.shader = preload("res://shaders/player/flash.gdshader")
 	
 	# Set up health
 	health = max_health
-	health_bar.init_health(health)
 	
-	Autoload.player_node = self
 	state_machine.start()
 
 func flip_invulnerable(value: bool) -> void:
@@ -82,7 +83,7 @@ func flip_gravity(value: bool) -> void:
 func take_damage(damage):
 	if !invulnerable:
 		health -= damage
-		health_bar.health = health
+		health_changed.emit(health, max_health)
 		
 		player_hit.play()
 		
