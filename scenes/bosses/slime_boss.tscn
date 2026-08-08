@@ -959,7 +959,7 @@ script = ExtResource("12_3dmgr")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
 [node name="RainTimer" type="Timer" parent="StateMachine/Attack/AttackStateMachine/RainAttack" unique_id=1040734292]
-wait_time = 0.25
+wait_time = 0.2
 one_shot = true
 
 [node name="FlyTimer" type="Timer" parent="StateMachine/Attack/AttackStateMachine/RainAttack" unique_id=1544493788]

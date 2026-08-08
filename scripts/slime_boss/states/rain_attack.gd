@@ -32,6 +32,8 @@ var current_state: Substate
 # Fly
 var fly_height: int = 200
 var direction: int = -1
+var target_bounces: int = 4
+var bounces: int = 0
 
 func enter_state() -> void:
 	change_state(Substate.JUMP)
@@ -78,8 +80,8 @@ func change_state(new_state: Substate) -> void:
 			slime_boss.play_animation("fly")
 			jump()
 		Substate.RAIN:
+			bounces = 0
 			rain_timer.start()
-			fly_timer.start()
 		Substate.SLAM:
 			slime_boss.velocity.x = 0
 			slam_timer.wait_time = randomize_slam_timer()
@@ -89,8 +91,13 @@ func physics_update(_delta: float) -> void:
 	if current_state == Substate.RAIN:
 		if ray_cast_left.is_colliding():
 			direction = 1
+			bounces += 1
 		elif ray_cast_right.is_colliding():
 			direction = -1
+			bounces += 1
+			
+		if bounces >= target_bounces and (slime_boss.global_position.x - player.global_position.x) < 200:
+			change_state(Substate.FLY)
 	
 		slime_boss.velocity.x = FLY_SPEED * direction
 	elif current_state == Substate.FLY:
@@ -113,7 +120,6 @@ func _on_rain_timer_timeout() -> void:
 
 func _on_fly_timer_timeout() -> void:
 	change_state(Substate.FLY)
-
 
 func _on_slam_timer_timeout() -> void:
 	slam()

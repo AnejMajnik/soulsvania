@@ -4,7 +4,7 @@ extends State
 @onready var player: Player = Autoload.player_node
 
 const SLAM_SPEED = 700
-const FLY_SPEED = 370
+const FLY_SPEED = 420
 const DAMAGE: int = 40
 const AOE_DAMAGE: int = 20
 
@@ -19,7 +19,7 @@ var fly_height: int = 200
 @onready var ray_cast_down_right: RayCast2D = %RayCastDownRight
 @onready var slam_aoe: Area2D = %SlamAOE
 
-var recovery_time: float = 1.25
+var recovery_time: float = 1.0
 
 func enter_state() -> void:
 	change_state(Substate.JUMP)

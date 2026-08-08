@@ -5,7 +5,11 @@ class_name Player extends CharacterBody2D
 @export var DECCELERATION_SPEED = 20
 @export var JUMP_VELOCITY = -275.0
 
-@export var attack_state: State
+@export var combo_hit_1: State
+@export var combo_recover: State
+@export var combo_hit_2: State
+@export var heavy_attack: State
+
 @export var max_health: int = 100
 @export var health: int
 
@@ -113,7 +117,8 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	
 	# Flip sprite based on direction
-	flip_sprite(direction)
+	if not state_machine.active_state.is_in_group("player_attack"):
+		flip_sprite(direction)
 	
 	if health <= 0:
 		set_physics_process(false) #Stop processing

@@ -1048,27 +1048,27 @@ dash_state = NodePath("../Dash")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="ComboHit1" type="Node" parent="StateMachine" unique_id=198184852 node_paths=PackedStringArray("dash_state", "combo_recover", "combo_continue")]
+[node name="ComboHit1" type="Node" parent="StateMachine" unique_id=198184852 node_paths=PackedStringArray("dash_state", "combo_recover", "combo_continue") groups=["player_attack"]]
 script = ExtResource("18_4ni07")
 dash_state = NodePath("../Dash")
 combo_recover = NodePath("../ComboRecover")
 combo_continue = NodePath("../ComboHit2")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="ComboRecover" type="Node" parent="StateMachine" unique_id=1646542839 node_paths=PackedStringArray("idle_state", "dash_state", "combo_continue")]
+[node name="ComboRecover" type="Node" parent="StateMachine" unique_id=1646542839 node_paths=PackedStringArray("idle_state", "dash_state", "combo_continue") groups=["player_attack"]]
 script = ExtResource("19_ke2ow")
 idle_state = NodePath("../Idle")
 dash_state = NodePath("../Dash")
 combo_continue = NodePath("../ComboHit2")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="ComboHit2" type="Node" parent="StateMachine" unique_id=1489027849 node_paths=PackedStringArray("dash_state", "idle_state")]
+[node name="ComboHit2" type="Node" parent="StateMachine" unique_id=1489027849 node_paths=PackedStringArray("dash_state", "idle_state") groups=["player_attack"]]
 script = ExtResource("20_l71n6")
 dash_state = NodePath("../Dash")
 idle_state = NodePath("../Idle")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="HeavyAttack" type="Node" parent="StateMachine" unique_id=1583182429 node_paths=PackedStringArray("idle_state")]
+[node name="HeavyAttack" type="Node" parent="StateMachine" unique_id=1583182429 node_paths=PackedStringArray("idle_state") groups=["player_attack"]]
 script = ExtResource("15_qfm1y")
 idle_state = NodePath("../Idle")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
