@@ -12,7 +12,14 @@ func read_inputs() -> void:
 	if Input.is_action_just_pressed("attack_combo"):
 		switch_state.emit(combo_continue)
 	
-	# Jump
+	# Slow movement
+	var direction := Input.get_axis("move_left", "move_right")
+	if direction != 0:
+		player.velocity.x = direction * player.SPEED/5
+	else:
+		player.velocity.x = 0
+	
+	# Dash
 	if Input.is_action_just_pressed("dash") and player.dash_available:
 		switch_state.emit(dash_state)
 

@@ -12,7 +12,7 @@ extends State
 @onready var hit_1_area: Area2D = %Hit1Area
 
 # Constants
-const DAMAGE: int = 5
+const DAMAGE: int = 7
 
 var continue_combo: bool = false
 
@@ -20,8 +20,15 @@ func read_inputs() -> void:
 	# Attack - combo continue
 	if Input.is_action_just_pressed("attack_combo"):
 		continue_combo = true
+		
+	# Slow movement
+	var direction := Input.get_axis("move_left", "move_right")
+	if direction != 0:
+		player.velocity.x = direction * player.SPEED/5
+	else:
+		player.velocity.x = 0
 	
-	# Jump
+	# Dash
 	if Input.is_action_just_pressed("dash") and player.dash_available:
 		switch_state.emit(dash_state)
 

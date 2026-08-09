@@ -601,7 +601,7 @@ tracks/9/keys = {
 [sub_resource type="Animation" id="Animation_g5jhy"]
 resource_name = "combo_hit_1"
 length = 0.4
-step = 0.06666667
+step = 0.05882353
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -658,8 +658,8 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_i4ail"]
 resource_name = "combo_hit_1_recovery"
-length = 0.2
-step = 0.06666667
+length = 0.1764706
+step = 0.05882353
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -687,8 +687,8 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_a38lo"]
 resource_name = "combo_hit_2"
-length = 0.73333335
-step = 0.06666667
+length = 0.7058824
+step = 0.05882353
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1055,6 +1055,7 @@ collision_layer = 2
 script = ExtResource("1_g2els")
 ACCELERATION_SPEED = 40
 DECCELERATION_SPEED = 25
+JUMP_VELOCITY = -285.0
 dead_state = NodePath("StateMachine/Dead")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1538919531]
@@ -1171,21 +1172,21 @@ dash_state = NodePath("../Dash")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="ComboHit1" type="Node" parent="StateMachine" unique_id=198184852 node_paths=PackedStringArray("dash_state", "combo_recover", "combo_continue") groups=["player_attack"]]
+[node name="ComboHit1" type="Node" parent="StateMachine" unique_id=198184852 node_paths=PackedStringArray("dash_state", "combo_recover", "combo_continue")]
 script = ExtResource("18_4ni07")
 dash_state = NodePath("../Dash")
 combo_recover = NodePath("../ComboRecover")
 combo_continue = NodePath("../ComboHit2")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="ComboRecover" type="Node" parent="StateMachine" unique_id=1646542839 node_paths=PackedStringArray("idle_state", "dash_state", "combo_continue") groups=["player_attack"]]
+[node name="ComboRecover" type="Node" parent="StateMachine" unique_id=1646542839 node_paths=PackedStringArray("idle_state", "dash_state", "combo_continue")]
 script = ExtResource("19_ke2ow")
 idle_state = NodePath("../Idle")
 dash_state = NodePath("../Dash")
 combo_continue = NodePath("../ComboHit2")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="ComboHit2" type="Node" parent="StateMachine" unique_id=1489027849 node_paths=PackedStringArray("dash_state", "idle_state") groups=["player_attack"]]
+[node name="ComboHit2" type="Node" parent="StateMachine" unique_id=1489027849 node_paths=PackedStringArray("dash_state", "idle_state")]
 script = ExtResource("20_l71n6")
 dash_state = NodePath("../Dash")
 idle_state = NodePath("../Idle")
