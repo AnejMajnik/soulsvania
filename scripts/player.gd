@@ -2,13 +2,9 @@ class_name Player extends CharacterBody2D
 
 # Variables
 @export var SPEED = 200.0
+@export var ACCELERATION_SPEED = 25
 @export var DECCELERATION_SPEED = 20
 @export var JUMP_VELOCITY = -275.0
-
-@export var combo_hit_1: State
-@export var combo_recover: State
-@export var combo_hit_2: State
-@export var heavy_attack: State
 
 @export var max_health: int = 100
 @export var health: int

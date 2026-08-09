@@ -5,15 +5,20 @@
 
 [node name="ControlsPopup" type="PopupPanel" unique_id=694702557]
 oversampling_override = 1.0
-size = Vector2i(600, 300)
-visible = true
+size = Vector2i(600, 250)
+wrap_controls = false
 script = ExtResource("1_gf7on")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1952421185]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 596.0
-offset_bottom = 296.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -32,14 +37,3 @@ Dash - Shift
 Light Attack - Mouse Left Button
 Heavy Attack - Mouse Right Button"
 fit_content = true
-
-[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=958303557]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=115103932]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("2_6mec6")
-theme_override_font_sizes/font_size = 24
-text = "Close"
