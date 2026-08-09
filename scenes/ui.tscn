@@ -11,23 +11,34 @@ script = ExtResource("1_gdt2y")
 
 [node name="Control" type="Control" parent="." unique_id=1504183879]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="EnemyHealth" type="NinePatchRect" parent="Control" unique_id=817064667]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 1063.0
-offset_top = 50.0
-offset_right = 2337.0
-offset_bottom = 134.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1197263061]
+custom_minimum_size = Vector2(2560, 1440)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/MarginContainer" unique_id=1890518416]
+custom_minimum_size = Vector2(1274, 84)
+layout_mode = 2
+size_flags_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 25)
+
+[node name="EnemyHealth" type="NinePatchRect" parent="Control/MarginContainer/CenterContainer" unique_id=817064667]
+custom_minimum_size = Vector2(1274, 84)
+layout_mode = 2
 texture = ExtResource("1_x4jx1")
 
-[node name="EnemyHealthBar" parent="Control/EnemyHealth" unique_id=12104328 instance=ExtResource("2_yev5y")]
+[node name="EnemyHealthBar" parent="Control/MarginContainer/CenterContainer/EnemyHealth" unique_id=12104328 instance=ExtResource("2_yev5y")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
@@ -41,13 +52,13 @@ grow_horizontal = 2
 
 [node name="PlayerHealth" type="NinePatchRect" parent="Control" unique_id=290476916]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = -1
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 66.0
-offset_top = 1206.0
-offset_right = 370.0
-offset_bottom = 1262.0
+offset_left = 102.0
+offset_top = -181.0
+offset_right = 402.0
+offset_bottom = -126.0
 grow_vertical = 0
 texture = ExtResource("3_yev5y")
 
