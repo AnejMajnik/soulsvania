@@ -929,7 +929,7 @@ script = ExtResource("7_mskqn")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
 [node name="TelegraphTimer" type="Timer" parent="StateMachine/Attack/AttackStateMachine/DashAttack" unique_id=1138907610]
-wait_time = 0.6
+wait_time = 0.75
 one_shot = true
 
 [node name="BeamAttack" type="Node" parent="StateMachine/Attack/AttackStateMachine" unique_id=735258066]

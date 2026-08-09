@@ -32,7 +32,7 @@ var current_state: Substate
 # Fly
 var fly_height: int = 200
 var direction: int = -1
-var target_bounces: int = 4
+var target_bounces: int = 6
 var bounces: int = 0
 
 func enter_state() -> void:

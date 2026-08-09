@@ -54,7 +54,7 @@ func flip_invulnerable(value: bool) -> void:
 	
 func slow_down() -> void:
 	current_speed = SPEED/2
-	if animation_player.current_animation == "move":
+	if animation_player.current_animation == "run":
 		animation_player.speed_scale = 0.5
 		
 	slow_down_timer.start()
@@ -69,7 +69,7 @@ func flash_take_damage() -> void:
 	tween.tween_method(_set_flash, 1.0, 0.0, 0.2)
 	
 func flash_dash_available() -> void:
-	animated_sprite.material.set_shader_parameter("flash_color", Color(0.0, 1.0, 0.3, 1.0))
+	animated_sprite.material.set_shader_parameter("flash_color", Color(0.006, 0.941, 0.991, 1.0))
 	animated_sprite.material.set_shader_parameter("flash_opacity", 0.5)
 	var tween = create_tween()
 	tween.tween_method(_set_flash, 1.0, 0.0, 0.5)

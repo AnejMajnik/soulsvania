@@ -3,6 +3,8 @@ extends CanvasLayer
 @onready var enemy_health_bar: ProgressBar = %EnemyHealthBar
 @onready var player_health_bar: ProgressBar = %PlayerHealthBar
 
+signal controls_requested
+
 func _ready() -> void:
 	Autoload.ui_node = self
 	Autoload.slime_boss_node.health_changed.connect(_on_enemy_health_changed)
@@ -21,3 +23,7 @@ func _on_player_health_changed(current: float, max: float) -> void:
 	player_health_bar.max_value = max
 	player_health_bar.damage_bar.max_value = max
 	player_health_bar.health = current
+
+
+func _on_controls_button_pressed() -> void:
+	controls_requested.emit()
