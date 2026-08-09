@@ -13,11 +13,13 @@
 [ext_resource type="Script" uid="uid://6ocqtedx8yik" path="res://scripts/player/states/player_jump_state.gd" id="6_tuyoq"]
 [ext_resource type="AudioStream" uid="uid://4ylee6qb7rl7" path="res://assets/sounds/electricity.wav" id="10_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://38biyb1kjqyu" path="res://assets/sounds/sword_draw.wav" id="11_60mlk"]
+[ext_resource type="AudioStream" uid="uid://cnjdcjm0xwuyn" path="res://assets/sounds/player_death.wav" id="11_i4ail"]
 [ext_resource type="AudioStream" uid="uid://pqfrudlw0kil" path="res://assets/sounds/jump.wav" id="12_i4ail"]
 [ext_resource type="Script" uid="uid://cf468q4lkra0u" path="res://scripts/player/states/player_dash_state.gd" id="13_oprun"]
 [ext_resource type="Script" uid="uid://btg50832r3kux" path="res://scripts/player/states/player_heavy_attack.gd" id="15_qfm1y"]
 [ext_resource type="Script" uid="uid://dt6q4xduw2tga" path="res://scripts/player/states/player_combo_hit_1.gd" id="18_4ni07"]
 [ext_resource type="Script" uid="uid://sjatvlgun2x0" path="res://scripts/player/states/player_combo_recover.gd" id="19_ke2ow"]
+[ext_resource type="Script" uid="uid://egemfgayux8d" path="res://scripts/player/states/player_dead_state.gd" id="20_60mlk"]
 [ext_resource type="Script" uid="uid://hyeb0d24jreu" path="res://scripts/player/states/player_combo_hit_2.gd" id="20_l71n6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1ej7"]
@@ -121,6 +123,30 @@ region = Rect2(768, 1536, 256, 256)
 [sub_resource type="AtlasTexture" id="AtlasTexture_h7ic4"]
 atlas = ExtResource("3_f1ej7")
 region = Rect2(1024, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
+atlas = ExtResource("3_f1ej7")
+region = Rect2(0, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vau08"]
+atlas = ExtResource("3_f1ej7")
+region = Rect2(256, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsb7e"]
+atlas = ExtResource("3_f1ej7")
+region = Rect2(512, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjsmb"]
+atlas = ExtResource("3_f1ej7")
+region = Rect2(768, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwp2n"]
+atlas = ExtResource("3_f1ej7")
+region = Rect2(1024, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0yhus"]
+atlas = ExtResource("3_f1ej7")
+region = Rect2(1280, 2048, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
 atlas = ExtResource("3_f1ej7")
@@ -322,6 +348,29 @@ animations = [{
 }],
 "loop": 0,
 "name": &"dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vau08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qsb7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjsmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwp2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0yhus")
+}],
+"loop": 0,
+"name": &"dead",
 "speed": 5.0
 }, {
 "frames": [{
@@ -536,6 +585,18 @@ tracks/8/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Sounds/Dead:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_g5jhy"]
 resource_name = "combo_hit_1"
@@ -736,6 +797,61 @@ tracks/3/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_4ni07"]
+resource_name = "dead"
+length = 2.2
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"dead"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sounds/Dead:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"restart"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_jc3p3"]
 resource_name = "heavy_attack"
 length = 1.5833334
@@ -923,6 +1039,7 @@ _data = {
 &"combo_hit_1_recovery": SubResource("Animation_i4ail"),
 &"combo_hit_2": SubResource("Animation_a38lo"),
 &"dash": SubResource("Animation_f1ej7"),
+&"dead": SubResource("Animation_4ni07"),
 &"heavy_attack": SubResource("Animation_jc3p3"),
 &"idle": SubResource("Animation_ur7pv"),
 &"jump": SubResource("Animation_y4r1p"),
@@ -933,11 +1050,12 @@ _data = {
 radius = 7.0
 height = 26.0
 
-[node name="Player" type="CharacterBody2D" unique_id=476142731 groups=["player"]]
+[node name="Player" type="CharacterBody2D" unique_id=476142731 node_paths=PackedStringArray("dead_state") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_g2els")
 ACCELERATION_SPEED = 40
 DECCELERATION_SPEED = 25
+dead_state = NodePath("StateMachine/Dead")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1538919531]
 unique_name_in_owner = true
@@ -964,13 +1082,14 @@ volume_db = -4.0
 
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="Sounds" unique_id=207916780]
 stream = ExtResource("5_y4r1p")
-volume_db = 7.0
+volume_db = 8.0
 
 [node name="PlayerHit" type="AudioStreamPlayer2D" parent="Sounds" unique_id=686115400]
 stream = ExtResource("6_3v2ag")
 
 [node name="Electricity" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1907302340]
 stream = ExtResource("10_4r5pv")
+volume_db = -2.0
 
 [node name="SwordDraw" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1667451569]
 stream = ExtResource("11_60mlk")
@@ -984,6 +1103,9 @@ volume_db = -3.0
 stream = ExtResource("12_i4ail")
 volume_db = -3.0
 pitch_scale = 1.45
+
+[node name="Dead" type="AudioStreamPlayer2D" parent="Sounds" unique_id=232428604]
+stream = ExtResource("11_i4ail")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=943934630]
 position = Vector2(-2, -13)
@@ -1040,9 +1162,10 @@ dash_state = NodePath("../Dash")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
-[node name="Jump" type="Node" parent="StateMachine" unique_id=503592196 node_paths=PackedStringArray("idle_state", "combo_attack_state", "dash_state", "player")]
+[node name="Jump" type="Node" parent="StateMachine" unique_id=503592196 node_paths=PackedStringArray("idle_state", "move_state", "combo_attack_state", "dash_state", "player")]
 script = ExtResource("6_tuyoq")
 idle_state = NodePath("../Idle")
+move_state = NodePath("../Move")
 combo_attack_state = NodePath("../ComboHit1")
 dash_state = NodePath("../Dash")
 player = NodePath("../..")
@@ -1082,6 +1205,10 @@ metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 [node name="DashTimer" type="Timer" parent="StateMachine/Dash" unique_id=2069934668]
 wait_time = 0.18
 one_shot = true
+
+[node name="Dead" type="Node" parent="StateMachine" unique_id=923609258]
+script = ExtResource("20_60mlk")
+metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
 [node name="Timers" type="Node2D" parent="." unique_id=1816729141]
 

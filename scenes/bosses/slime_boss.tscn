@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c85xdqk2iqekj" path="res://scripts/slime_boss/slime_boss.gd" id="1_mq0xa"]
 [ext_resource type="Script" uid="uid://bvpidnwfs1qx4" path="res://scripts/state_machine/state_machine.gd" id="3_j4bj8"]
 [ext_resource type="Script" uid="uid://beyhc0j0tbprs" path="res://scripts/slime_boss/states/idle.gd" id="4_mq0xa"]
+[ext_resource type="AudioStream" uid="uid://cfcynh75uyu51" path="res://assets/sounds/growl.wav" id="5_ejojs"]
 [ext_resource type="Script" uid="uid://ctw8q7lo3u08y" path="res://scripts/slime_boss/states/chase.gd" id="5_j4bj8"]
 [ext_resource type="Script" uid="uid://def7opqpqj2fj" path="res://scripts/slime_boss/states/attack.gd" id="6_mskqn"]
 [ext_resource type="Script" uid="uid://ba7hyry36oenc" path="res://scripts/slime_boss/states/dash_attack.gd" id="7_mskqn"]
@@ -19,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://dtm6kdfjh0o3d" path="res://assets/sounds/wings.wav" id="17_7vgh7"]
 [ext_resource type="AudioStream" uid="uid://imr3wmg4ttkk" path="res://assets/sounds/slam.wav" id="19_tdnwx"]
 [ext_resource type="AudioStream" uid="uid://dd8x22pm7xsee" path="res://assets/sounds/slime_death.wav" id="21_agodo"]
+[ext_resource type="AudioStream" uid="uid://dphwekm2whl2" path="res://assets/sounds/music.mp3" id="21_jvd52"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nxhfj"]
 atlas = ExtResource("1_0m3eu")
@@ -906,6 +908,9 @@ script = ExtResource("4_mq0xa")
 chase_state = NodePath("../Chase")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
+[node name="Growl" type="AudioStreamPlayer2D" parent="StateMachine/Idle" unique_id=2107631792]
+stream = ExtResource("5_ejojs")
+
 [node name="Chase" type="Node" parent="StateMachine" unique_id=358964772 node_paths=PackedStringArray("attack_state")]
 script = ExtResource("5_j4bj8")
 attack_state = NodePath("../Attack")
@@ -940,9 +945,11 @@ metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
 [node name="BeamShoot" type="AudioStreamPlayer2D" parent="StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds" unique_id=657788204]
 stream = ExtResource("9_sj3bf")
+volume_db = -2.0
 
 [node name="BeamCharge" type="AudioStreamPlayer2D" parent="StateMachine/Attack/AttackStateMachine/BeamAttack/Sounds" unique_id=1075092124]
 stream = ExtResource("10_fbimt")
+volume_db = -2.0
 
 [node name="JumpAttack" type="Node" parent="StateMachine/Attack/AttackStateMachine" unique_id=123923425]
 script = ExtResource("11_wsf8t")
@@ -1040,11 +1047,17 @@ stream = ExtResource("19_tdnwx")
 [node name="Death" type="AudioStreamPlayer2D" parent="Sounds" unique_id=2071152852]
 stream = ExtResource("21_agodo")
 
+[node name="Music" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1075622220]
+unique_name_in_owner = true
+stream = ExtResource("21_jvd52")
+volume_db = -6.0
+
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack/AttackStateMachine/JumpAttack" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dead" method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="finished" from="StateMachine/Idle/Growl" to="StateMachine/Idle" method="_on_growl_finished"]
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/DashAttack/TelegraphTimer" to="StateMachine/Attack/AttackStateMachine/DashAttack" method="_on_telegraph_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/JumpAttack/SlamTimer" to="StateMachine/Attack/AttackStateMachine/JumpAttack" method="_on_slam_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/RainAttack/RainTimer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_rain_timer_timeout"]
@@ -1052,3 +1065,4 @@ stream = ExtResource("21_agodo")
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/RainAttack/SlamTimer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_slam_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Recover/RecoverTimer" to="StateMachine/Recover" method="_on_recover_timer_timeout"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
+[connection signal="finished" from="Sounds/Music" to="." method="_on_music_finished"]

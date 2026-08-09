@@ -24,6 +24,8 @@ var current_speed = SPEED
 @onready var player_hit: AudioStreamPlayer2D = $Sounds/PlayerHit
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
+@export var dead_state: State
+
 # Cooldowns
 var dash_available: bool = true
 @onready var dash_cooldown: Timer = %DashCooldown
@@ -118,15 +120,18 @@ func _physics_process(delta: float) -> void:
 		flip_sprite(direction)
 	
 	if health <= 0:
-		set_physics_process(false) #Stop processing
-		get_tree().call_deferred("reload_current_scene")
-		return #Exit before move_and_slide runs
+		state_machine.change_state(dead_state)
 	
 	# Add the gravity.
 	if not is_on_floor() and gravity_switch:
 		velocity += get_gravity() * delta
 
 	move_and_slide()
+
+func restart() -> void:
+	set_physics_process(false) #Stop processing
+	get_tree().call_deferred("reload_current_scene")
+	return #Exit before move_and_slide runs
 
 func _on_dash_cooldown_timeout() -> void:
 	dash_available = true

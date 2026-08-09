@@ -15,9 +15,6 @@ func _set_health(new_health):
 	health = min(max_value, new_health)
 	value = health
 	timer.start()
-	
-	if health <= 0:
-		queue_free()
 
 func _on_timer_timeout() -> void:
 	damage_bar.value = health

@@ -2,6 +2,7 @@ extends State
 
 # States
 @export var idle_state: State
+@export var move_state: State
 @export var combo_attack_state: State
 @export var dash_state: State
 
@@ -44,4 +45,8 @@ func physics_update(_delta: float) -> void:
 	read_inputs()
 	
 	if player.is_on_floor():
-		switch_state.emit(idle_state)
+		var direction := Input.get_axis("move_left", "move_right")
+		if direction != 0:
+			switch_state.emit(move_state)
+		else:
+			switch_state.emit(idle_state)

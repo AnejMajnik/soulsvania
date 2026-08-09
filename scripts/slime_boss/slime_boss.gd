@@ -21,6 +21,7 @@ var player_in_area: Player
 @onready var area_2d: Area2D = $Area2D
 @onready var damage_timer: Timer = $DamageTimer
 @onready var slime_hit: AudioStreamPlayer2D = %SlimeHit
+@onready var music: AudioStreamPlayer2D = %Music
 
 signal health_changed(current: float, max: float)
 
@@ -94,3 +95,7 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func _on_damage_timer_timeout() -> void:
 	can_deal_damage = true
+
+
+func _on_music_finished() -> void:
+	music.play()
