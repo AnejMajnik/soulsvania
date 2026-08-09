@@ -14,6 +14,7 @@ extends State
 @onready var rain_timer: Timer = $RainTimer
 @onready var fly_timer: Timer = $FlyTimer
 @onready var slam_timer: Timer = $SlamTimer
+@onready var delay_timer: Timer = $DelayTimer
 
 var recovery_time: float = 1.25
 
@@ -34,6 +35,7 @@ var fly_height: int = 200
 var direction: int = -1
 var target_bounces: int = 6
 var bounces: int = 0
+var fly_direction: int = 1
 
 func enter_state() -> void:
 	change_state(Substate.JUMP)
@@ -49,19 +51,11 @@ func jump() -> void:
 	tween.tween_property(slime_boss, "position:y", slime_boss.global_position.y-fly_height, 0.75)
 	tween.tween_callback(func(): change_state(Substate.RAIN))
 	
-func fly_above_player() -> void:
-	if sign(player.global_position.x - slime_boss.global_position.x) > 0:
-		direction = 1
-	else:
-		direction = -1
-			
-	slime_boss.velocity.x = FLY_SPEED * direction
+func fly_above_player() -> void:	
+	slime_boss.velocity.x = FLY_SPEED * fly_direction
 	
 func is_above_player() -> bool:
-	if slime_boss.global_position.x > player.global_position.x-8 and slime_boss.global_position.x < player.global_position.x+8:
-		return true
-		
-	return false
+	return abs(slime_boss.global_position.x - player.global_position.x) < 32
 	
 func randomize_slam_timer() -> float:
 	var time_amount = randf_range(0.1, 0.5)
@@ -82,6 +76,11 @@ func change_state(new_state: Substate) -> void:
 		Substate.RAIN:
 			bounces = 0
 			rain_timer.start()
+		Substate.FLY:
+			if sign(player.global_position.x - slime_boss.global_position.x) > 0:
+				fly_direction = 1
+			else:
+				fly_direction = -1
 		Substate.SLAM:
 			slime_boss.velocity.x = 0
 			slam_timer.wait_time = randomize_slam_timer()
@@ -104,13 +103,17 @@ func physics_update(_delta: float) -> void:
 		fly_above_player()
 		
 		if is_above_player():
-			change_state(Substate.SLAM)
+			delay_timer.wait_time = randomize_delay()
+			delay_timer.start()
 	elif current_state == Substate.SLAM:
 		if slime_boss.player_in_area != null:
 			slime_boss.deal_damage(DAMAGE)
 			
 		if ray_cast_down_left.is_colliding() or ray_cast_down_right.is_colliding():
 			slime_boss.flip_gravity(true)
+
+func randomize_delay() -> float:
+	return randf_range(0.02, 0.1)
 
 func _on_rain_timer_timeout() -> void:
 	spawn_rain(Vector2(slime_boss.global_position.x, slime_boss.global_position.y+20))
@@ -127,3 +130,6 @@ func _on_slam_timer_timeout() -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "land":
 		state_finished.emit(recovery_time)
+
+func _on_delay_timer_timeout() -> void:
+	change_state(Substate.SLAM)

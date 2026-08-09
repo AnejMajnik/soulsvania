@@ -13,8 +13,10 @@ var current_state: Substate
 
 # Fly
 var fly_height: int = 200
+var fly_direction: int = 1
 
 @onready var slam_timer: Timer = $SlamTimer
+@onready var delay_timer: Timer = $DelayTimer
 @onready var ray_cast_down_left: RayCast2D = %RayCastDownLeft
 @onready var ray_cast_down_right: RayCast2D = %RayCastDownRight
 @onready var slam_aoe: Area2D = %SlamAOE
@@ -30,20 +32,14 @@ func jump() -> void:
 	tween.tween_property(slime_boss, "position:y", slime_boss.global_position.y-fly_height, 0.75)
 	tween.tween_callback(func(): change_state(Substate.FLY))
 	
-func fly_above_player() -> void:
-	var direction
-	if sign(player.global_position.x - slime_boss.global_position.x) > 0:
-		direction = 1
-	else:
-		direction = -1
-			
-	slime_boss.velocity.x = FLY_SPEED * direction
+func fly_above_player() -> void:	
+	slime_boss.velocity.x = FLY_SPEED * fly_direction
 	
 func is_above_player() -> bool:
-	return abs(slime_boss.global_position.x - player.global_position.x) < 8
+	return abs(slime_boss.global_position.x - player.global_position.x) < 32
 	
 func randomize_slam_timer() -> float:
-	var time_amount = randf_range(0.1, 0.5)
+	var time_amount = randf_range(0.05, 0.3)
 	return time_amount
 	
 func slam() -> void:
@@ -60,17 +56,26 @@ func change_state(new_state: Substate) -> void:
 			jump()
 		Substate.FLY:
 			slime_boss.velocity.y = 0
+			if sign(player.global_position.x - slime_boss.global_position.x) > 0:
+				fly_direction = 1
+			else:
+				fly_direction = -1
 		Substate.SLAM:
 			slime_boss.velocity.x = 0
 			slam_timer.wait_time = randomize_slam_timer()
 			slam_timer.start()
 			
+func randomize_delay() -> float:
+	return randf_range(0.02, 0.1)
+
 func physics_update(_delta: float) -> void:
 	if current_state == Substate.FLY:
 		fly_above_player()
 		
-		if is_above_player():
-			change_state(Substate.SLAM)
+		if is_above_player() and delay_timer.is_stopped():
+			delay_timer.wait_time = randomize_delay()
+			delay_timer.start()
+			
 	elif current_state == Substate.SLAM:
 		if slime_boss.player_in_area != null:
 			slime_boss.deal_damage(DAMAGE)
@@ -89,3 +94,7 @@ func _on_slam_timer_timeout() -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "land":
 		state_finished.emit(recovery_time)
+
+
+func _on_delay_timer_timeout() -> void:
+	change_state(Substate.SLAM)

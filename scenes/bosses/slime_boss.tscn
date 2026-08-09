@@ -871,7 +871,6 @@ height = 53.84616
 height = 34.871796
 
 [node name="SlimeBoss" type="CharacterBody2D" unique_id=1313746306 node_paths=PackedStringArray("dead_state") groups=["enemy"]]
-scale = Vector2(1.3, 1.3)
 collision_layer = 4
 script = ExtResource("1_mq0xa")
 dead_state = NodePath("StateMachine/Dead")
@@ -959,6 +958,9 @@ metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 wait_time = 0.5
 one_shot = true
 
+[node name="DelayTimer" type="Timer" parent="StateMachine/Attack/AttackStateMachine/JumpAttack" unique_id=344858523]
+one_shot = true
+
 [node name="RainAttack" type="Node" parent="StateMachine/Attack/AttackStateMachine" unique_id=1778826324]
 script = ExtResource("12_3dmgr")
 metadata/_custom_type_script = "uid://bt027fcrq1hh2"
@@ -973,6 +975,9 @@ one_shot = true
 
 [node name="SlamTimer" type="Timer" parent="StateMachine/Attack/AttackStateMachine/RainAttack" unique_id=167944780]
 wait_time = 0.5
+one_shot = true
+
+[node name="DelayTimer" type="Timer" parent="StateMachine/Attack/AttackStateMachine/RainAttack" unique_id=1323015916]
 one_shot = true
 
 [node name="Recover" type="Node" parent="StateMachine" unique_id=742414816 node_paths=PackedStringArray("chase_state", "attack_state")]
@@ -1060,9 +1065,11 @@ volume_db = -6.0
 [connection signal="finished" from="StateMachine/Idle/Growl" to="StateMachine/Idle" method="_on_growl_finished"]
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/DashAttack/TelegraphTimer" to="StateMachine/Attack/AttackStateMachine/DashAttack" method="_on_telegraph_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/JumpAttack/SlamTimer" to="StateMachine/Attack/AttackStateMachine/JumpAttack" method="_on_slam_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/JumpAttack/DelayTimer" to="StateMachine/Attack/AttackStateMachine/JumpAttack" method="_on_delay_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/RainAttack/RainTimer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_rain_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/RainAttack/FlyTimer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_fly_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/RainAttack/SlamTimer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_slam_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Attack/AttackStateMachine/RainAttack/DelayTimer" to="StateMachine/Attack/AttackStateMachine/RainAttack" method="_on_delay_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Recover/RecoverTimer" to="StateMachine/Recover" method="_on_recover_timer_timeout"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
 [connection signal="finished" from="Sounds/Music" to="." method="_on_music_finished"]

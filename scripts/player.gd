@@ -94,23 +94,24 @@ func get_current_direction() -> int:
 		return 1
 
 func flip_sprite(direction) -> void:
-	if direction > 0:
-		animated_sprite.flip_h = false
-		hit_1_area.position.x = abs(hit_1_area.position.x)
-		hit_2_area.position.x = abs(hit_2_area.position.x)
-		heavy_attack_area.position.x = abs(heavy_attack_area.position.x)
-		hit_1_area.scale.x = 1
-		hit_2_area.scale.x = 1
-		heavy_attack_area.scale.x = 1
-		
-	elif direction < 0:
-		animated_sprite.flip_h = true
-		hit_1_area.position.x = -abs(hit_1_area.position.x)
-		hit_2_area.position.x = -abs(hit_2_area.position.x)
-		heavy_attack_area.position.x = -abs(heavy_attack_area.position.x)
-		hit_1_area.scale.x = -1
-		hit_2_area.scale.x = -1
-		heavy_attack_area.scale.x = -1
+	if state_machine.active_state != dead_state:
+		if direction > 0:
+			animated_sprite.flip_h = false
+			hit_1_area.position.x = abs(hit_1_area.position.x)
+			hit_2_area.position.x = abs(hit_2_area.position.x)
+			heavy_attack_area.position.x = abs(heavy_attack_area.position.x)
+			hit_1_area.scale.x = 1
+			hit_2_area.scale.x = 1
+			heavy_attack_area.scale.x = 1
+			
+		elif direction < 0:
+			animated_sprite.flip_h = true
+			hit_1_area.position.x = -abs(hit_1_area.position.x)
+			hit_2_area.position.x = -abs(hit_2_area.position.x)
+			heavy_attack_area.position.x = -abs(heavy_attack_area.position.x)
+			hit_1_area.scale.x = -1
+			hit_2_area.scale.x = -1
+			heavy_attack_area.scale.x = -1
 
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")

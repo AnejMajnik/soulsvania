@@ -1060,7 +1060,7 @@ dead_state = NodePath("StateMachine/Dead")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1538919531]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_f1ej7")
-position = Vector2(0, -16)
+position = Vector2(1, -16)
 sprite_frames = SubResource("SpriteFrames_nrent")
 animation = &"idle"
 frame = 1
@@ -1108,7 +1108,7 @@ pitch_scale = 1.45
 stream = ExtResource("11_i4ail")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=943934630]
-position = Vector2(-2, -13)
+position = Vector2(0, -13)
 shape = SubResource("CapsuleShape2D_e204l")
 
 [node name="Hit1Area" type="Area2D" parent="." unique_id=1450993753]
