@@ -12,21 +12,16 @@ const DAMAGE: int = 12
 
 func enter_state() -> void:
 	animation_player.play("combo_hit_2")
+	player.velocity.x = 100 * player.get_current_direction()
 
 func read_inputs() -> void:
 	# Dash
 	if Input.is_action_just_pressed("dash") and player.dash_available:
 		switch_state.emit(dash_state)
-		
-	# Slow movement
-	var direction := Input.get_axis("move_left", "move_right")
-	if direction != 0:
-		player.velocity.x = direction * player.SPEED/5
-	else:
-		player.velocity.x = 0
 
 func physics_update(_delta: float) -> void:
 	read_inputs()
+	player.velocity.x = move_toward(player.velocity.x, 0, 8)
 
 func deal_damage():
 	for body in hit_2_area.get_overlapping_bodies():

@@ -9,7 +9,7 @@ extends State
 
 @onready var slam: AudioStreamPlayer2D = %Slam
 
-const DASH_SPEED = 700
+const DASH_SPEED = 680
 const DAMAGE: int = 30
 
 enum Substate { TELEGRAPH, ATTACK }

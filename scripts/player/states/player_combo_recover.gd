@@ -12,13 +12,6 @@ func read_inputs() -> void:
 	if Input.is_action_just_pressed("attack_combo"):
 		switch_state.emit(combo_continue)
 	
-	# Slow movement
-	var direction := Input.get_axis("move_left", "move_right")
-	if direction != 0:
-		player.velocity.x = direction * player.SPEED/5
-	else:
-		player.velocity.x = 0
-	
 	# Dash
 	if Input.is_action_just_pressed("dash") and player.dash_available:
 		switch_state.emit(dash_state)
@@ -28,6 +21,7 @@ func physics_update(_delta: float) -> void:
 
 func enter_state() -> void:
 	animation_player.play("combo_hit_1_recovery")
+	player.velocity.x = 0
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "combo_hit_1_recovery":
