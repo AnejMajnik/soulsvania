@@ -28,11 +28,11 @@ func read_inputs() -> void:
 func enter_state() -> void:
 	continue_combo = false
 	animation_player.play("combo_hit_1")
-	player.velocity.x = 80 * player.get_current_direction()
+	player.velocity.x = 70 * player.get_current_direction()
 
 func physics_update(_delta: float) -> void:
 	read_inputs()
-	player.velocity.x = move_toward(player.velocity.x, 0, 7)
+	player.velocity.x = move_toward(player.velocity.x, 0, 8)
 	
 func deal_damage():
 	for body in hit_1_area.get_overlapping_bodies():
