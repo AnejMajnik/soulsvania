@@ -462,3 +462,13 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 	- I decreased the dash speed from 700 to 680
 	- I increased telegraph timer for dash attack from 0.85s to 0.9s
 	- Increased rain timer from 0.22 to 0.24s (meaning the rain drops are further apart, making it easier to dodge)
+
+## WITH THIS, FIRST BOSS FIGHT IS DONE - BEHAVIOR TREE TIME
+
+# 3.9.2026:
+## Reaper boss
+- Made a new main scene for the 2nd boss by duplicating first scene, and removing slime boss node
+- Made a new ReaperBoss scene, added a basic script to wire up health to the UI the same way as for slime boss
+- To make health bar work for all types of enemies, I replaced slime_boss_node in autoload with a basic boss_node, that whichever boss is loaded populates
+- Added an animated_sprite_2d and collision_shape_2d to the boss, then added it to the main scene
+- Added flash shader when taking damage

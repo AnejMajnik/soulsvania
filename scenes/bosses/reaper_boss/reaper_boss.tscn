@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://djwtchsmcu5r1"]
+
+[ext_resource type="Script" uid="uid://cfr6oucfc21od" path="res://scripts/reaper_boss/reaper_boss.gd" id="1_2y1lr"]
+[ext_resource type="Shader" uid="uid://bpsvo5k515uov" path="res://shaders/flash.gdshader" id="2_53llj"]
+[ext_resource type="Texture2D" uid="uid://b3khexsvcc0am" path="res://assets/spritesheets/reaper.png" id="2_qblgn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qblgn"]
+shader = ExtResource("2_53llj")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_amount = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53llj"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axcfw"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_weoie"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epqei"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nrent"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53llj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axcfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_weoie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epqei")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nrent"]
+radius = 9.0
+height = 38.0
+
+[node name="ReaperBoss" type="CharacterBody2D" unique_id=1268695346 groups=["enemy"]]
+collision_layer = 4
+script = ExtResource("1_2y1lr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1996570524]
+material = SubResource("ShaderMaterial_qblgn")
+position = Vector2(-2, -12)
+sprite_frames = SubResource("SpriteFrames_nrent")
+animation = &"idle"
+frame_progress = 0.51202357
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2094913173]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_nrent")

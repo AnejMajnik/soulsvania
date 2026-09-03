@@ -7,11 +7,11 @@ signal controls_requested
 
 func _ready() -> void:
 	Autoload.ui_node = self
-	Autoload.slime_boss_node.health_changed.connect(_on_enemy_health_changed)
+	Autoload.boss_node.health_changed.connect(_on_enemy_health_changed)
 	Autoload.player_node.health_changed.connect(_on_player_health_changed)
 	
 	_on_player_health_changed(Autoload.player_node.health, Autoload.player_node.max_health)
-	_on_enemy_health_changed(Autoload.slime_boss_node.health, Autoload.slime_boss_node.max_health)
+	_on_enemy_health_changed(Autoload.boss_node.health, Autoload.boss_node.max_health)
 	
 func _on_enemy_health_changed(current: float, max: float) -> void:
 	enemy_health_bar.max_value = max

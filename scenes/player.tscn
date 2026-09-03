@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://d0x36rwurp4fl"]
 
 [ext_resource type="Script" uid="uid://bs2ss227joghs" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="Shader" uid="uid://bytdhvbiwxrfh" path="res://shaders/player/flash.gdshader" id="2_oprun"]
 [ext_resource type="Texture2D" uid="uid://bms1in8wcovd0" path="res://assets/spritesheets/purple_spritesheet.png" id="3_f1ej7"]
 [ext_resource type="Script" uid="uid://bvpidnwfs1qx4" path="res://scripts/state_machine/state_machine.gd" id="3_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://bj5jfwrvw60ua" path="res://assets/sounds/sword_slash.wav" id="3_ur7pv"]
@@ -22,8 +21,23 @@
 [ext_resource type="Script" uid="uid://egemfgayux8d" path="res://scripts/player/states/player_dead_state.gd" id="20_60mlk"]
 [ext_resource type="Script" uid="uid://hyeb0d24jreu" path="res://scripts/player/states/player_combo_hit_2.gd" id="20_l71n6"]
 
+[sub_resource type="Shader" id="Shader_60mlk"]
+code = "shader_type canvas_item;
+
+uniform vec4 flash_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float flash_amount : hint_range(0.0, 1.0) = 0.0;
+uniform float flash_opacity : hint_range(0.0, 1.0) = 1.0;
+
+void fragment() {
+	vec4 tex_color = COLOR;
+	if (tex_color.a > 0.3) {
+		tex_color.rgb = mix(tex_color.rgb, flash_color.rgb, flash_amount * flash_opacity);
+	}
+	COLOR = tex_color;
+}"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1ej7"]
-shader = ExtResource("2_oprun")
+shader = SubResource("Shader_60mlk")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
 shader_parameter/flash_opacity = 1.0
@@ -1064,6 +1078,7 @@ material = SubResource("ShaderMaterial_f1ej7")
 position = Vector2(1, -16)
 sprite_frames = SubResource("SpriteFrames_nrent")
 animation = &"idle"
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1016761409]
 unique_name_in_owner = true

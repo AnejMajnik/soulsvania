@@ -26,11 +26,11 @@ var player_in_area: Player
 signal health_changed(current: float, max: float)
 
 func _ready() -> void:
-	Autoload.slime_boss_node = self
+	Autoload.boss_node = self
 	
 	# Set up shader texture
 	animated_sprite.material = ShaderMaterial.new()
-	animated_sprite.material.shader = preload("res://shaders/slime_boss/flash.gdshader")
+	animated_sprite.material.shader = preload("res://shaders/flash.gdshader")
 	
 	health = max_health
 	

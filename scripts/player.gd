@@ -20,7 +20,6 @@ var current_speed = SPEED
 @onready var hit_2_area: Area2D = $Hit2Area
 @onready var heavy_attack_area: Area2D = %HeavyAttackArea
 @onready var state_machine: StateMachine = $StateMachine
-@onready var slime_boss: SlimeBoss = %SlimeBoss
 @onready var player_hit: AudioStreamPlayer2D = $Sounds/PlayerHit
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
@@ -40,7 +39,7 @@ func _ready() -> void:
 	
 	# Set up shader texture
 	animated_sprite.material = ShaderMaterial.new()
-	animated_sprite.material.shader = preload("res://shaders/player/flash.gdshader")
+	animated_sprite.material.shader = preload("res://shaders/flash.gdshader")
 	
 	# Set up health
 	health = max_health
