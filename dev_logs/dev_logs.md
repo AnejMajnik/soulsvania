@@ -472,3 +472,22 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 - To make health bar work for all types of enemies, I replaced slime_boss_node in autoload with a basic boss_node, that whichever boss is loaded populates
 - Added an animated_sprite_2d and collision_shape_2d to the boss, then added it to the main scene
 - Added flash shader when taking damage
+
+# 6.9.2026:
+## Behavior tree
+- Started making the actual behavior tree
+	- Added base node scripts:
+		- BTNode (behavior_tree.gd)
+		- Composite node
+		- Leaf node
+		- Selector node
+		- Sequence node
+	- Then added Selector node as the base Behavior Tree node in the boss scene
+	- Added Sequence attack as the first child, with 2 leaf children:
+		- ConditionInRange that checks if the player is close enough to the enemy for the attack
+		- ActionAttack that executes the actual attack
+- I had an issue where reaper boss autoload node would not be populated when it is required in tick() of behavior tree
+	- Turns out, godot loads _ready() of children first, so it was not populated yet at the right time
+	- The solution was to use _enter_tree() which does it at the very start
+- Added SequenceChase sequence node as a sibling to attack, with ConditionInSight and ActionChase as leaf nodes
+- Since the BT executes left to right (or in this case, top to bottom), Attack sequence is first, if the distance condition fails, then it goes to chase

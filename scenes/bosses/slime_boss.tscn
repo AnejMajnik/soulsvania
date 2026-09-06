@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://cxll1lw1pu6sb" path="res://scripts/slime_boss/states/jump_attack.gd" id="11_wsf8t"]
 [ext_resource type="Script" uid="uid://c8o25hqypk5e4" path="res://scripts/slime_boss/states/rain_attack.gd" id="12_3dmgr"]
 [ext_resource type="Script" uid="uid://4wrbqyp2el54" path="res://scripts/slime_boss/states/dead.gd" id="14_ejojs"]
-[ext_resource type="AudioStream" uid="uid://bympooo02yxeq" path="res://assets/sounds/slime_hit.wav" id="15_w47pt"]
+[ext_resource type="AudioStream" uid="uid://bympooo02yxeq" path="res://assets/sounds/hit.wav" id="15_w47pt"]
 [ext_resource type="AudioStream" uid="uid://dtm6kdfjh0o3d" path="res://assets/sounds/wings.wav" id="17_7vgh7"]
 [ext_resource type="AudioStream" uid="uid://imr3wmg4ttkk" path="res://assets/sounds/slam.wav" id="19_tdnwx"]
 [ext_resource type="AudioStream" uid="uid://dd8x22pm7xsee" path="res://assets/sounds/slime_death.wav" id="21_agodo"]
