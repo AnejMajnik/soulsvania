@@ -491,3 +491,10 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 	- The solution was to use _enter_tree() which does it at the very start
 - Added SequenceChase sequence node as a sibling to attack, with ConditionInSight and ActionChase as leaf nodes
 - Since the BT executes left to right (or in this case, top to bottom), Attack sequence is first, if the distance condition fails, then it goes to chase
+
+# 7.9.2026:
+## BT fixes
+- Currently, the BT was very bare bones (still is) - the boss would come to you, attack once (just play the animation) and that was it.. then it was stuck
+- I added an Idle action to the far right (bottom) of the BT, so if it doesnt attack or chase, it idles
+- I added an end condition to ActionAttack - when the animation ends, it returns Status.SUCCESS, and resets flags, so that next time it can re-do the attack normally
+- It used to get stuck at the last frame of the attack animation, the fix was to call animation_player.stop() before every boss.play_animation()

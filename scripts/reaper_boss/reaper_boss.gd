@@ -15,7 +15,6 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	health = max_health
-	animated_sprite.play("idle")
 	
 func flash_take_damage() -> void:
 	animated_sprite.material.set_shader_parameter("flash_color", Color(1.0, 1.0, 1.0, 1.0))
@@ -26,6 +25,7 @@ func _set_flash(value: float) -> void:
 	animated_sprite.material.set_shader_parameter("flash_amount", value)
 	
 func play_animation(anim_name: String) -> void:
+	animation_player.stop()
 	animation_player.play(anim_name)
 	
 func flip_sprite(value: bool) -> void:

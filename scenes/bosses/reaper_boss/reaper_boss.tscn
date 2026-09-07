@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://1nb30evmdaf1" path="res://scripts/reaper_boss/behavior_tree/action_attack.gd" id="8_yu1bn"]
 [ext_resource type="Script" uid="uid://di8q82nr2lr0o" path="res://scripts/reaper_boss/behavior_tree/condition_in_sight.gd" id="9_fa58e"]
 [ext_resource type="Script" uid="uid://bv7ekf856v48e" path="res://scripts/reaper_boss/behavior_tree/action_chase.gd" id="10_njlho"]
+[ext_resource type="Script" uid="uid://60midalrigh2" path="res://scripts/reaper_boss/behavior_tree/action_idle.gd" id="11_ham4e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qblgn"]
 shader = ExtResource("2_53llj")
@@ -154,7 +155,6 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_jiko1"]
 resource_name = "attack_combo"
-length = 0.7
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -175,15 +175,30 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.6),
+"times": PackedFloat32Array(0, 0.1, 0.4, 0.5, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BehaviorTree/SequenceAttack/ActionAttack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack_anim_finished"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_ham4e"]
 resource_name = "idle"
 length = 0.8
+loop_mode = 1
 step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -213,6 +228,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_m31w0"]
 resource_name = "move"
 length = 0.8
+loop_mode = 1
 step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -265,7 +281,6 @@ animation = &"idle"
 libraries/ = SubResource("AnimationLibrary_jiko1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2094913173]
-position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_nrent")
 
 [node name="Sounds" type="Node2D" parent="." unique_id=1101772304]
@@ -300,4 +315,8 @@ metadata/_custom_type_script = "uid://dc8g47p2847ar"
 
 [node name="ActionChase" type="Node" parent="BehaviorTree/SequenceChase" unique_id=205532277]
 script = ExtResource("10_njlho")
+metadata/_custom_type_script = "uid://dc8g47p2847ar"
+
+[node name="ActionIdle" type="Node" parent="BehaviorTree" unique_id=46481340]
+script = ExtResource("11_ham4e")
 metadata/_custom_type_script = "uid://dc8g47p2847ar"

@@ -1,7 +1,7 @@
 extends Leaf
 class_name ConditionInSight
 
-@export var sight_range := 400
+@export var sight_range := 300
 @onready var boss = Autoload.boss_node
 @onready var player: Player = Autoload.player_node
 
