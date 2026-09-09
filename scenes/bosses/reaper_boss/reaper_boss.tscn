@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bm52oqs0wa6dk" path="res://scripts/reaper_boss/behavior_tree/condition_in_range.gd" id="7_yu1bn"]
 [ext_resource type="Script" uid="uid://1nb30evmdaf1" path="res://scripts/reaper_boss/behavior_tree/action_attack.gd" id="8_yu1bn"]
 [ext_resource type="Script" uid="uid://di8q82nr2lr0o" path="res://scripts/reaper_boss/behavior_tree/condition_in_sight.gd" id="9_fa58e"]
+[ext_resource type="Script" uid="uid://i6tyfnt16f0o" path="res://scripts/reaper_boss/behavior_tree/action_recover.gd" id="9_jiko1"]
 [ext_resource type="Script" uid="uid://bv7ekf856v48e" path="res://scripts/reaper_boss/behavior_tree/action_chase.gd" id="10_njlho"]
 [ext_resource type="Script" uid="uid://60midalrigh2" path="res://scripts/reaper_boss/behavior_tree/action_idle.gd" id="11_ham4e"]
 
@@ -155,6 +156,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_jiko1"]
 resource_name = "attack_combo"
+length = 0.9
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -175,7 +177,7 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4, 0.5, 0.9),
+"times": PackedFloat32Array(0, 0.1, 0.4, 0.5, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4]
@@ -183,15 +185,38 @@ tracks/1/keys = {
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("BehaviorTree/SequenceAttack/ActionAttack")
+tracks/2/path = NodePath("BehaviorTree/SequenceAttackCombo/ActionAttack")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.9),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.4, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
+"method": &"deal_damage_combo"
+}, {
+"args": [],
+"method": &"deal_damage_combo"
+}, {
+"args": [],
 "method": &"attack_anim_finished"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BehaviorTree/SequenceAttackCombo/ActionAttack")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"apply_lunge"
+}, {
+"args": [],
+"method": &"apply_lunge"
 }]
 }
 
@@ -283,6 +308,13 @@ libraries/ = SubResource("AnimationLibrary_jiko1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2094913173]
 shape = SubResource("CapsuleShape2D_nrent")
 
+[node name="AttackComboArea2D" type="Area2D" parent="." unique_id=297137034]
+unique_name_in_owner = true
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackComboArea2D" unique_id=553846276]
+polygon = PackedVector2Array(40, -5, 45, 8, 40, 20, 0, 20, 0, -17, 13, -17)
+
 [node name="Sounds" type="Node2D" parent="." unique_id=1101772304]
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="Sounds" unique_id=405934460]
@@ -293,17 +325,26 @@ unique_name_in_owner = true
 script = ExtResource("5_axcfw")
 metadata/_custom_type_script = "uid://dg50vd42bmary"
 
-[node name="SequenceAttack" type="Node" parent="BehaviorTree" unique_id=804076570]
+[node name="SequenceAttackCombo" type="Node" parent="BehaviorTree" unique_id=804076570]
 script = ExtResource("6_epqei")
 metadata/_custom_type_script = "uid://ckngvo7cem0r4"
 
-[node name="ConditionInRange" type="Node" parent="BehaviorTree/SequenceAttack" unique_id=359328461]
+[node name="ConditionInRange" type="Node" parent="BehaviorTree/SequenceAttackCombo" unique_id=359328461]
 script = ExtResource("7_yu1bn")
 metadata/_custom_type_script = "uid://dc8g47p2847ar"
 
-[node name="ActionAttack" type="Node" parent="BehaviorTree/SequenceAttack" unique_id=52633068]
+[node name="ActionAttack" type="Node" parent="BehaviorTree/SequenceAttackCombo" unique_id=52633068]
 script = ExtResource("8_yu1bn")
 metadata/_custom_type_script = "uid://dc8g47p2847ar"
+
+[node name="ActionRecover" type="Node" parent="BehaviorTree/SequenceAttackCombo" unique_id=1971924337]
+script = ExtResource("9_jiko1")
+metadata/_custom_type_script = "uid://dc8g47p2847ar"
+
+[node name="ACRecoverTimer" type="Timer" parent="BehaviorTree/SequenceAttackCombo/ActionRecover" unique_id=897034312]
+unique_name_in_owner = true
+wait_time = 0.7
+one_shot = true
 
 [node name="SequenceChase" type="Node" parent="BehaviorTree" unique_id=652238152]
 script = ExtResource("6_epqei")
@@ -320,3 +361,5 @@ metadata/_custom_type_script = "uid://dc8g47p2847ar"
 [node name="ActionIdle" type="Node" parent="BehaviorTree" unique_id=46481340]
 script = ExtResource("11_ham4e")
 metadata/_custom_type_script = "uid://dc8g47p2847ar"
+
+[connection signal="timeout" from="BehaviorTree/SequenceAttackCombo/ActionRecover/ACRecoverTimer" to="BehaviorTree/SequenceAttackCombo/ActionRecover" method="_on_ac_recover_timer_timeout"]

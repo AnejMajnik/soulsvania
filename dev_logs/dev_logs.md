@@ -498,3 +498,16 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 - I added an Idle action to the far right (bottom) of the BT, so if it doesnt attack or chase, it idles
 - I added an end condition to ActionAttack - when the animation ends, it returns Status.SUCCESS, and resets flags, so that next time it can re-do the attack normally
 - It used to get stuck at the last frame of the attack animation, the fix was to call animation_player.stop() before every boss.play_animation()
+
+# 9.9.2026:
+## Reaper Boss
+### Combo attack
+- Added an area2d with collision polygon 2d
+- Added deal_damage() function to the ActionAttack leaf, following the same logic as for the player: if body is in attack_combo_area and that body is in group player, then body.take_damage()
+- Added area2d flipping and scaling based on direction
+- Added ActionRecover leaf to the ComboAttack sequence
+	- It plays idle animation, and starts a timer, timer sets a flag finished, when flag finished is true, it returns SUCCESS
+- Improved attack by adding small lunges forward when attacking, makes it more dynamic
+	- I added a apply_lunge() function, which checks direction based on which was the sprite is facing, then applies direction * LUNGE_SPEED
+	- apply_lunge() is called in animation_player at the correct frames
+	- Then I added decceleration to the tick function, by using move_toward, which moves a value (velocity) to a value (0) in increments (DECCELERATION_SPEED)

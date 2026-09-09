@@ -1,7 +1,7 @@
 extends Leaf
 class_name ActionChase
 
-@export var attack_range := 50
+@export var attack_range := 75
 @export var speed := 200
 @onready var boss = Autoload.boss_node
 @onready var player: Player = Autoload.player_node
