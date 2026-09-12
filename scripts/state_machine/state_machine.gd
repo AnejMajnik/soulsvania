@@ -5,8 +5,8 @@ class_name  StateMachine extends Node
 var active_state: State:
 	set(new_value):
 		active_state = new_value
-		if active_state:
-			print(owner.name, ": ", active_state.name)
+		#if active_state:
+			#print(owner.name, ": ", active_state.name)
 		
 func _ready() -> void:
 	for child_state: State in get_children():

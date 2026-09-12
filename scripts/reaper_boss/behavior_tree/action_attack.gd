@@ -8,14 +8,15 @@ class_name ActionAttack
 var started: bool = false
 var animation_finished: bool = false
 
-@export var DAMAGE: int = 10
+@export var attack_data: AttackData
+
 @export var DECCELERATION_SPEED: int = 20
-@export var LUNGE_SPEED: int = 230
+@export var LUNGE_SPEED: int = 250
 
 func deal_damage_combo():
 	for body in attack_combo_area.get_overlapping_bodies():
 		if body.is_in_group("player"):
-			body.take_damage(DAMAGE)
+			body.take_damage(attack_data.damage)
 			
 func check_if_right_direction():
 	var player_direction = sign(player.global_position.x - boss.global_position.x)
@@ -30,11 +31,14 @@ func tick(delta: float, blackboard: Blackboard) -> Status:
 		boss.velocity.x = 0
 		started = true
 		check_if_right_direction()
+		blackboard.set_value("boss_is_attacking", true)
+		boss.spend_stamina(attack_data.stamina_cost)
 		
 	boss.velocity.x = move_toward(boss.velocity.x, 0, DECCELERATION_SPEED)
 	boss.move_and_slide()
 	
 	if animation_finished:
+		print("action attack finished")
 		started = false
 		animation_finished = false
 		return Status.SUCCESS

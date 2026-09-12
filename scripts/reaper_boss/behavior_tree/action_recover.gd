@@ -15,6 +15,7 @@ func tick(delta: float, blackboard: Blackboard) -> Status:
 	if finished:
 		started = false
 		finished = false
+		blackboard.set_value("boss_is_attacking", false)
 		return Status.SUCCESS
 	
 	return Status.RUNNING

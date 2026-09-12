@@ -6,10 +6,14 @@
 [ext_resource type="AudioStream" uid="uid://bympooo02yxeq" path="res://assets/sounds/hit.wav" id="4_53llj"]
 [ext_resource type="Script" uid="uid://dg50vd42bmary" path="res://scripts/behavior_tree/selector.gd" id="5_axcfw"]
 [ext_resource type="Script" uid="uid://ckngvo7cem0r4" path="res://scripts/behavior_tree/sequence.gd" id="6_epqei"]
+[ext_resource type="Script" uid="uid://d10mlu48sf0rj" path="res://scripts/reaper_boss/behavior_tree/condition_is_exhausted.gd" id="7_apfft"]
 [ext_resource type="Script" uid="uid://bm52oqs0wa6dk" path="res://scripts/reaper_boss/behavior_tree/condition_in_range.gd" id="7_yu1bn"]
+[ext_resource type="Script" uid="uid://b7t42h82v1jdf" path="res://scripts/reaper_boss/behavior_tree/action_exhausted_recover.gd" id="8_6yixl"]
+[ext_resource type="Script" uid="uid://c17jgt2c4vsn5" path="res://scripts/reaper_boss/behavior_tree/condition_has_stamina.gd" id="8_m31w0"]
 [ext_resource type="Script" uid="uid://1nb30evmdaf1" path="res://scripts/reaper_boss/behavior_tree/action_attack.gd" id="8_yu1bn"]
 [ext_resource type="Script" uid="uid://di8q82nr2lr0o" path="res://scripts/reaper_boss/behavior_tree/condition_in_sight.gd" id="9_fa58e"]
 [ext_resource type="Script" uid="uid://i6tyfnt16f0o" path="res://scripts/reaper_boss/behavior_tree/action_recover.gd" id="9_jiko1"]
+[ext_resource type="Resource" uid="uid://b4xfqmexev205" path="res://resources/attack_data/attack_combo_data.tres" id="10_kynmp"]
 [ext_resource type="Script" uid="uid://bv7ekf856v48e" path="res://scripts/reaper_boss/behavior_tree/action_chase.gd" id="10_njlho"]
 [ext_resource type="Script" uid="uid://60midalrigh2" path="res://scripts/reaper_boss/behavior_tree/action_idle.gd" id="11_ham4e"]
 
@@ -303,6 +307,7 @@ sprite_frames = SubResource("SpriteFrames_nrent")
 animation = &"idle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=909619309]
+unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_jiko1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2094913173]
@@ -325,6 +330,23 @@ unique_name_in_owner = true
 script = ExtResource("5_axcfw")
 metadata/_custom_type_script = "uid://dg50vd42bmary"
 
+[node name="SequenceStaminaExhausted" type="Node" parent="BehaviorTree" unique_id=948141195]
+script = ExtResource("6_epqei")
+metadata/_custom_type_script = "uid://ckngvo7cem0r4"
+
+[node name="ConditionIsExhausted" type="Node" parent="BehaviorTree/SequenceStaminaExhausted" unique_id=1754903452]
+script = ExtResource("7_apfft")
+metadata/_custom_type_script = "uid://dc8g47p2847ar"
+
+[node name="ActionExhaustedRecover" type="Node" parent="BehaviorTree/SequenceStaminaExhausted" unique_id=317434704]
+script = ExtResource("8_6yixl")
+metadata/_custom_type_script = "uid://dc8g47p2847ar"
+
+[node name="StaminaRecoveryTimer" type="Timer" parent="BehaviorTree/SequenceStaminaExhausted/ActionExhaustedRecover" unique_id=466584963]
+unique_name_in_owner = true
+wait_time = 0.7
+one_shot = true
+
 [node name="SequenceAttackCombo" type="Node" parent="BehaviorTree" unique_id=804076570]
 script = ExtResource("6_epqei")
 metadata/_custom_type_script = "uid://ckngvo7cem0r4"
@@ -333,8 +355,14 @@ metadata/_custom_type_script = "uid://ckngvo7cem0r4"
 script = ExtResource("7_yu1bn")
 metadata/_custom_type_script = "uid://dc8g47p2847ar"
 
+[node name="ConditionHasStamina" type="Node" parent="BehaviorTree/SequenceAttackCombo" unique_id=1437327324]
+script = ExtResource("8_m31w0")
+attack_data = ExtResource("10_kynmp")
+metadata/_custom_type_script = "uid://dc8g47p2847ar"
+
 [node name="ActionAttack" type="Node" parent="BehaviorTree/SequenceAttackCombo" unique_id=52633068]
 script = ExtResource("8_yu1bn")
+attack_data = ExtResource("10_kynmp")
 metadata/_custom_type_script = "uid://dc8g47p2847ar"
 
 [node name="ActionRecover" type="Node" parent="BehaviorTree/SequenceAttackCombo" unique_id=1971924337]
@@ -362,4 +390,5 @@ metadata/_custom_type_script = "uid://dc8g47p2847ar"
 script = ExtResource("11_ham4e")
 metadata/_custom_type_script = "uid://dc8g47p2847ar"
 
+[connection signal="timeout" from="BehaviorTree/SequenceStaminaExhausted/ActionExhaustedRecover/StaminaRecoveryTimer" to="BehaviorTree/SequenceStaminaExhausted/ActionExhaustedRecover" method="_on_stamina_recovery_timer_timeout"]
 [connection signal="timeout" from="BehaviorTree/SequenceAttackCombo/ActionRecover/ACRecoverTimer" to="BehaviorTree/SequenceAttackCombo/ActionRecover" method="_on_ac_recover_timer_timeout"]

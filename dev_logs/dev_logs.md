@@ -522,3 +522,16 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 ### Blackboard
 - Since this boss will be more complex, it will need to track multiple values. To prevent myself from repeating same checks in every leaf node, I implemented a simple Blackboard - a shared dictionary with keys and values, so that I can read all of those values from all boss leaf nodes
 - For now, I added player, boss and distance_to_player values
+
+### Stamina
+- When I was doing the slime boss and comparing it to Nine Sols bosses, I found that my boss felt very monotone, even though it had the same amount of moves
+- Upon further analization, I noticed that those bosses behave differently: they attack for a while with multiple attacks and combos, then give you an opening for a few seconds
+- To make my 2nd boss follow that similar formula, I added a stamina system:
+	- The boss has max and current stamina, currently 100 being max
+	- Whenever the boss uses an attack, it costs stamina
+- To define the stamina cost and also future data for attacks, I made a base class AttackData that extends Resource class, and then I can make a resource file for each attack with stats such as damage, stamina cost, and in future also range, and maybe some other ones
+- I added a way to recover stamina by adding a new selector, at the very start, that checks if the stamina is below threshold (will add more complexity later), then it starts that sequence, which is basially the boss walking slowly and recovering stamina before continuing to attack - that gives player an opening
+	- However, I after it recovers, the attack combo sequence is bugged out
+	- After lots of debugging, the issue was that when the stamina was 20, and attack costs 20 stamina, when attack used stamina up, on the next tick, the tree went straight into recovery, without letting the attack finish, which left a stale state in attack branch
+	- I fixed it by adding a boss_is_attacking flag in blackboard, which I set to true right before consuming stamina, and set it back to false right before exiting recovery after the attack
+- I added green flashing each time stamina is recovering to indicate to the player the boss isnt just bugged out, but recovering
