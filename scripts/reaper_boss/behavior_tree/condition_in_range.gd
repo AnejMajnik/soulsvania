@@ -5,8 +5,8 @@ class_name ConditionInRange
 @onready var boss = Autoload.boss_node
 @onready var player: Player = Autoload.player_node
 
-func tick(delta: float) -> Status:
-	var distance = boss.global_position.distance_to(player.global_position)
+func tick(delta: float, blackboard: Blackboard) -> Status:
+	var distance = blackboard.get_value("distance_to_player")
 	if distance <= attack_range:
 		return Status.SUCCESS
 	return Status.FAILURE

@@ -5,7 +5,7 @@ var started := false
 
 @onready var boss = Autoload.boss_node
 
-func tick(_delta: float) -> Status:
+func tick(_delta: float, blackboard: Blackboard) -> Status:
 	if not started:
 		started = true
 		print("starting idle")

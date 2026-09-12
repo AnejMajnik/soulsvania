@@ -6,7 +6,7 @@ class_name ActionChase
 @onready var boss = Autoload.boss_node
 @onready var player: Player = Autoload.player_node
 
-func tick(delta: float) -> Status:
+func tick(delta: float, blackboard: Blackboard) -> Status:
 	boss.play_animation("move")
 	
 	var distance = boss.global_position.distance_to(player.global_position)

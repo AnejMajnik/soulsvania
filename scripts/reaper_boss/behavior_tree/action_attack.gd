@@ -24,7 +24,7 @@ func check_if_right_direction():
 	if player_direction != boss_facing:
 		boss.flip_sprite(player_direction)
 
-func tick(delta: float) -> Status:
+func tick(delta: float, blackboard: Blackboard) -> Status:
 	if !started:
 		boss.play_animation("attack_combo")
 		boss.velocity.x = 0

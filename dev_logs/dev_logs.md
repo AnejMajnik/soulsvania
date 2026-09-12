@@ -518,3 +518,7 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 - Because the boss checks just the distance to the player every combo, you could stand behind it close enough, and it would attack in the wrong direction
 	- To fix that, I added another check, check_if_right_direction(), which checks which way the sprite and area2d is facing, which direction is the player, if it doesnt match, it flips the sprite to the player direction
 	- To prevent it from flipping mid combo, i only do it once when ActionAttack starts
+
+### Blackboard
+- Since this boss will be more complex, it will need to track multiple values. To prevent myself from repeating same checks in every leaf node, I implemented a simple Blackboard - a shared dictionary with keys and values, so that I can read all of those values from all boss leaf nodes
+- For now, I added player, boss and distance_to_player values

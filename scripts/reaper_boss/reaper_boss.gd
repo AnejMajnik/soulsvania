@@ -3,6 +3,9 @@ extends CharacterBody2D
 var max_health: int = 200
 var health: int
 
+@onready var blackboard:= Blackboard.new()
+@onready var player: Player = Autoload.player_node
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hit: AudioStreamPlayer2D = $Sounds/Hit
@@ -22,6 +25,8 @@ func get_current_direction() -> int:
 
 func _ready() -> void:
 	health = max_health
+	blackboard.set_value("boss", self)
+	blackboard.set_value("player", player)
 	
 func flash_take_damage() -> void:
 	animated_sprite.material.set_shader_parameter("flash_color", Color(1.0, 1.0, 1.0, 1.0))
@@ -57,13 +62,8 @@ func take_damage(dmg: int) -> void:
 
 	flash_take_damage()
 	hit.play()
-	
-	#apply_knockback()
-	
-func apply_knockback() -> void:
-	var direction = sign(global_position.x - Autoload.player_node.global_position.x)
-	velocity.x += direction * 100
 
 func _physics_process(delta: float) -> void:
-	behavior_tree.tick(delta)
+	blackboard.set_value("distance_to_player", global_position.distance_to(player.global_position))
+	behavior_tree.tick(delta, blackboard)
 	auto_flip_check()

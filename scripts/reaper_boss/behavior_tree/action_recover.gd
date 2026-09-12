@@ -6,7 +6,7 @@ var finished: bool = false
 @onready var boss = Autoload.boss_node
 @onready var ac_recover_timer: Timer = %ACRecoverTimer
 
-func tick(delta: float) -> Status:
+func tick(delta: float, blackboard: Blackboard) -> Status:
 	if !started:
 		boss.play_animation("idle")
 		ac_recover_timer.start()

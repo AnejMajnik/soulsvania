@@ -1,10 +1,10 @@
 extends Composite
 class_name Sequence
 
-func tick(delta: float) -> Status:
+func tick(delta: float, blackboard: Blackboard) -> Status:
 	var children = get_bt_children()
 	for i in range(current_child_index, children.size()):
-		var result = children[i].tick(delta)
+		var result = children[i].tick(delta, blackboard)
 		if result == Status.RUNNING:
 			current_child_index = i
 			return Status.RUNNING
