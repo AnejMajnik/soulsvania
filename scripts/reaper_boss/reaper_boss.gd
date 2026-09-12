@@ -13,7 +13,9 @@ var stamina: int
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hit: AudioStreamPlayer2D = $Sounds/Hit
 @onready var behavior_tree: BTNode = %BehaviorTree
+
 @onready var attack_combo_area: Area2D = %AttackComboArea2D
+@onready var attack_teleport_area: Area2D = %AttackTeleportArea2D
 
 signal health_changed(current: float, max: float)
 
@@ -76,10 +78,14 @@ func flip_sprite(direction) -> void:
 		animated_sprite.flip_h = false
 		attack_combo_area.position.x = abs(attack_combo_area.position.x)
 		attack_combo_area.scale.x = 1
+		attack_teleport_area.position.x = abs(attack_teleport_area.position.x)
+		attack_teleport_area.scale.x = 1
 	elif direction < 0:
 		animated_sprite.flip_h = true
 		attack_combo_area.position.x = -abs(attack_combo_area.position.x)
 		attack_combo_area.scale.x = -1
+		attack_teleport_area.position.x = -abs(attack_teleport_area.position.x)
+		attack_teleport_area.scale.x = -1
 
 func auto_flip_check():
 	if velocity.x > 0:

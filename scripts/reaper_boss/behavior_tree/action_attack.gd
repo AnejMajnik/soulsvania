@@ -13,7 +13,23 @@ var attack_data: AttackData
 @export var DECCELERATION_SPEED: int = 20
 @export var LUNGE_SPEED: int = 250
 
+@export var teleport_offset: float = 40.0
+
+func teleport_behind_player() -> void:
+	var player_facing = player.get_current_direction()
+	
+	boss.velocity = Vector2.ZERO
+	boss.global_position = Vector2(player.global_position.x - player_facing * teleport_offset, Autoload.ground_reference.global_position.y)
+	
+	var face_player = sign(player.global_position.x - boss.global_position.x)
+	boss.flip_sprite(face_player)
+	
 func deal_damage_combo():
+	for body in attack_combo_area.get_overlapping_bodies():
+		if body.is_in_group("player"):
+			body.take_damage(attack_data.damage)
+			
+func deal_damage_teleport():
 	for body in attack_combo_area.get_overlapping_bodies():
 		if body.is_in_group("player"):
 			body.take_damage(attack_data.damage)

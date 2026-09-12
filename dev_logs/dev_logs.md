@@ -541,3 +541,11 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 - This is to prepare for utility AI in the future when i have multiple attacks
 - Refactored SequenceComboAttack to be SequenceAttack, with ActionSelectAttack for attack selection (this is where UtilityAI will live) which loops though the available attacks, and currently chooses the first one that fits
 - If no attack fits currently, it returns failed and it chases or idles as before
+
+### Teleport attack
+- The boss needed some way to close distance quickly, so I went and animated a teleport attack
+- It teleports behind the player, then does a vertical slash down
+- I added a new teleportArea2d with polygon collision shape to match the animated shape
+- Added the resource file with current specifications (will change)
+- Added a teleport_behind_player() function that gets which direction player is facing, sets the position to behind the player and faces towards it
+- I call that function in animation player, then call deal damage function on impact frame

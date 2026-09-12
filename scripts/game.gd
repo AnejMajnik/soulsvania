@@ -1,6 +1,7 @@
 extends Node2D
 
 func _ready() -> void:
+	Autoload.ground_reference = $BossGroundReference
 	$UI.controls_requested.connect(_on_controls_requested)
 	print("Viewport visible rect: ", get_viewport().get_visible_rect())
 	print("Window size: ", DisplayServer.window_get_size())
