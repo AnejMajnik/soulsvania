@@ -535,3 +535,9 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 	- After lots of debugging, the issue was that when the stamina was 20, and attack costs 20 stamina, when attack used stamina up, on the next tick, the tree went straight into recovery, without letting the attack finish, which left a stale state in attack branch
 	- I fixed it by adding a boss_is_attacking flag in blackboard, which I set to true right before consuming stamina, and set it back to false right before exiting recovery after the attack
 - I added green flashing each time stamina is recovering to indicate to the player the boss isnt just bugged out, but recovering
+
+### Preparations for Utility AI
+- Added more data into AttackData class: like animation name, min range, max range, ideal range etc
+- This is to prepare for utility AI in the future when i have multiple attacks
+- Refactored SequenceComboAttack to be SequenceAttack, with ActionSelectAttack for attack selection (this is where UtilityAI will live) which loops though the available attacks, and currently chooses the first one that fits
+- If no attack fits currently, it returns failed and it chases or idles as before
