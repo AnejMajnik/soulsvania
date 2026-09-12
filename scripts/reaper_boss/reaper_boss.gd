@@ -57,6 +57,12 @@ func take_damage(dmg: int) -> void:
 
 	flash_take_damage()
 	hit.play()
+	
+	#apply_knockback()
+	
+func apply_knockback() -> void:
+	var direction = sign(global_position.x - Autoload.player_node.global_position.x)
+	velocity.x += direction * 100
 
 func _physics_process(delta: float) -> void:
 	behavior_tree.tick(delta)

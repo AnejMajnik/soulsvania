@@ -511,3 +511,10 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 	- I added a apply_lunge() function, which checks direction based on which was the sprite is facing, then applies direction * LUNGE_SPEED
 	- apply_lunge() is called in animation_player at the correct frames
 	- Then I added decceleration to the tick function, by using move_toward, which moves a value (velocity) to a value (0) in increments (DECCELERATION_SPEED)
+
+# 12.9.2026:
+## Reaper boss improvements
+### Bug fix - direction facing
+- Because the boss checks just the distance to the player every combo, you could stand behind it close enough, and it would attack in the wrong direction
+	- To fix that, I added another check, check_if_right_direction(), which checks which way the sprite and area2d is facing, which direction is the player, if it doesnt match, it flips the sprite to the player direction
+	- To prevent it from flipping mid combo, i only do it once when ActionAttack starts
