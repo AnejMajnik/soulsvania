@@ -33,6 +33,8 @@ func _ready() -> void:
 	blackboard.set_value("boss", self)
 	blackboard.set_value("player", player)
 	blackboard.set_value("max_stamina", max_stamina)
+	blackboard.set_value("selected_attack", null)
+	blackboard.set_value("boss_is_attacking", false)
 	
 func spend_stamina(amount: int) -> void:
 	if stamina - amount <= 0:

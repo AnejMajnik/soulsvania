@@ -8,7 +8,7 @@ class_name ActionAttack
 var started: bool = false
 var animation_finished: bool = false
 
-@export var attack_data: AttackData
+var attack_data: AttackData
 
 @export var DECCELERATION_SPEED: int = 20
 @export var LUNGE_SPEED: int = 250
@@ -27,18 +27,24 @@ func check_if_right_direction():
 
 func tick(delta: float, blackboard: Blackboard) -> Status:
 	if !started:
-		boss.play_animation("attack_combo")
-		boss.velocity.x = 0
+		attack_data = blackboard.get_value("selected_attack")
+		
+		if attack_data == null:
+			return Status.FAILURE
+		
 		started = true
-		check_if_right_direction()
+		animation_finished = false
 		blackboard.set_value("boss_is_attacking", true)
+		
+		boss.velocity.x = 0
+		boss.play_animation(attack_data.animation_name)
+		check_if_right_direction()
 		boss.spend_stamina(attack_data.stamina_cost)
 		
 	boss.velocity.x = move_toward(boss.velocity.x, 0, DECCELERATION_SPEED)
 	boss.move_and_slide()
 	
 	if animation_finished:
-		print("action attack finished")
 		started = false
 		animation_finished = false
 		return Status.SUCCESS

@@ -6,4 +6,7 @@
 script = ExtResource("1_77xm5")
 stamina_cost = 20.0
 damage = 10
+animation_name = &"attack_combo"
+max_range = 85.0
+ideal_range = 60.0
 metadata/_custom_type_script = "uid://bsa1gy632yh48"
