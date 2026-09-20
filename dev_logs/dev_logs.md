@@ -549,3 +549,12 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 - Added the resource file with current specifications (will change)
 - Added a teleport_behind_player() function that gets which direction player is facing, sets the position to behind the player and faces towards it
 - I call that function in animation player, then call deal damage function on impact frame
+
+# 20.9.2026:
+## New boss attack
+- Animated a new attack to fill in the blank of close range aoe
+	- The boss telegraphs by raising his scythe up in the air, then slams it down, which causes a fire like aoe area around him
+- Added the animation to aniamtedsprite2d, then wired it up into animation player, where I called a new deal_damage_aoe() function which works the same way as others, just checks if there is a body overlapping, then call attack_anim_finished() at the end
+- Added a new resource file attack_aoe_data, where I added stamina cost, damage, animation name, min and max ranges, as well as ideal range (which is all for very close range)
+- Added the new resource to the AttackData array, and tested it out briefly - it works
+- Next, there is one more attack I need that covers long range (projectile) attack - for that, I will likely animate a scythe throw that works like a boomerang

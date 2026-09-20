@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_cpuba")
-stamina_cost = 30.0
+stamina_cost = 20.0
 damage = 20
 animation_name = &"attack_teleport"
 min_range = 150.0

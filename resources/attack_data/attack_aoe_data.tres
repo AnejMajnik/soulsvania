@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AttackData" format=3 uid="uid://bew6im0tvkgb4"]
+
+[ext_resource type="Script" uid="uid://bsa1gy632yh48" path="res://scripts/reaper_boss/attack_data.gd" id="1_rrm42"]
+
+[resource]
+script = ExtResource("1_rrm42")
+stamina_cost = 20.0
+damage = 10
+animation_name = &"attack_aoe"
+max_range = 50.0
+ideal_range = 10.0
+metadata/_custom_type_script = "uid://bsa1gy632yh48"

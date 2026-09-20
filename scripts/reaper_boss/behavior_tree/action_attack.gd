@@ -4,6 +4,8 @@ class_name ActionAttack
 @onready var boss = Autoload.boss_node
 @onready var player = Autoload.player_node
 @onready var attack_combo_area: Area2D = %AttackComboArea2D
+@onready var attack_aoe_area: Area2D = %AttackAoeArea2D
+@onready var attack_teleport_area: Area2D = %AttackTeleportArea2D
 
 var started: bool = false
 var animation_finished: bool = false
@@ -13,7 +15,7 @@ var attack_data: AttackData
 @export var DECCELERATION_SPEED: int = 20
 @export var LUNGE_SPEED: int = 250
 
-@export var teleport_offset: float = 40.0
+@export var teleport_offset: float = 20.0
 
 func teleport_behind_player() -> void:
 	var player_facing = player.get_current_direction()
@@ -30,7 +32,12 @@ func deal_damage_combo():
 			body.take_damage(attack_data.damage)
 			
 func deal_damage_teleport():
-	for body in attack_combo_area.get_overlapping_bodies():
+	for body in attack_teleport_area.get_overlapping_bodies():
+		if body.is_in_group("player"):
+			body.take_damage(attack_data.damage)
+			
+func deal_damage_aoe():
+	for body in attack_aoe_area.get_overlapping_bodies():
 		if body.is_in_group("player"):
 			body.take_damage(attack_data.damage)
 			

@@ -16,6 +16,7 @@ var stamina: int
 
 @onready var attack_combo_area: Area2D = %AttackComboArea2D
 @onready var attack_teleport_area: Area2D = %AttackTeleportArea2D
+@onready var attack_aoe_area: Area2D = %AttackAoeArea2D
 
 signal health_changed(current: float, max: float)
 
@@ -80,12 +81,16 @@ func flip_sprite(direction) -> void:
 		attack_combo_area.scale.x = 1
 		attack_teleport_area.position.x = abs(attack_teleport_area.position.x)
 		attack_teleport_area.scale.x = 1
+		attack_aoe_area.position.x = abs(attack_aoe_area.position.x)
+		attack_aoe_area.scale.x = 1
 	elif direction < 0:
 		animated_sprite.flip_h = true
 		attack_combo_area.position.x = -abs(attack_combo_area.position.x)
 		attack_combo_area.scale.x = -1
 		attack_teleport_area.position.x = -abs(attack_teleport_area.position.x)
 		attack_teleport_area.scale.x = -1
+		attack_aoe_area.position.x = -abs(attack_aoe_area.position.x)
+		attack_aoe_area.scale.x = -1
 
 func auto_flip_check():
 	if velocity.x > 0:
@@ -108,3 +113,4 @@ func _physics_process(delta: float) -> void:
 	refresh_blackboard_values()
 	behavior_tree.tick(delta, blackboard)
 	auto_flip_check()
+	print(animation_player.current_animation)
