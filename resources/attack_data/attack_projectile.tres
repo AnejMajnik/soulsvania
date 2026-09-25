@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttackData" format=3 uid="uid://cd4ab55tvo8gl"]
+
+[ext_resource type="Script" uid="uid://bsa1gy632yh48" path="res://scripts/reaper_boss/attack_data.gd" id="1_w3wib"]
+
+[resource]
+script = ExtResource("1_w3wib")
+stamina_cost = 20.0
+animation_name = &"attack_projectile_wind_up"
+max_range = 300.0
+ideal_range = 200.0
+metadata/_custom_type_script = "uid://bsa1gy632yh48"

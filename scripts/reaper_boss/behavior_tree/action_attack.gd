@@ -12,10 +12,13 @@ var animation_finished: bool = false
 
 var attack_data: AttackData
 
-@export var DECCELERATION_SPEED: int = 20
-@export var LUNGE_SPEED: int = 250
+@export var DECCELERATION_SPEED: int = 18
+@export var LUNGE_SPEED: int = 300
 
 @export var teleport_offset: float = 20.0
+
+var scythe_scene = preload("res://scenes/bosses/reaper_boss/scythe.tscn")
+var scythe_started = false
 
 func teleport_behind_player() -> void:
 	var player_facing = player.get_current_direction()
@@ -29,6 +32,7 @@ func teleport_behind_player() -> void:
 func deal_damage_combo():
 	for body in attack_combo_area.get_overlapping_bodies():
 		if body.is_in_group("player"):
+			print("dealing damage")
 			body.take_damage(attack_data.damage)
 			
 func deal_damage_teleport():
@@ -40,6 +44,17 @@ func deal_damage_aoe():
 	for body in attack_aoe_area.get_overlapping_bodies():
 		if body.is_in_group("player"):
 			body.take_damage(attack_data.damage)
+			
+func spawn_scythe(pos: Vector2):
+	var scythe = scythe_scene.instantiate()
+	scythe.global_position = pos
+	get_tree().current_scene.add_child(scythe)
+
+func attack_projectile():
+	if !scythe_started:
+		boss.play_animation("attack_projectile")
+		spawn_scythe(boss.global_position)
+		scythe_started = true
 			
 func check_if_right_direction():
 	var player_direction = sign(player.global_position.x - boss.global_position.x)
@@ -70,6 +85,7 @@ func tick(delta: float, blackboard: Blackboard) -> Status:
 	if animation_finished:
 		started = false
 		animation_finished = false
+		scythe_started = false
 		return Status.SUCCESS
 		
 	return Status.RUNNING

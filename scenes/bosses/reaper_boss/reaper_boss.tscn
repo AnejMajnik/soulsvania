@@ -14,10 +14,8 @@
 [ext_resource type="Script" uid="uid://bboq4vh13jadj" path="res://scripts/reaper_boss/behavior_tree/action_select_attack.gd" id="9_oior6"]
 [ext_resource type="Script" uid="uid://bsa1gy632yh48" path="res://scripts/reaper_boss/attack_data.gd" id="10_kynmp"]
 [ext_resource type="Script" uid="uid://bv7ekf856v48e" path="res://scripts/reaper_boss/behavior_tree/action_chase.gd" id="10_njlho"]
+[ext_resource type="Resource" uid="uid://cd4ab55tvo8gl" path="res://resources/attack_data/attack_projectile.tres" id="11_6yixl"]
 [ext_resource type="Script" uid="uid://60midalrigh2" path="res://scripts/reaper_boss/behavior_tree/action_idle.gd" id="11_ham4e"]
-[ext_resource type="Resource" uid="uid://b4xfqmexev205" path="res://resources/attack_data/attack_combo_data.tres" id="11_phou2"]
-[ext_resource type="Resource" uid="uid://dp68rhcfob6fa" path="res://resources/attack_data/attack_teleport_data.tres" id="12_oior6"]
-[ext_resource type="Resource" uid="uid://bew6im0tvkgb4" path="res://resources/attack_data/attack_aoe_data.tres" id="13_phou2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qblgn"]
 shader = ExtResource("2_53llj")
@@ -83,6 +81,54 @@ region = Rect2(384, 256, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_jiko1"]
 atlas = ExtResource("2_qblgn")
 region = Rect2(512, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j0sa"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(0, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_becvp"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(128, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6ul2"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(256, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3rg8"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(384, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iiry3"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(0, 896, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s31qx"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(128, 896, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rq8co"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(256, 896, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cw25q"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(384, 896, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awk2n"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(0, 768, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imgai"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(128, 768, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26cfj"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(256, 768, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uuvcl"]
+atlas = ExtResource("2_qblgn")
+region = Rect2(384, 768, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oior6"]
 atlas = ExtResource("2_qblgn")
@@ -268,6 +314,57 @@ animations = [{
 "loop": 0,
 "name": &"attack_combo",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3j0sa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_becvp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6ul2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3rg8")
+}],
+"loop": 1,
+"name": &"attack_projectile",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iiry3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s31qx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rq8co")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cw25q")
+}],
+"loop": 0,
+"name": &"attack_projectile_wind_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awk2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imgai")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26cfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uuvcl")
+}],
+"loop": 0,
+"name": &"attack_projectile_wind_up",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -522,6 +619,135 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_phou2"]
+resource_name = "attack_projectile"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack_projectile"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BehaviorTree/SequenceAttack/ActionAttack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack_projectile"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_4fqyk"]
+resource_name = "attack_projectile_wind_down"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack_projectile_wind_down"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BehaviorTree/SequenceAttack/ActionAttack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack_anim_finished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_6yixl"]
+resource_name = "attack_projectile_wind_up"
+length = 0.625
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack_projectile_wind_up"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BehaviorTree/SequenceAttack/ActionAttack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.625),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack_projectile"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_lr4gd"]
 resource_name = "attack_teleport"
 length = 1.5333333
@@ -636,6 +862,9 @@ _data = {
 &"RESET": SubResource("Animation_njlho"),
 &"attack_aoe": SubResource("Animation_oior6"),
 &"attack_combo": SubResource("Animation_jiko1"),
+&"attack_projectile": SubResource("Animation_phou2"),
+&"attack_projectile_wind_down": SubResource("Animation_4fqyk"),
+&"attack_projectile_wind_up": SubResource("Animation_6yixl"),
 &"attack_teleport": SubResource("Animation_lr4gd"),
 &"idle": SubResource("Animation_ham4e"),
 &"move": SubResource("Animation_m31w0")
@@ -716,7 +945,7 @@ metadata/_custom_type_script = "uid://ckngvo7cem0r4"
 
 [node name="ActionSelectAttack" type="Node" parent="BehaviorTree/SequenceAttack" unique_id=1293671062]
 script = ExtResource("9_oior6")
-attacks = Array[ExtResource("10_kynmp")]([ExtResource("11_phou2"), ExtResource("12_oior6"), ExtResource("13_phou2")])
+attacks = Array[ExtResource("10_kynmp")]([ExtResource("11_6yixl")])
 metadata/_custom_type_script = "uid://dc8g47p2847ar"
 
 [node name="ActionAttack" type="Node" parent="BehaviorTree/SequenceAttack" unique_id=52633068]
@@ -729,7 +958,7 @@ metadata/_custom_type_script = "uid://dc8g47p2847ar"
 
 [node name="ACRecoverTimer" type="Timer" parent="BehaviorTree/SequenceAttack/ActionRecover" unique_id=897034312]
 unique_name_in_owner = true
-wait_time = 0.4
+wait_time = 0.25
 one_shot = true
 
 [node name="SequenceChase" type="Node" parent="BehaviorTree" unique_id=652238152]

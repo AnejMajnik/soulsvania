@@ -113,4 +113,3 @@ func _physics_process(delta: float) -> void:
 	refresh_blackboard_values()
 	behavior_tree.tick(delta, blackboard)
 	auto_flip_check()
-	print(animation_player.current_animation)

@@ -551,10 +551,38 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 - I call that function in animation player, then call deal damage function on impact frame
 
 # 20.9.2026:
-## New boss attack
+## New boss attack - AOE
 - Animated a new attack to fill in the blank of close range aoe
 	- The boss telegraphs by raising his scythe up in the air, then slams it down, which causes a fire like aoe area around him
 - Added the animation to aniamtedsprite2d, then wired it up into animation player, where I called a new deal_damage_aoe() function which works the same way as others, just checks if there is a body overlapping, then call attack_anim_finished() at the end
 - Added a new resource file attack_aoe_data, where I added stamina cost, damage, animation name, min and max ranges, as well as ideal range (which is all for very close range)
 - Added the new resource to the AttackData array, and tested it out briefly - it works
 - Next, there is one more attack I need that covers long range (projectile) attack - for that, I will likely animate a scythe throw that works like a boomerang
+
+### Thoughts
+- With the current attack sequence structure with behavior trees, it is much, much quicker to add in new attacks
+	- Basically add the animations, area2d with collision shape, resource file with values, add resource file to array, and that is about it
+	- This system is very quick to expand on compared to FSM/HSM
+
+# 25.9.2026:
+## New boss attack - projectile
+- Added the scythe throw attack, which I implemented by:
+	- Took the scythe from the enemy, made it its own sprite, and just made 4 frames that tilt 90° each to simulate rotation
+	- Made a new Node2D scene (area2d would be fine, like for slime rain, but i had to rotate the area2d, which would also rotate the sprite since sprite would be child of area2d), added sprite2d, area2d and collision shape 2d
+	- Added wind up and wind down animations, as well as idle animation without the scythe that it uses when the scythe is actively traveling
+	- Attached a new script to the root node of that scene
+	- To _ready:
+		- Added animation play
+		- calculate direction of the player
+		- set velocity.x to direction * speed
+		- get starting location, so that i can gauge the distance
+		- based on direction, i then flip the sprite of the scythe, so that it rotates in the right direction
+	- Added rotate_area() function that rotates area2d by 90° every frame of the area2d except first frame, so that it fits the animation
+	- In physics process:
+		- Since the Node2D does not have velocity.x, i implement that myself by adding velocity.x * delta to position.x
+		- I then check how far the scythe is, once it is far enough, i use move_toward to make it slowly change direction back towards the reaper boss
+		- and when it is returning and is close enough to the boss, I play the wind down animation, and queue free the projectile, making it seem like it catches the scythe
+	- Then i added resource, with 0 damage since the projectile deals damage independently
+	- Added resource to the attackdata array
+	- Once the attack is chosen, I play the wind up animation, and once the wind up is done, i call attack_projectile(), which plays the scytheless idle animation, and spawns the projectile scythe
+	- I spawn the scythe the same way as slime rain, by preloading the scene, then using instantiate() and get_tree().current_scene.add_child(scythe)
