@@ -104,6 +104,9 @@ func take_damage(dmg: int) -> void:
 
 	flash_take_damage()
 	hit.play()
+	
+	if health <= 0:
+		queue_free()
 
 func refresh_blackboard_values():
 	blackboard.set_value("distance_to_player", global_position.distance_to(player.global_position))

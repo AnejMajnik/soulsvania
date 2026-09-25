@@ -586,3 +586,23 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 	- Added resource to the attackdata array
 	- Once the attack is chosen, I play the wind up animation, and once the wind up is done, i call attack_projectile(), which plays the scytheless idle animation, and spawns the projectile scythe
 	- I spawn the scythe the same way as slime rain, by preloading the scene, then using instantiate() and get_tree().current_scene.add_child(scythe)
+
+## Utility AI
+- So far in ActionSelectAttack, I chose the first eligible attack based on stamina and min/max range
+- To make the selection make more sense and prevent things like spamming same attacks in same conditions, I decided to implement a form of Utility AI
+- Inside tick, I make an array of candidates, and an array of weights (indexes match, weights[0] belongs to candidates[0])
+- I add total weight, which is the sum of scores of all eligible attacks
+- Then i loop through attacks, skip attacks if it costs more stamina than the boss currently has, or if distance is outside the attack's range
+- I calculate the width of an attack range, as well as distance_error (how far it is from its ideal attack range)
+- Then I use clampf to calculate a weight based on the % of the available range the boss is from the ideal attack range
+	- Example (boss distance is 70): if boss's min range is 0, and max range is 100, and ideal range is 50, 20/100 = 0.2
+		- Then I subtract that value from 1.0 (which is max weight), and that gives it 0.8
+		- Clamp comes into play, to make any negative number 0.0, and any number bigger than 1, 1.0
+- Then I assign weight using maxf, which returns a max of 2 numbers - in this case, score we calculated, and 0.05 (to give any eligible attack a small chance)
+- To prevent spamming the same attack, if an attack was chosen last time (by keeping track in var previous_attack), I multiply the weight by 0.25, thus lowering its chance of being selected
+- Then I append the attack and its score to candidates and weights arrays, and add the weight to the sum
+- Then I roll a random number using randf, which returns a value from 0 - 1, so I multiply it by total weight (for example if its 1.7, then 1.0 * 1.7 increases the range)
+- I then loop through all candidates, and find the correct roll by subtracting the weight of each candidate from the roll
+- When the roll value is negative, it means we found the correct attack, and we assign it to chosen_attack
+
+
