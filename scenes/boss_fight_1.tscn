@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b3qav2l5fg04y" path="res://assets/spritesheets/environment_tileset.png" id="2_ryc1b"]
 [ext_resource type="PackedScene" uid="uid://d0x36rwurp4fl" path="res://scenes/player.tscn" id="3_nkfvy"]
 [ext_resource type="PackedScene" uid="uid://c0qixl2rd6ow" path="res://scenes/bosses/slime_boss.tscn" id="4_nhalw"]
+[ext_resource type="Script" uid="uid://dwxmctw48pa0n" path="res://scripts/camera_2d.gd" id="4_ryc1b"]
 [ext_resource type="PackedScene" uid="uid://d33rjm6dowqng" path="res://scenes/ui.tscn" id="5_40ucy"]
 [ext_resource type="PackedScene" uid="uid://43g2hyrnsshf" path="res://scenes/controls_popup.tscn" id="6_12kia"]
 
@@ -69,6 +70,7 @@ zoom = Vector2(3, 3)
 limit_left = -465
 limit_right = 495
 position_smoothing_speed = 1.0
+script = ExtResource("4_ryc1b")
 
 [node name="SlimeBoss" parent="." unique_id=1313746306 instance=ExtResource("4_nhalw")]
 unique_name_in_owner = true

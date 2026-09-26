@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var max_health: int = 200
+var max_health: int = 250
 var health: int
 
 var max_stamina: int = 100
@@ -105,6 +105,8 @@ func take_damage(dmg: int) -> void:
 	flash_take_damage()
 	hit.play()
 	
+	player.shake()
+	
 	if health <= 0:
 		queue_free()
 
@@ -116,3 +118,5 @@ func _physics_process(delta: float) -> void:
 	refresh_blackboard_values()
 	behavior_tree.tick(delta, blackboard)
 	auto_flip_check()
+	if not is_on_floor():
+		velocity += get_gravity() * delta

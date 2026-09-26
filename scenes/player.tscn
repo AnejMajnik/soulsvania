@@ -1229,7 +1229,7 @@ metadata/_custom_type_script = "uid://bt027fcrq1hh2"
 
 [node name="DashCooldown" type="Timer" parent="Timers" unique_id=737137251]
 unique_name_in_owner = true
-wait_time = 1.75
+wait_time = 1.4
 one_shot = true
 
 [node name="SlowDownTimer" type="Timer" parent="Timers" unique_id=1466789359]

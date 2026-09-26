@@ -959,7 +959,7 @@ metadata/_custom_type_script = "uid://dc8g47p2847ar"
 
 [node name="ACRecoverTimer" type="Timer" parent="BehaviorTree/SequenceAttack/ActionRecover" unique_id=897034312]
 unique_name_in_owner = true
-wait_time = 0.25
+wait_time = 0.4
 one_shot = true
 
 [node name="SequenceChase" type="Node" parent="BehaviorTree" unique_id=652238152]

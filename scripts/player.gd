@@ -77,12 +77,17 @@ func _set_flash(value: float) -> void:
 func flip_gravity(value: bool) -> void:
 	gravity_switch = value
 
+func shake():
+	$Camera2D.screen_shake(1.25, 0.15)
+
 func take_damage(damage):
 	if !invulnerable:
 		health -= damage
 		health_changed.emit(health, max_health)
 		
 		player_hit.play()
+		
+		shake()
 		
 		flash_take_damage()
 

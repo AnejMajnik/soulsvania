@@ -51,6 +51,7 @@ func take_damage(dmg: int) -> void:
 	health_changed.emit(health, max_health)
 	
 	flash_take_damage()
+	player.shake()
 
 	if health <= 0:
 		state_machine.change_state(dead_state)

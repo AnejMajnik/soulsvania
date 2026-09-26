@@ -605,4 +605,13 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 - I then loop through all candidates, and find the correct roll by subtracting the weight of each candidate from the roll
 - When the roll value is negative, it means we found the correct attack, and we assign it to chosen_attack
 
+# 26.9.2026:
+## Screen shake
+- Added simple screenshake by following a yt tutorial, adds weight behind attacks and makes combat feel more solid
 
+## Balancing
+- Currently, it is pretty hard to fight, you gotta like dodge everything, then during that small window when the boss is regenerating stamina, attack
+	- Speaking of that state, i think it would be a good idea to add slight healing as well along with stamina, that the player cancels once they get a hit in. Currently it is flashing green, so the player probably does not know what is going on 
+- To balance it out:
+	- Increased the stamina cost of attacks slightly, makes combos shorter
+	- Slightly increased the action recovery, from 0.3 to 0.4 seconds - gives a little more wiggle room between attacks

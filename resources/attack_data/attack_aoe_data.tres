@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_rrm42")
-stamina_cost = 20.0
+stamina_cost = 25.0
 damage = 10
 animation_name = &"attack_aoe"
 max_range = 50.0
