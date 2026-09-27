@@ -9,7 +9,7 @@ extends Node2D
 
 var direction = 0
 const SPEED = 385
-const DAMAGE = 10
+const DAMAGE = 5
 var velocity: Vector2
 
 var animation_started = false

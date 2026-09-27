@@ -77,9 +77,9 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_6y8br"]
 resource_name = "default"
-length = 0.5
+length = 0.2857143
 loop_mode = 1
-step = 0.125
+step = 0.071428575
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -87,7 +87,7 @@ tracks/0/path = NodePath("AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25, 0.375),
+"times": PackedFloat32Array(0, 0.071428575, 0.14285715, 0.21428572),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
@@ -99,7 +99,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25, 0.375),
+"times": PackedFloat32Array(0, 0.071428575, 0.14285715, 0.21428572),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": [],
@@ -134,7 +134,7 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25, 0.375),
+"times": PackedFloat32Array(0, 0.071428575, 0.14285715, 0.21428572),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": [],

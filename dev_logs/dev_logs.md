@@ -621,6 +621,9 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 - Started adding sounds for the reaper boss:
 	- Combo sound
 	- Projectile sound
+	- Teleport sound
+	- Teleport slash sound
+	- AOE sound
 
 ## Readability
 - Since i added a background I found for free online with no copyright, it looks much better, but the colors were kind of similar in places to reaper boss and player, so it became hard to tell where what is
@@ -632,3 +635,11 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 - Increased the lunge further of combo attack, as well as expanded the area2d for it a bit further back behind the boss, so that if it lunges forward, it doesnt miss you even though the animation covers that area
 - Increased the speed at which the scythe projectile travels, and increased the decceleration, so it is less floaty
 	- This gives the player less time to punish, while making it feel meatier
+- I noticed that when you are close but not quite on top of him, the only attack it is really available to the boss is the combo attack
+- So i did some adjusting in the resources:
+	- Increased the max range for AOE attack
+	- Decreased the min range for combo attack, and increasd the max range
+	- Made projectile more of a long range attack, by increasing its max range to 350
+	- Decreased teleport attack's min range
+- I increased the speed at which the scythe spins (animation speed), which makes it look more dangerous
+	- Since the damage dealing is tied to animation frame speed, I decreased the damage it deals, since faster spinning = attacks more often
