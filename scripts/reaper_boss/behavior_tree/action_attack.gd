@@ -13,7 +13,7 @@ var animation_finished: bool = false
 var attack_data: AttackData
 
 @export var DECCELERATION_SPEED: int = 18
-@export var LUNGE_SPEED: int = 300
+@export var LUNGE_SPEED: int = 330
 
 @export var teleport_offset: float = 20.0
 

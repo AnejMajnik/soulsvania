@@ -2,9 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://phn8lyf587kp" path="res://assets/spritesheets/scythe.png" id="1_1nqim"]
 [ext_resource type="Script" uid="uid://2oxov4icpshb" path="res://scripts/reaper_boss/scythe.gd" id="1_ofckj"]
+[ext_resource type="Shader" uid="uid://c7gbk7hxpmpka" path="res://shaders/outline.gdshader" id="2_6y8br"]
+[ext_resource type="AudioStream" uid="uid://b6e1i28myiupu" path="res://assets/sounds/scythe_spin.wav" id="4_72qia"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nrent"]
 size = Vector2(12.416667, 34.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ybbkt"]
+shader = ExtResource("2_6y8br")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1nqim"]
 atlas = ExtResource("1_1nqim")
@@ -163,7 +169,11 @@ position = Vector2(0.4583335, 1.25)
 shape = SubResource("RectangleShape2D_nrent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1802087880]
+material = SubResource("ShaderMaterial_ybbkt")
 sprite_frames = SubResource("SpriteFrames_nrent")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1550774755]
 libraries/ = SubResource("AnimationLibrary_72qia")
+
+[node name="ScytheSpin" type="AudioStreamPlayer2D" parent="." unique_id=1626934801]
+stream = ExtResource("4_72qia")

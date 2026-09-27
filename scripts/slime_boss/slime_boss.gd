@@ -27,11 +27,6 @@ signal health_changed(current: float, max: float)
 
 func _ready() -> void:
 	Autoload.boss_node = self
-	
-	# Set up shader texture
-	animated_sprite.material = ShaderMaterial.new()
-	animated_sprite.material.shader = preload("res://shaders/flash.gdshader")
-	
 	health = max_health
 	
 	state_machine.start()

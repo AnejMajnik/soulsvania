@@ -615,3 +615,20 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 - To balance it out:
 	- Increased the stamina cost of attacks slightly, makes combos shorter
 	- Slightly increased the action recovery, from 0.3 to 0.4 seconds - gives a little more wiggle room between attacks
+
+# 27.7.2026:
+## Sounds
+- Started adding sounds for the reaper boss:
+	- Combo sound
+	- Projectile sound
+
+## Readability
+- Since i added a background I found for free online with no copyright, it looks much better, but the colors were kind of similar in places to reaper boss and player, so it became hard to tell where what is
+- To solve that, I wrote a simple shader, that makes an outline around the pixel art
+	- It is pretty simple, you just check if any of the surrounding pixels has an alpha of more than 0.x, if so, draw an outline.
+	- I made it 0.5 alpha, with the highlight colors, so that it looks kind of like aura
+
+## Balancing
+- Increased the lunge further of combo attack, as well as expanded the area2d for it a bit further back behind the boss, so that if it lunges forward, it doesnt miss you even though the animation covers that area
+- Increased the speed at which the scythe projectile travels, and increased the decceleration, so it is less floaty
+	- This gives the player less time to punish, while making it feel meatier

@@ -38,8 +38,7 @@ func _ready() -> void:
 	Autoload.player_node = self
 	
 	# Set up shader texture
-	animated_sprite.material = ShaderMaterial.new()
-	animated_sprite.material.shader = preload("res://shaders/flash.gdshader")
+	animated_sprite.material.set_shader_parameter("outline_color", Color(0.498, 0.357, 1.0, 0.5));
 	
 	# Set up health
 	health = max_health
@@ -66,7 +65,7 @@ func flash_take_damage() -> void:
 	tween.tween_method(_set_flash, 1.0, 0.0, 0.2)
 	
 func flash_dash_available() -> void:
-	animated_sprite.material.set_shader_parameter("flash_color", Color(0.006, 0.941, 0.991, 1.0))
+	animated_sprite.material.set_shader_parameter("flash_color", Color(0.498, 0.357, 1.0, 0.8))
 	animated_sprite.material.set_shader_parameter("flash_opacity", 0.5)
 	var tween = create_tween()
 	tween.tween_method(_set_flash, 1.0, 0.0, 0.5)
@@ -78,7 +77,7 @@ func flip_gravity(value: bool) -> void:
 	gravity_switch = value
 
 func shake():
-	$Camera2D.screen_shake(1.25, 0.15)
+	$Camera2D.screen_shake(1.5, 0.1)
 
 func take_damage(damage):
 	if !invulnerable:

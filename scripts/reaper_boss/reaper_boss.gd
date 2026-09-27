@@ -39,6 +39,10 @@ func _ready() -> void:
 	blackboard.set_value("selected_attack", null)
 	blackboard.set_value("boss_is_attacking", false)
 	
+	flip_sprite(-1)
+	
+	animated_sprite.material.set_shader_parameter("outline_color", Color(0.0, 1.0, 0.878, 0.5));
+	
 func spend_stamina(amount: int) -> void:
 	if stamina - amount <= 0:
 		stamina = 0
@@ -62,8 +66,8 @@ func flash_take_damage() -> void:
 	tween.tween_method(_set_flash, 1.0, 0.0, 0.2)
 	
 func flash_stamina_recovery() -> void:
-	animated_sprite.material.set_shader_parameter("flash_color", Color(0.0, 0.995, 0.428, 1.0))
-	animated_sprite.material.set_shader_parameter("flash_opacity", 0.5)
+	animated_sprite.material.set_shader_parameter("flash_color", Color(0.0, 1.0, 0.878, 0.8))
+	animated_sprite.material.set_shader_parameter("flash_amount", 0.5)
 	var tween = create_tween()
 	tween.tween_method(_set_flash, 1.0, 0.0, 0.5)
 

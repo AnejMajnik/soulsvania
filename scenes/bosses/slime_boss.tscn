@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bm4uwdvp2ccbc" path="res://assets/spritesheets/slime_boss_spritesheet.png" id="1_0m3eu"]
 [ext_resource type="Script" uid="uid://c85xdqk2iqekj" path="res://scripts/slime_boss/slime_boss.gd" id="1_mq0xa"]
+[ext_resource type="Shader" uid="uid://bpsvo5k515uov" path="res://shaders/flash.gdshader" id="2_jvd52"]
 [ext_resource type="Script" uid="uid://bvpidnwfs1qx4" path="res://scripts/state_machine/state_machine.gd" id="3_j4bj8"]
 [ext_resource type="Script" uid="uid://beyhc0j0tbprs" path="res://scripts/slime_boss/states/idle.gd" id="4_mq0xa"]
 [ext_resource type="AudioStream" uid="uid://cfcynh75uyu51" path="res://assets/sounds/growl.wav" id="5_ejojs"]
@@ -21,6 +22,11 @@
 [ext_resource type="AudioStream" uid="uid://imr3wmg4ttkk" path="res://assets/sounds/slam.wav" id="19_tdnwx"]
 [ext_resource type="AudioStream" uid="uid://dd8x22pm7xsee" path="res://assets/sounds/slime_death.wav" id="21_agodo"]
 [ext_resource type="AudioStream" uid="uid://dphwekm2whl2" path="res://assets/sounds/music.mp3" id="21_jvd52"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_agodo"]
+shader = ExtResource("2_jvd52")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_amount = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nxhfj"]
 atlas = ExtResource("1_0m3eu")
@@ -876,6 +882,7 @@ script = ExtResource("1_mq0xa")
 dead_state = NodePath("StateMachine/Dead")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=20131458]
+material = SubResource("ShaderMaterial_agodo")
 sprite_frames = SubResource("SpriteFrames_jn626")
 animation = &"idle"
 
