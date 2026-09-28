@@ -8,3 +8,4 @@ class_name AttackData
 @export var min_range: float
 @export var max_range: float
 @export var ideal_range: float
+@export var recovery_time: float

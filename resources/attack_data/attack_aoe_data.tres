@@ -9,4 +9,5 @@ damage = 10
 animation_name = &"attack_aoe"
 max_range = 75.0
 ideal_range = 20.0
+recovery_time = 0.5
 metadata/_custom_type_script = "uid://bsa1gy632yh48"

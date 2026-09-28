@@ -80,3 +80,6 @@ attack_heavy={
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+environment/ssao/quality=3
+environment/ssil/quality=3
+viewport/hdr_2d=true

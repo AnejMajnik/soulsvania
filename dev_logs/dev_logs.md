@@ -643,3 +643,20 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 	- Decreased teleport attack's min range
 - I increased the speed at which the scythe spins (animation speed), which makes it look more dangerous
 	- Since the damage dealing is tied to animation frame speed, I decreased the damage it deals, since faster spinning = attacks more often
+
+# 28.7.2026:
+## Visuals
+- To give everything more oomph, I added some sparks flying up, and then added WorldEnvironment to enable some post processing like glow on bright colors - gives attacks some more style
+
+## Boss improvements
+- Added a new property to attack_data.gd - recovery_time
+- Then instead of using the same recovery time for each attack, I now use recovery_time from blackboard, based on selected_attack. This gives me finer control over the pace and feel of the combat. Heavier attacks can take longer to recover, while lighter attacks like combo can take less
+
+## Play test - Glenn
+- I game the 2nd boss fight to a guy I know, and this is the feedback:
+
+"I killed him
+Once I figured out how to dash he wasn't to bad
+Good job though man. It's responsive, and the boss move set makes sense. Tells are easy to read."
+
+- This gives me valuable input about the actual readability and moveset implementation, as so far the feedback i got from others was pretty shallow - this is too hard. While that is a valid response, hard is the whole point of these types of games, as long as it is fair

@@ -5,10 +5,13 @@ var started: bool = false
 var finished: bool = false
 @onready var boss = Autoload.boss_node
 @onready var ac_recover_timer: Timer = %ACRecoverTimer
+var attack_data: AttackData
 
 func tick(delta: float, blackboard: Blackboard) -> Status:
 	if !started:
 		boss.play_animation("idle")
+		attack_data = blackboard.get_value("selected_attack")
+		ac_recover_timer.wait_time = attack_data.recovery_time
 		ac_recover_timer.start()
 		started = true
 	
