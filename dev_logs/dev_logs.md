@@ -660,3 +660,11 @@ Once I figured out how to dash he wasn't to bad
 Good job though man. It's responsive, and the boss move set makes sense. Tells are easy to read."
 
 - This gives me valuable input about the actual readability and moveset implementation, as so far the feedback i got from others was pretty shallow - this is too hard. While that is a valid response, hard is the whole point of these types of games, as long as it is fair
+
+# 29.7.2026:
+## Death state
+- With boss more or less finished, I added a new branch to the start of the behavior tree - SequenceDie
+	- It is pretty simple, I used a sequence node as the base node, right at the start of the tree, so it is always checked first
+	- Then I added 2 leaf nodes:
+		- ConditionNoHealth: just checks if the health from blackboard is at or below 0 -> if not, returns FAILURE
+		- ActionDie: plays the death animation, then once animation and sound finishes playing, calls die() function on reaper boss script to queue free

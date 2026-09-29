@@ -55,7 +55,8 @@ emission_shape_offset = Vector3(100, 200, 0)
 emission_shape = 3
 emission_box_extents = Vector3(400, 1, 1)
 gravity = Vector3(0, -100, 0)
-color = Color(0.665, 1.754, 1.754, 1)
+scale_max = 1.75
+color = Color(0.46252203, 0.443121, 1.6847857, 1)
 turbulence_enabled = true
 turbulence_noise_strength = 0.1
 
@@ -115,7 +116,7 @@ scale = Vector2(1.5, 1.5)
 size = Vector2i(600, 2224)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1271946909]
-amount = 25
+amount = 10
 lifetime = 10.0
 process_material = SubResource("ParticleProcessMaterial_nrent")
 

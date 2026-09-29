@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-var max_health: int = 250
+@export var max_health: int = 250
 var health: int
 
-var max_stamina: int = 100
+@export var max_stamina: int = 100
 var stamina: int
 
 @onready var blackboard:= Blackboard.new()
@@ -38,6 +38,7 @@ func _ready() -> void:
 	blackboard.set_value("max_stamina", max_stamina)
 	blackboard.set_value("selected_attack", null)
 	blackboard.set_value("boss_is_attacking", false)
+	blackboard.set_value("boss_health", health)
 	
 	flip_sprite(-1)
 	
@@ -104,15 +105,16 @@ func auto_flip_check():
 
 func take_damage(dmg: int) -> void:
 	health -= dmg
+	blackboard.set_value("boss_health", health)
 	health_changed.emit(health, max_health)
 
 	flash_take_damage()
 	hit.play()
 	
 	player.shake()
-	
-	if health <= 0:
-		queue_free()
+		
+func die():
+	queue_free()
 
 func refresh_blackboard_values():
 	blackboard.set_value("distance_to_player", global_position.distance_to(player.global_position))
