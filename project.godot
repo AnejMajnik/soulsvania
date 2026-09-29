@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Soulsvania"
-run/main_scene="uid://d3prddhu634jw"
+run/main_scene="uid://dhga8sx75qp3q"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

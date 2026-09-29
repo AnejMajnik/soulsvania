@@ -115,6 +115,7 @@ func take_damage(dmg: int) -> void:
 		
 func die():
 	queue_free()
+	get_tree().change_scene_to_file("res://scenes/end_screen.tscn")
 
 func refresh_blackboard_values():
 	blackboard.set_value("distance_to_player", global_position.distance_to(player.global_position))

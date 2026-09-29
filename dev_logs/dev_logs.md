@@ -668,3 +668,7 @@ Good job though man. It's responsive, and the boss move set makes sense. Tells a
 	- Then I added 2 leaf nodes:
 		- ConditionNoHealth: just checks if the health from blackboard is at or below 0 -> if not, returns FAILURE
 		- ActionDie: plays the death animation, then once animation and sound finishes playing, calls die() function on reaper boss script to queue free
+
+## Menus
+- Added main menu with buttons to select each boss fight, and to quit
+- Added end menu, with buttons to go back to main menu, and to quit

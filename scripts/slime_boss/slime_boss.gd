@@ -4,7 +4,7 @@ class_name SlimeBoss extends CharacterBody2D
 const MOVE_SPEED = 200.0
 const DECCELERATION_SPEED = 15
 
-var max_health: int = 250
+var max_health: int = 200
 var health: int
 var next_recovery_time: float
 var gravity_switch: bool = true
