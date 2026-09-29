@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://dff31wveo76hb"]
+
+[ext_resource type="FontFile" uid="uid://bv0gm1xohuqfb" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="1_05p07"]
+[ext_resource type="Script" uid="uid://by7x6vvbsnncr" path="res://scripts/settings_menu.gd" id="1_wswnh"]
+[ext_resource type="FontFile" uid="uid://l0dpi06th2iv" path="res://assets/fonts/PixelOperator8.ttf" id="2_cr101"]
+
+[node name="SettingsMenu" type="Node2D" unique_id=120793855]
+script = ExtResource("1_wswnh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=9748261]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1599120012]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resolution" type="Label" parent="CanvasLayer/Control" unique_id=1146817158]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -170.0
+offset_right = 130.0
+offset_bottom = -138.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_cr101")
+theme_override_font_sizes/font_size = 32
+text = "Resolution"
+
+[node name="ResolutionDropdown" type="OptionButton" parent="CanvasLayer/Control" unique_id=1010098881]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -120.0
+offset_right = 250.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_cr101")
+theme_override_font_sizes/font_size = 32
+
+[node name="Fullscreen" type="Label" parent="CanvasLayer/Control" unique_id=1464347340]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -16.0
+offset_right = 132.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_cr101")
+theme_override_font_sizes/font_size = 32
+text = "Fullscreen"
+
+[node name="FullScreenDropdown" type="OptionButton" parent="CanvasLayer/Control" unique_id=598955252]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = 30.0
+offset_right = 250.0
+offset_bottom = 107.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_cr101")
+theme_override_font_sizes/font_size = 32
+
+[node name="Back" type="Button" parent="CanvasLayer/Control" unique_id=1406283158]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = 180.0
+offset_right = 125.0
+offset_bottom = 257.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_05p07")
+theme_override_font_sizes/font_size = 48
+text = "Back"
+
+[connection signal="item_selected" from="CanvasLayer/Control/ResolutionDropdown" to="." method="_on_resolution_dropdown_item_selected"]
+[connection signal="item_selected" from="CanvasLayer/Control/FullScreenDropdown" to="." method="_on_full_screen_dropdown_item_selected"]
+[connection signal="pressed" from="CanvasLayer/Control/Back" to="." method="_on_back_pressed"]

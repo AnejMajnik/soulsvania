@@ -672,3 +672,7 @@ Good job though man. It's responsive, and the boss move set makes sense. Tells a
 ## Menus
 - Added main menu with buttons to select each boss fight, and to quit
 - Added end menu, with buttons to go back to main menu, and to quit
+- Added options menu, with resolution options and fullscreen/windowed options
+
+## Slime boss balancing
+- Since i replayed the slime boss, I noticed it has an unnecessary amount of HP, so i reduced it from 250 to 200
