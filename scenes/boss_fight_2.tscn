@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://d3prddhu634jw"]
 
 [ext_resource type="Script" uid="uid://dj3dkrlhdb36k" path="res://scripts/game.gd" id="1_jfby3"]
+[ext_resource type="PackedScene" uid="uid://b80dr1k41phyq" path="res://scenes/pause_menu.tscn" id="2_di8m7"]
 [ext_resource type="Texture2D" uid="uid://cua4p5cdndd66" path="res://assets/background/industrial.jpg" id="2_i5473"]
 [ext_resource type="Texture2D" uid="uid://b3qav2l5fg04y" path="res://assets/spritesheets/environment_tileset.png" id="2_vntoe"]
 [ext_resource type="PackedScene" uid="uid://d0x36rwurp4fl" path="res://scenes/player.tscn" id="3_i5473"]
@@ -72,6 +73,9 @@ fog_density = 0.2742
 
 [node name="BossFight2" type="Node2D" unique_id=1403073699]
 script = ExtResource("1_jfby3")
+
+[node name="PauseMenu" parent="." unique_id=602656345 instance=ExtResource("2_di8m7")]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=700665660]
 modulate = Color(0.9353341, 0.61192566, 1, 1)

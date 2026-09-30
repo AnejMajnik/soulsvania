@@ -616,7 +616,7 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 	- Increased the stamina cost of attacks slightly, makes combos shorter
 	- Slightly increased the action recovery, from 0.3 to 0.4 seconds - gives a little more wiggle room between attacks
 
-# 27.7.2026:
+# 27.9.2026:
 ## Sounds
 - Started adding sounds for the reaper boss:
 	- Combo sound
@@ -644,7 +644,7 @@ TODO: LASER BEAM DOES NOT APPEAR IF YOU ARE VERY CLOSE TO THE ENEMY, PROBABLY BE
 - I increased the speed at which the scythe spins (animation speed), which makes it look more dangerous
 	- Since the damage dealing is tied to animation frame speed, I decreased the damage it deals, since faster spinning = attacks more often
 
-# 28.7.2026:
+# 28.9.2026:
 ## Visuals
 - To give everything more oomph, I added some sparks flying up, and then added WorldEnvironment to enable some post processing like glow on bright colors - gives attacks some more style
 
@@ -661,7 +661,7 @@ Good job though man. It's responsive, and the boss move set makes sense. Tells a
 
 - This gives me valuable input about the actual readability and moveset implementation, as so far the feedback i got from others was pretty shallow - this is too hard. While that is a valid response, hard is the whole point of these types of games, as long as it is fair
 
-# 29.7.2026:
+# 29.9.2026:
 ## Death state
 - With boss more or less finished, I added a new branch to the start of the behavior tree - SequenceDie
 	- It is pretty simple, I used a sequence node as the base node, right at the start of the tree, so it is always checked first
@@ -676,3 +676,7 @@ Good job though man. It's responsive, and the boss move set makes sense. Tells a
 
 ## Slime boss balancing
 - Since i replayed the slime boss, I noticed it has an unnecessary amount of HP, so i reduced it from 250 to 200
+
+# 30.9.2026:
+## Pause menu
+- Added a pause menu by pressing esc, and by toggling visibility of the menu, as well as get_tree().paused = true/false
