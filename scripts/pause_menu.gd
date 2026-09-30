@@ -2,6 +2,7 @@ extends CanvasLayer
 
 func _ready() -> void:
 	visible = false
+	
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("pause"):
@@ -11,6 +12,7 @@ func _input(_event: InputEvent) -> void:
 		else:
 			visible = true
 			get_tree().paused = true
+			%Resume.grab_focus()
 
 
 func _on_resume_pressed() -> void:

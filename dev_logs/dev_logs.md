@@ -680,3 +680,7 @@ Good job though man. It's responsive, and the boss move set makes sense. Tells a
 # 30.9.2026:
 ## Pause menu
 - Added a pause menu by pressing esc, and by toggling visibility of the menu, as well as get_tree().paused = true/false
+
+## Controller menu
+- Added grab_focus() on first items in menus, for controller support
+- Added controller button to ui_accept input binding

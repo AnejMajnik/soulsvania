@@ -22,6 +22,8 @@ func _ready() -> void:
 		
 	for opt in FULLSCREEN_OPTIONS:
 		full_screen_dropdown.add_item(opt)
+		
+	resolution_dropdown.grab_focus()
 	
 
 func _on_back_pressed() -> void:
