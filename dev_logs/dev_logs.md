@@ -684,3 +684,6 @@ Good job though man. It's responsive, and the boss move set makes sense. Tells a
 ## Controller menu
 - Added grab_focus() on first items in menus, for controller support
 - Added controller button to ui_accept input binding
+
+# 2.10.2026:
+- Added color correction and filter to make the image pop more in World Environment
