@@ -47,6 +47,7 @@ func take_damage(dmg: int) -> void:
 	
 	flash_take_damage()
 	player.shake()
+	Autoload.freeze_frame_short()
 
 	if health <= 0:
 		state_machine.change_state(dead_state)

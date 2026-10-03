@@ -87,6 +87,7 @@ func take_damage(damage):
 		player_hit.play()
 		
 		shake()
+		Autoload.freeze_frame_short()
 		
 		flash_take_damage()
 

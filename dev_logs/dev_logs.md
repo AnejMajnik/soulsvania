@@ -687,3 +687,11 @@ Good job though man. It's responsive, and the boss move set makes sense. Tells a
 
 # 2.10.2026:
 - Added color correction and filter to make the image pop more in World Environment
+
+# 3.10.2026:
+## Freeze frames
+- Added freeze frames on hit, to sell more impract behind attacks - commonly done in fighting games
+	- To do that, I added a function to Autoload called freeze_frame_short(), where I set Engine time scale to 0, essentially freezing everything
+	- Then I make a timer, with ignore time scale parameter set to true (otherwise its frozen forever), which I await for timeout, after that set engine time scale back to 1.0
+	- I then call it whenever I hit an enemy or get hit
+	- Currently, 0.07s timer feels good without being too long or too short

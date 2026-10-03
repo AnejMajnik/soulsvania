@@ -110,6 +110,7 @@ func take_damage(dmg: int) -> void:
 
 	flash_take_damage()
 	hit.play()
+	Autoload.freeze_frame_short()
 	
 	player.shake()
 		
