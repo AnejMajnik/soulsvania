@@ -9,7 +9,7 @@ extends Node2D
 
 var direction = 0
 const SPEED = 385
-const DAMAGE = 5
+const DAMAGE = 10
 var velocity: Vector2
 
 var animation_started = false
@@ -22,7 +22,7 @@ func _ready() -> void:
 	direction = sign(player.global_position.x - global_position.x)
 	velocity.x = direction * SPEED
 	starting_location = global_position.x
-	animated_sprite_2d.material.set_shader_parameter("outline_color", Color(0.0, 1.0, 0.878, 0.5));
+	animated_sprite_2d.material.set_shader_parameter("outline_color", Color(0.8863, 0.1608, 0.4863, 0.5))
 	scythe_spin.play()
 	
 	if direction == -1:

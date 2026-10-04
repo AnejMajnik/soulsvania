@@ -134,15 +134,9 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.071428575, 0.14285715, 0.21428572),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0.071428575, 0.21428572),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
-"args": [],
-"method": &"deal_damage"
-}, {
-"args": [],
-"method": &"deal_damage"
-}, {
 "args": [],
 "method": &"deal_damage"
 }, {
@@ -177,3 +171,4 @@ libraries/ = SubResource("AnimationLibrary_72qia")
 
 [node name="ScytheSpin" type="AudioStreamPlayer2D" parent="." unique_id=1626934801]
 stream = ExtResource("4_72qia")
+bus = &"SFX"

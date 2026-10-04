@@ -91,15 +91,83 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -125.0
-offset_top = 180.0
+offset_top = 430.0
 offset_right = 125.0
-offset_bottom = 257.0
+offset_bottom = 507.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_05p07")
 theme_override_font_sizes/font_size = 48
 text = "Back"
 
+[node name="Sound Effects" type="Label" parent="CanvasLayer/Control" unique_id=247106648]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = 150.0
+offset_right = 170.0
+offset_bottom = 182.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_cr101")
+theme_override_font_sizes/font_size = 32
+text = "Sound Effects"
+
+[node name="SFX Slider" type="HSlider" parent="CanvasLayer/Control" unique_id=311141649]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 180.0
+offset_right = 150.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 0.05
+
+[node name="Music" type="Label" parent="CanvasLayer/Control" unique_id=1665840263]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = 260.0
+offset_right = 75.0
+offset_bottom = 292.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_cr101")
+theme_override_font_sizes/font_size = 32
+text = "Music"
+
+[node name="Music Slider" type="HSlider" parent="CanvasLayer/Control" unique_id=718611049]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 290.0
+offset_right = 150.0
+offset_bottom = 340.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 0.05
+
 [connection signal="item_selected" from="CanvasLayer/Control/ResolutionDropdown" to="." method="_on_resolution_dropdown_item_selected"]
 [connection signal="item_selected" from="CanvasLayer/Control/FullScreenDropdown" to="." method="_on_full_screen_dropdown_item_selected"]
 [connection signal="pressed" from="CanvasLayer/Control/Back" to="." method="_on_back_pressed"]
+[connection signal="value_changed" from="CanvasLayer/Control/SFX Slider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Control/Music Slider" to="." method="_on_music_slider_value_changed"]

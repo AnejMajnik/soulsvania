@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://bboq4vh13jadj" path="res://scripts/reaper_boss/behavior_tree/action_select_attack.gd" id="9_oior6"]
 [ext_resource type="Script" uid="uid://bsa1gy632yh48" path="res://scripts/reaper_boss/attack_data.gd" id="10_kynmp"]
 [ext_resource type="Script" uid="uid://bv7ekf856v48e" path="res://scripts/reaper_boss/behavior_tree/action_chase.gd" id="10_njlho"]
+[ext_resource type="AudioStream" uid="uid://bmsp1rm5rslvm" path="res://assets/sounds/music_vaporwave.mp3" id="10_roia0"]
 [ext_resource type="Resource" uid="uid://cd4ab55tvo8gl" path="res://resources/attack_data/attack_projectile.tres" id="11_6yixl"]
 [ext_resource type="Script" uid="uid://60midalrigh2" path="res://scripts/reaper_boss/behavior_tree/action_idle.gd" id="11_ham4e"]
 [ext_resource type="Script" uid="uid://bqq8ogv834gdd" path="res://scripts/reaper_boss/behavior_tree/condition_no_health.gd" id="11_ovho8"]
@@ -1150,21 +1151,32 @@ polygon = PackedVector2Array(34, 20, -35, 20, -33, 15, 31, 15)
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="Sounds" unique_id=405934460]
 stream = ExtResource("4_53llj")
+bus = &"SFX"
 
 [node name="ScytheSlash" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1510672631]
 stream = ExtResource("5_4bigi")
+bus = &"SFX"
 
 [node name="TeleportSlash" type="AudioStreamPlayer2D" parent="Sounds" unique_id=976588670]
 stream = ExtResource("7_pjjne")
+bus = &"SFX"
 
 [node name="Teleport" type="AudioStreamPlayer2D" parent="Sounds" unique_id=853956148]
 stream = ExtResource("7_64w0e")
+bus = &"SFX"
 
 [node name="AOE" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1752237355]
 stream = ExtResource("8_64w0e")
+bus = &"SFX"
 
 [node name="ReaperDie" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1726336497]
 stream = ExtResource("9_juskv")
+bus = &"SFX"
+
+[node name="Music" type="AudioStreamPlayer2D" parent="Sounds" unique_id=200731068]
+stream = ExtResource("10_roia0")
+volume_db = -4.0
+bus = &"Music"
 
 [node name="BehaviorTree" type="Node" parent="." unique_id=518066950]
 unique_name_in_owner = true

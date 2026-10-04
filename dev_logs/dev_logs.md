@@ -695,3 +695,12 @@ Good job though man. It's responsive, and the boss move set makes sense. Tells a
 	- Then I make a timer, with ignore time scale parameter set to true (otherwise its frozen forever), which I await for timeout, after that set engine time scale back to 1.0
 	- I then call it whenever I hit an enemy or get hit
 	- Currently, 0.07s timer feels good without being too long or too short
+
+# 4.10.2026:
+- Added custom background
+- Added music for 2nd boss, copyright free vaporwave
+
+## Volume control
+- Added two HSlider nodes to settings, one for music and one for sound effects
+- In settings script, I wired up those sliders to the SFX and Music bus
+- Since DB is not linear, I used db_to_linear and linear_to_db functions so that it scales linearly

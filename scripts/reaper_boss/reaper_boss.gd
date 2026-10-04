@@ -17,6 +17,7 @@ var stamina: int
 @onready var attack_combo_area: Area2D = %AttackComboArea2D
 @onready var attack_teleport_area: Area2D = %AttackTeleportArea2D
 @onready var attack_aoe_area: Area2D = %AttackAoeArea2D
+@onready var music: AudioStreamPlayer2D = $Sounds/Music
 
 signal health_changed(current: float, max: float)
 
@@ -42,7 +43,8 @@ func _ready() -> void:
 	
 	flip_sprite(-1)
 	
-	animated_sprite.material.set_shader_parameter("outline_color", Color(0.0, 1.0, 0.878, 0.5));
+	animated_sprite.material.set_shader_parameter("outline_color", Color(0.8863, 0.1608, 0.4863, 0.5))
+	music.play()
 	
 func spend_stamina(amount: int) -> void:
 	if stamina - amount <= 0:
@@ -67,7 +69,7 @@ func flash_take_damage() -> void:
 	tween.tween_method(_set_flash, 1.0, 0.0, 0.2)
 	
 func flash_stamina_recovery() -> void:
-	animated_sprite.material.set_shader_parameter("flash_color", Color(0.0, 1.0, 0.878, 0.8))
+	animated_sprite.material.set_shader_parameter("flash_color", Color(0.8863, 0.1608, 0.4863, 0.8))
 	animated_sprite.material.set_shader_parameter("flash_amount", 0.5)
 	var tween = create_tween()
 	tween.tween_method(_set_flash, 1.0, 0.0, 0.5)
