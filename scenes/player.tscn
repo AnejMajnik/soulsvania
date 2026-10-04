@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d0x36rwurp4fl"]
 
 [ext_resource type="Script" uid="uid://bs2ss227joghs" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="Shader" uid="uid://bmxm7b5xpjbx0" path="res://shaders/flash_and_outline.gdshader" id="2_i4ail"]
+[ext_resource type="Shader" uid="uid://bpsvo5k515uov" path="res://shaders/flash.gdshader" id="2_i4ail"]
 [ext_resource type="Texture2D" uid="uid://bms1in8wcovd0" path="res://assets/spritesheets/purple_spritesheet.png" id="3_f1ej7"]
 [ext_resource type="Script" uid="uid://bvpidnwfs1qx4" path="res://scripts/state_machine/state_machine.gd" id="3_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://bj5jfwrvw60ua" path="res://assets/sounds/sword_slash.wav" id="3_ur7pv"]
@@ -24,7 +24,6 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1ej7"]
 shader = ExtResource("2_i4ail")
-shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
 

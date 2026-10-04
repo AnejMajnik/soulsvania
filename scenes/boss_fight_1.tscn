@@ -101,3 +101,7 @@ size = Vector2i(600, 2224)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1141893154]
 environment = SubResource("Environment_ryc1b")
+
+[node name="BossGroundReference" type="Marker2D" parent="." unique_id=1757950681]
+position = Vector2(200, 34)
+scale = Vector2(1.5, 1.5)

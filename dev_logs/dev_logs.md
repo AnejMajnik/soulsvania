@@ -699,6 +699,7 @@ Good job though man. It's responsive, and the boss move set makes sense. Tells a
 # 4.10.2026:
 - Added custom background
 - Added music for 2nd boss, copyright free vaporwave
+- Removed outline since the player and enemy are readable on the new background
 
 ## Volume control
 - Added two HSlider nodes to settings, one for music and one for sound effects

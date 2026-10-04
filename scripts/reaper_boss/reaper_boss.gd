@@ -43,7 +43,6 @@ func _ready() -> void:
 	
 	flip_sprite(-1)
 	
-	animated_sprite.material.set_shader_parameter("outline_color", Color(0.8863, 0.1608, 0.4863, 0.5))
 	music.play()
 	
 func spend_stamina(amount: int) -> void:

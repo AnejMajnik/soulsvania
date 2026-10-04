@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://djwtchsmcu5r1"]
 
 [ext_resource type="Script" uid="uid://cfr6oucfc21od" path="res://scripts/reaper_boss/reaper_boss.gd" id="1_2y1lr"]
-[ext_resource type="Shader" uid="uid://bmxm7b5xpjbx0" path="res://shaders/flash_and_outline.gdshader" id="2_4fqyk"]
 [ext_resource type="Texture2D" uid="uid://b3khexsvcc0am" path="res://assets/spritesheets/reaper.png" id="2_qblgn"]
+[ext_resource type="Shader" uid="uid://bpsvo5k515uov" path="res://shaders/flash.gdshader" id="2_roia0"]
 [ext_resource type="AudioStream" uid="uid://bympooo02yxeq" path="res://assets/sounds/hit.wav" id="4_53llj"]
 [ext_resource type="AudioStream" uid="uid://3wwblobx08kr" path="res://assets/sounds/scythe_slash.wav" id="5_4bigi"]
 [ext_resource type="Script" uid="uid://dg50vd42bmary" path="res://scripts/behavior_tree/selector.gd" id="5_axcfw"]
@@ -29,8 +29,7 @@
 [ext_resource type="Resource" uid="uid://bew6im0tvkgb4" path="res://resources/attack_data/attack_aoe_data.tres" id="13_phou2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qblgn"]
-shader = ExtResource("2_4fqyk")
-shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader = ExtResource("2_roia0")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
 

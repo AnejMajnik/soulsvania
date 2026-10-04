@@ -37,9 +37,6 @@ signal health_changed(current: float, max: float)
 func _ready() -> void:
 	Autoload.player_node = self
 	
-	# Set up shader texture
-	animated_sprite.material.set_shader_parameter("outline_color", Color(0.498, 0.357, 1.0, 0.5));
-	
 	# Set up health
 	health = max_health
 	

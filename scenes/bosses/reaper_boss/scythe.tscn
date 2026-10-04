@@ -2,15 +2,16 @@
 
 [ext_resource type="Texture2D" uid="uid://phn8lyf587kp" path="res://assets/spritesheets/scythe.png" id="1_1nqim"]
 [ext_resource type="Script" uid="uid://2oxov4icpshb" path="res://scripts/reaper_boss/scythe.gd" id="1_ofckj"]
-[ext_resource type="Shader" uid="uid://c7gbk7hxpmpka" path="res://shaders/outline.gdshader" id="2_6y8br"]
+[ext_resource type="Shader" uid="uid://bpsvo5k515uov" path="res://shaders/flash.gdshader" id="2_72qia"]
 [ext_resource type="AudioStream" uid="uid://b6e1i28myiupu" path="res://assets/sounds/scythe_spin.wav" id="4_72qia"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nrent"]
 size = Vector2(12.416667, 34.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ybbkt"]
-shader = ExtResource("2_6y8br")
-shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader = ExtResource("2_72qia")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_amount = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1nqim"]
 atlas = ExtResource("1_1nqim")
